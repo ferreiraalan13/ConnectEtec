@@ -8,6 +8,7 @@ export default function Menu(){
                 <button className='flex bg-gray-300 text-gray-700 items-center gap-3 p-2 rounded-lg h-{78px} '><img className='w-[50px] rounded-full bg-gray-300' src={userImage} alt="" />Fulano  <span className='text-gray-500'>@Fulano</span></button>
             </div>
             <div className="flex flex-col w-3 w-full gap-[10px] ">
+                
                 <button className="bg-gray-300 text-gray-700 flex gap-3 p-2 rounded-lg"> <Home/>Inicio</button>
                 <button className="bg-gray-300 text-gray-700 flex gap-3 p-2 rounded-lg"> <Users/>Amigos</button>
                 <button className="bg-gray-300 text-gray-700 flex gap-3 p-2 rounded-lg"> <PartyPopper/>Eventos</button>

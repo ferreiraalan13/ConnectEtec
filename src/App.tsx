@@ -1,14 +1,19 @@
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import Header from './components/Header';
-import Menu from './components/Menu';
+import Main from './pages/main/Main';
+import SignUp from './pages/sign-up/SignUp';
+
 
 function App() {
   return (
-    <div className='bg-gray-300 flex flex-col gap-3' >
-      <Header/>
-      <Menu/>
+    <div className='App'>
+        <Router>
+          <Routes>
+            <Route path='/' element={<SignUp/>} ></Route>
+            <Route path='/main' element={<Main/>} ></Route>
+          </Routes>
+        </Router>
     </div>
-    
   );
 }
 

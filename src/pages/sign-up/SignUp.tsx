@@ -2,8 +2,13 @@ import image from '../../assets/signup-image.svg';
 import background from '../../assets/Background.svg';
 import line from '../../assets/Line.svg';
 import Input from '../../components/Input';
+import { useNavigate } from 'react-router-dom';
 
 export default function App() {
+
+  const navigate = useNavigate();
+
+
   return (
     <div className="w-screen h-screen flex items-center justify-center overflow-hidden">
       <img src={background} alt="" className='absolute w-full h-full object-cover' />
@@ -44,7 +49,7 @@ export default function App() {
               <a href="/terms" className="text-blue-500 hover:underline">Ler termos de uso</a>
             </div>
 
-            <button type="submit" className="mt-4 transition bg-gray-300 hover:bg-gray-500 hover:text-gray-100 font-bold py-1 px-2 rounded-2xl drop-shadow-md">
+            <button type="submit" className="mt-4 transition bg-gray-300 hover:bg-gray-500 hover:text-gray-100 font-bold py-1 px-2 rounded-2xl drop-shadow-md" onClick={()=> navigate("/main")}>
               Cadastre-se
             </button>
           </form>
