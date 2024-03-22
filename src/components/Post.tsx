@@ -18,7 +18,7 @@ import {
   export default function Post() {
     return (
       
-        <Card w={"800px"} height="fit" padding={"20px"} fontSize={"20px"} >
+        <Card w={"900px"} height="fit" padding={"20px"} fontSize={"20px"} >
           <CardHeader>
             <Flex>
               <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">

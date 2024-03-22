@@ -6,6 +6,7 @@ import Menu from './components/Menu';
 import Post from './components/Post';
 */
 
+import Evento from '../../components/Evento';
 import Header from '../../components/Header';
 import Menu from '../../components/Menu';
 import Post from '../../components/Post';
@@ -21,7 +22,11 @@ function App() {
           <Post/>
           <Post/>
         </div>
-        
+        <div className='flex flex-col gap-3'>
+          <Evento/>
+          <Evento/> 
+        </div>
+           
       </div>
       
     </div>
