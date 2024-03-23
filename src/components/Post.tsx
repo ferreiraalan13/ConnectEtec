@@ -11,14 +11,29 @@ import {
   Image,
   Box,
   Heading,
-  SimpleGrid,
 } from "@chakra-ui/react";
 
 import userImage from "../assets/img/1702865313114.jpeg";
+import { useEffect, useState } from "react";
 
-export default function Post() {
+
+
+const Post: React.FC=()=> {
+
+
+  const [tasks, setTasks] = useState([]);
+    useEffect(()=>{
+      fetch('../../db.json',{
+        headers:{
+          Accept:"application/json"
+        }
+      }).then(res => res.json())
+        .then(res => setTasks(res.data))
+    },[]);
+
+
   return (
-    
+      
       <Card w={"800px"} height="fit" padding={"20px"} fontSize={"20px"}>
         <CardHeader>
           <Flex>
@@ -28,9 +43,11 @@ export default function Post() {
                 src={userImage}
                 w={"60px"}
                 h={"60px"}
+                
               />
+              
               <Box>
-                <Heading size="sm">Alan Ferreira</Heading>
+                <Heading size="sm">{}</Heading>
                 <Text>Desenvolvimento de Sistemas</Text>
               </Box>
             </Flex>
@@ -71,7 +88,7 @@ export default function Post() {
             },
           }}
         >
-          <Button flex="1" variant="ghost">
+          <Button flex="1" variant="ghost" >
             Like
           </Button>
           <Button flex="1" variant="ghost">
@@ -85,3 +102,5 @@ export default function Post() {
     
   );
 }
+
+export default Post

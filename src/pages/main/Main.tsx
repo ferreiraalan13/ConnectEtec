@@ -8,6 +8,7 @@ import Menu from '../../components/Menu';
 
 export default function App() {
 
+
   
   return (
     <div className='bg-gray-300 flex flex-col gap-3' >
@@ -16,9 +17,10 @@ export default function App() {
         <Menu/>
 
         <SimpleGrid width={"800px"}>
-          <Post/>
-          <Post/>
-          <Post/>
+          
+        <Post/>
+
+
         </SimpleGrid>
         
         <div className='flex flex-col gap-3'>

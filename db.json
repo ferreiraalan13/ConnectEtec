@@ -1,0 +1,13 @@
+{
+    "tasks": [
+      {
+         "id":1,
+         "avatarImg":"../testeTCC/src/assets/img/1702865313114.jpeg",
+         "nameUser":"Alan Ferreira",
+         "curso": "Desenvolvimento de sistemas",
+         "description":"With Chakra UI, I wanted to sync the speed of development with the speed of design. I wanted the developer to be just as excited as the designer to create a screen.",
+         "img": "../testeTCC/src/assets/img/eventTeste.png"
+      }
+      
+   ]
+  }
