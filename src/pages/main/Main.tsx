@@ -1,27 +1,26 @@
 
-/*
+import Post from '../../components/Post';
 
-import Header from './components/Header';
-import Menu from './components/Menu';
-import Post from './components/Post';
-*/
-
+import { SimpleGrid } from '@chakra-ui/react';
 import Evento from '../../components/Evento';
 import Header from '../../components/Header';
 import Menu from '../../components/Menu';
-import Post from '../../components/Post';
 
-function App() {
+export default function App() {
+
+  
   return (
     <div className='bg-gray-300 flex flex-col gap-3' >
       <Header/>
       <div className='flex gap-4'>
         <Menu/>
-        <div className='flex flex-col gap-3'>
+
+        <SimpleGrid width={"800px"}>
           <Post/>
           <Post/>
           <Post/>
-        </div>
+        </SimpleGrid>
+        
         <div className='flex flex-col gap-3'>
           <Evento/>
           <Evento/> 
@@ -33,5 +32,3 @@ function App() {
     
   );
 }
-
-export default App;

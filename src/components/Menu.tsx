@@ -13,6 +13,7 @@ export default function Menu(){
                 <button className="bg-gray-300 text-gray-700 flex gap-3 p-2 rounded-lg"> <Users/>Amigos</button>
                 <button className="bg-gray-300 text-gray-700 flex gap-3 p-2 rounded-lg"> <PartyPopper/>Eventos</button>
                 <button className="bg-gray-300 text-gray-700 flex gap-3 p-2 rounded-lg"> <Settings/>Configuracao</button>
+                
             </div>
         </div>
     )
