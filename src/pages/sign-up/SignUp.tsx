@@ -49,7 +49,7 @@ export default function App() {
               <a href="/terms" className="text-blue-500 hover:underline">Ler termos de uso</a>
             </div>
 
-            <button type="submit" className="mt-4 transition bg-gray-300 hover:bg-gray-500 hover:text-gray-100 font-bold py-1 px-2 rounded-2xl drop-shadow-md" onClick={()=> navigate("/main")}>
+            <button type="submit" className="mt-4 transition bg-gray-300 hover:bg-gray-500 hover:text-gray-100 font-bold py-1 px-2 rounded-2xl drop-shadow-md" onClick={()=> navigate("/home")}>
               Cadastre-se
             </button>
           </form>

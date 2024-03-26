@@ -14,27 +14,17 @@ import {
 } from "@chakra-ui/react";
 
 import userImage from "../assets/img/1702865313114.jpeg";
-import { useEffect, useState } from "react";
+
+import PostProps from "../../data/posts"
 
 
 
-const Post: React.FC=()=> {
-
-
-  const [tasks, setTasks] = useState([]);
-    useEffect(()=>{
-      fetch('../../db.json',{
-        headers:{
-          Accept:"application/json"
-        }
-      }).then(res => res.json())
-        .then(res => setTasks(res.data))
-    },[]);
-
-
+export default function Post(){
   return (
       
       <Card w={"800px"} height="fit" padding={"20px"} fontSize={"20px"}>
+
+        
         <CardHeader>
           <Flex>
             <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
@@ -47,7 +37,7 @@ const Post: React.FC=()=> {
               />
               
               <Box>
-                <Heading size="sm">{}</Heading>
+                <Heading size="sm">Alan Ferreira</Heading>
                 <Text>Desenvolvimento de Sistemas</Text>
               </Box>
             </Flex>
@@ -103,4 +93,3 @@ const Post: React.FC=()=> {
   );
 }
 
-export default Post
