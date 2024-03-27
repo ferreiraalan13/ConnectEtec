@@ -3,7 +3,6 @@ import Post from '../../components/Post';
 
 import { Box, SimpleGrid } from '@chakra-ui/react';
 import Evento from '../../components/Evento';
-import Header from '../../components/Header';
 import Menu from '../../components/Menu';
 import CriarPost from '../../components/CriarPost';
 
@@ -23,13 +22,6 @@ export default function App() {
         <Box className='flex gap-3 justify-center' w="1100px">
           <div className='flex flex-col gap-3 '>
             <Post/>
-            <Post/>
-            <Post/>
-            <Post/>
-            <Post/>
-            <Post/>
-            <Post/>
-
           </div>
           
           

@@ -2,44 +2,43 @@
     "tasks": [
       {
          "id":1,
-         "avatarImg":"../testeTCC/src/assets/img/1702865313114.jpeg",
+         "avatarImg":"../src/assets/img/1702865313114.jpeg",
          "nameUser":"Alan Ferreira",
          "curso": "Desenvolvimento de sistemas",
-         "description":"With Chakra UI, I wanted to sync the speed of development with the speed of design. I wanted the developer to be just as excited as the designer to create a screen.",
-         "img": "../testeTCC/src/assets/img/eventTeste.png"
+         "description":"Salve pessoal, Alguem pode me ajudar com o codigo abaixo? ta dando muito problema",
+         "img": "../src/assets/img/problemaCodigo.png"
       },
       {
          "id":2,
-         "avatarImg":"../testeTCC/src/assets/img/1702865313114.jpeg",
-         "nameUser":"Alan Ferreira",
+         "avatarImg":"../src/assets/img/anaperfil.png",
+         "nameUser":"Ana Sofia",
          "curso": "Desenvolvimento de sistemas",
-         "description":"With Chakra UI, I wanted to sync the speed of development with the speed of design. I wanted the developer to be just as excited as the designer to create a screen.",
-         "img": "../testeTCC/src/assets/img/eventTeste.png"
+         "description":"Oi Oi amigos, bora marcar de jogar um vavazin?",
+         "img": "../src/assets/img/valorantTeste.png"
       },
       {
          "id":3,
-         "avatarImg":"../testeTCC/src/assets/img/1702865313114.jpeg",
-         "nameUser":"Alan Ferreira",
+         "avatarImg":"../src/assets/img/marcos.png",
+         "nameUser":"Marcus vinicius",
          "curso": "Desenvolvimento de sistemas",
-         "description":"With Chakra UI, I wanted to sync the speed of development with the speed of design. I wanted the developer to be just as excited as the designer to create a screen.",
-         "img": "../testeTCC/src/assets/img/eventTeste.png"
-      },
+         "description":"Comprei uma guitarra nova, o que acharam??",
+         "img": "../src/assets/img/guitarraTeste.png"
+      },      
       {
          "id":4,
-         "avatarImg":"../testeTCC/src/assets/img/1702865313114.jpeg",
-         "nameUser":"Alan Ferreira",
+         "avatarImg":"../src/assets/img/anaperfil.png",
+         "nameUser":"Janete gomes",
          "curso": "Desenvolvimento de sistemas",
-         "description":"With Chakra UI, I wanted to sync the speed of development with the speed of design. I wanted the developer to be just as excited as the designer to create a screen.",
-         "img": "../testeTCC/src/assets/img/eventTeste.png"
-      },
+         "description":"Oi Oi amigos, bora marcar de jogar um vavazin?",
+         "img": "../src/assets/img/valorantTeste.png"
+      },      
       {
          "id":5,
-         "avatarImg":"../testeTCC/src/assets/img/1702865313114.jpeg",
-         "nameUser":"Alan Ferreira",
+         "avatarImg":"../src/assets/img/marcos.png",
+         "nameUser":"Mauricinho",
          "curso": "Desenvolvimento de sistemas",
-         "description":"With Chakra UI, I wanted to sync the speed of development with the speed of design. I wanted the developer to be just as excited as the designer to create a screen.",
-         "img": "../testeTCC/src/assets/img/eventTeste.png"
+         "description":"TESTEEEEEEE",
+         "img": ""
       }
-      
    ]
   }

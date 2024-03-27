@@ -22,7 +22,7 @@ export default function Menu(){
                 <button className="bg-gray-300 text-gray-700 flex gap-3 p-2 rounded-lg"> <PartyPopper/>Eventos</button>
                 <button className="bg-gray-300 text-gray-700 flex gap-3 p-2 rounded-lg"> <Settings/>Configuracao</button>
                 <button className="bg-gray-300 text-gray-700 flex gap-3 p-2 rounded-lg"><img className='w-[26px] rounded-full bg-gray-300' src={userImage} alt="" />Perfil</button>
-                <button className="bg-gray-300 text-gray-700 flex gap-3 p-2 rounded-lg"><LogOut/> Sair</button>
+                <button className="bg-gray-300 text-gray-700 flex gap-3 p-2 rounded-lg" onClick={()=> navigate("/")}><LogOut/> Sair</button>
                 
                 
                 
