@@ -15,14 +15,13 @@ import {
 
 import userImage from "../assets/img/1702865313114.jpeg";
 
-import PostProps from "../../data/posts"
-
-
+import { ThumbsUp, MessageSquare  } from 'lucide-react';
 
 export default function Post(){
+
   return (
       
-      <Card w={"800px"} height="fit" padding={"20px"} fontSize={"20px"}>
+      <Card marginLeft={"315px"} w={"800px"} height="fit" padding={"20px"} fontSize={"20px"}>
 
         
         <CardHeader>
@@ -78,15 +77,14 @@ export default function Post(){
             },
           }}
         >
+          
           <Button flex="1" variant="ghost" >
-            Like
+            <ThumbsUp/>
           </Button>
           <Button flex="1" variant="ghost">
-            Comment
+            <MessageSquare/>
           </Button>
-          <Button flex="1" variant="ghost">
-            Share
-          </Button>
+          
         </CardFooter>
       </Card>
     

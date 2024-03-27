@@ -19,6 +19,7 @@ export default function CriarPost() {
         h="500px"
         padding="10px"
         borderRadius={"16px"}
+        marginLeft={'310px'}
       >
         <div className="flex justify-center gap font-bold text-2xl">Criar Publicação</div>
 
