@@ -1,0 +1,44 @@
+{
+    "tasks": [
+      {
+         "id":1,
+         "avatarImg":"../src/assets/img/1702865313114.jpeg",
+         "nameUser":"Alan Ferreira",
+         "curso": "Desenvolvimento de sistemas",
+         "description":"Salve pessoal, Alguem pode me ajudar com o codigo abaixo? ta dando muito problema",
+         "img": "../src/assets/img/problemaCodigo.png"
+      },
+      {
+         "id":2,
+         "avatarImg":"../src/assets/img/anaperfil.png",
+         "nameUser":"Ana Sofia",
+         "curso": "Desenvolvimento de sistemas",
+         "description":"Oi Oi amigos, bora marcar de jogar um vavazin?",
+         "img": "../src/assets/img/valorantTeste.png"
+      },
+      {
+         "id":3,
+         "avatarImg":"../src/assets/img/marcos.png",
+         "nameUser":"Marcus vinicius",
+         "curso": "Desenvolvimento de sistemas",
+         "description":"Comprei uma guitarra nova, o que acharam??",
+         "img": "../src/assets/img/guitarraTeste.png"
+      },      
+      {
+         "id":4,
+         "avatarImg":"../src/assets/img/anaperfil.png",
+         "nameUser":"Janete gomes",
+         "curso": "Desenvolvimento de sistemas",
+         "description":"Oi Oi amigos, bora marcar de jogar um vavazin?",
+         "img": "../src/assets/img/valorantTeste.png"
+      },      
+      {
+         "id":5,
+         "avatarImg":"../src/assets/img/marcos.png",
+         "nameUser":"Mauricinho",
+         "curso": "Desenvolvimento de sistemas",
+         "description":"TESTEEEEEEE",
+         "img": ""
+      }
+   ]
+  }

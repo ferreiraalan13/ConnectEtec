@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import {
   Card,
   CardHeader,
@@ -11,77 +12,78 @@ import {
   Image,
   Box,
   Heading,
-  SimpleGrid,
-} from "@chakra-ui/react";
-
-import userImage from "../assets/img/1702865313114.jpeg";
+} from '@chakra-ui/react';
+import { ThumbsUp, MessageSquare } from 'lucide-react';
+import userImage from '../assets/img/1702865313114.jpeg';
+import { Task } from '../types/types';
 
 export default function Post() {
+  const [tasks, setTasks] = useState<Task[]>([]);
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const response = await fetch('../../data/db.json');
+        const data = await response.json();
+        setTasks(data.tasks);
+      } catch (error) {
+        console.error('Erro ao carregar tarefas:', error);
+      }
+    };
+
+    fetchTasks();
+  }, []);
+
   return (
-    
-      <Card w={"800px"} height="fit" padding={"20px"} fontSize={"20px"}>
-        <CardHeader>
-          <Flex>
-            <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
-              <Avatar
-                name="Segun Adebayo"
-                src={userImage}
-                w={"60px"}
-                h={"60px"}
-              />
-              <Box>
-                <Heading size="sm">Alan Ferreira</Heading>
-                <Text>Desenvolvimento de Sistemas</Text>
-              </Box>
+    <>
+      {tasks.map((task) => (
+        <Card key={task.id} marginLeft={'315px'} w={'800px'} height="fit" padding={'20px'} fontSize={'20px'}>
+          <CardHeader>
+            <Flex>
+              <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
+                <Avatar name="Segun Adebayo" src={task.avatarImg} w={'60px'} h={'60px'} />
+                <Box>
+                  <Heading size="sm">{task.nameUser}</Heading>
+                  <Text>{task.curso}</Text>
+                </Box>
+              </Flex>
+              <IconButton variant="ghost" colorScheme="gray" aria-label="See menu" />
             </Flex>
-            <IconButton
-              variant="ghost"
-              colorScheme="gray"
-              aria-label="See menu"
+          </CardHeader>
+          <CardBody maxH={'150px'}>
+            <Text>{task.description}</Text>
+          </CardBody>
+
+          <div className="flex justify-center">
+            <Image
+              objectFit="cover"
+              src={task.img}
+              alt="Chakra UI"
+              padding={'10px'}
+              borderRadius={'20px'}
+              maxHeight={'600px'}
+              maxWidth={'600px'}
+              marginLeft={'10px'}
             />
-          </Flex>
-        </CardHeader>
-        <CardBody maxH={"150px"}>
-          <Text>
-            With Chakra UI, I wanted to sync the speed of development with the
-            speed of design. I wanted the developer to be just as excited as the
-            designer to create a screen.
-          </Text>
-        </CardBody>
+          </div>
 
-        <div className="flex justify-center">
-          <Image
-            objectFit="cover"
-            src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-            alt="Chakra UI"
-            padding={"10px"}
-            borderRadius={"20px"}
-            maxHeight={"600px"}
-            maxWidth={"600px"}
-            marginLeft={"10px"}
-          />
-        </div>
-
-        <CardFooter
-          justify="space-between"
-          flexWrap="wrap"
-          sx={{
-            "& > button": {
-              minW: "136px",
-            },
-          }}
-        >
-          <Button flex="1" variant="ghost">
-            Like
-          </Button>
-          <Button flex="1" variant="ghost">
-            Comment
-          </Button>
-          <Button flex="1" variant="ghost">
-            Share
-          </Button>
-        </CardFooter>
-      </Card>
-    
+          <CardFooter
+            justify="space-between"
+            flexWrap="wrap"
+            sx={{
+              '& > button': {
+                minW: '136px',
+              },
+            }}>
+            <Button flex="1" variant="ghost">
+              <ThumbsUp />
+            </Button>
+            <Button flex="1" variant="ghost">
+              <MessageSquare />
+            </Button>
+          </CardFooter>
+        </Card>
+      ))}
+    </>
   );
 }

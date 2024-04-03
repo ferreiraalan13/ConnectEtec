@@ -1,12 +1,14 @@
 
 import Post from '../../components/Post';
 
-import { SimpleGrid } from '@chakra-ui/react';
+import { Box, SimpleGrid } from '@chakra-ui/react';
 import Evento from '../../components/Evento';
 import Header from '../../components/Header';
 import Menu from '../../components/Menu';
+import CriarPost from '../../components/CriarPost';
 
 export default function App() {
+
 
   
   return (
@@ -15,11 +17,9 @@ export default function App() {
       <div className='flex gap-4'>
         <Menu/>
 
-        <SimpleGrid width={"800px"}>
-          <Post/>
-          <Post/>
-          <Post/>
-        </SimpleGrid>
+        <Box w="1100px">
+          
+        </Box>
         
         <div className='flex flex-col gap-3'>
           <Evento/>
