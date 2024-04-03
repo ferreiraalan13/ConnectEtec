@@ -9,10 +9,10 @@ export default function Menu(){
 
     return(
         <div className="bg-gray-100 flex flex-col w-[295px] p-[15px] gap-[100px] h-screen rounded-[16px] fixed">
-            <div className="flex gap-2 w-3 w-full justify-center">
+            <div className="flex gap-2 w-full justify-center">
             <div><img src={imagem} alt="" /></div>
             </div>
-            <div className="flex flex-col w-3 w-full gap-[10px] ">
+            <div className="flex flex-col w-full gap-[10px] ">
                 <button className="bg-gray-300 text-gray-700 flex gap-3 p-2 rounded-lg" onClick={()=> navigate("/home")}> <Home/>Inicio</button>
 
                 <Input placeholder='Basic usage'></Input>
