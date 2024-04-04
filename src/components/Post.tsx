@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Card,
   CardHeader,
@@ -14,7 +14,6 @@ import {
   Heading,
 } from '@chakra-ui/react';
 import { ThumbsUp, MessageSquare } from 'lucide-react';
-import userImage from '../assets/img/1702865313114.jpeg';
 import { Task } from '../types/types';
 
 export default function Post() {
@@ -37,7 +36,7 @@ export default function Post() {
   return (
     <>
       {tasks.map((task) => (
-        <Card key={task.id} marginLeft={'315px'} w={'800px'} height="fit" padding={'20px'} fontSize={'20px'}>
+        <Card key={task.id} marginLeft={''} w={''} height="fit" padding={'20px'} fontSize={'20px'}>
           <CardHeader>
             <Flex>
               <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
@@ -58,7 +57,6 @@ export default function Post() {
             <Image
               objectFit="cover"
               src={task.img}
-              alt="Chakra UI"
               padding={'10px'}
               borderRadius={'20px'}
               maxHeight={'600px'}
