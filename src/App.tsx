@@ -6,7 +6,7 @@ import HomePerfil from './pages/home/HomePerfil';
 import HomeCriarPublicacao from './pages/home/HomeCriarPublicacao'
 import Login from './pages/login/Login';
 
-
+import { RequireAuth } from './Contexts/Auth/RequireAuth'
 
 function App() {
   return (
@@ -14,9 +14,9 @@ function App() {
         <Router>
           <Routes>
             <Route path='/' element={<Login/>}  ></Route>
-            <Route path='/home' index element={<Home/>}></Route>
-            <Route path='/criarPublicacao' index element={<HomeCriarPublicacao/>}></Route>
-            <Route path='/homePerfil' index element={<HomePerfil/>}></Route>
+            <Route path='/home' element={<RequireAuth><Home/></RequireAuth> }></Route>
+            <Route path='/criarPublicacao' element={ <RequireAuth><HomeCriarPublicacao/></RequireAuth> }></Route>
+            <Route path='/homePerfil' element={ <RequireAuth><HomePerfil/></RequireAuth> }></Route>
             <Route path='/signup' element={<SignUp/>}></Route>
           </Routes>
         </Router>

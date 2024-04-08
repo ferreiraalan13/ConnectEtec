@@ -1,17 +1,29 @@
-import image from "./formando-a-ilustracao-do-conceito-de-lideranca-de-equipe_114360-10883 1 (1).svg";
-import background from "../../assets/Background.svg";
+import { Checkbox, Link, Text } from '@chakra-ui/react'
+import { useContext, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-import InputTemplate from "../../components/InputTemplate";
-import { useNavigate } from "react-router-dom";
-
-import { Text, Link, Checkbox } from "@chakra-ui/react";
-import React from "react";
+import background from '../../assets/Background.svg'
+import { AuthContext } from '../../Contexts/Auth/AuthContext'
+import image from './formando-a-ilustracao-do-conceito-de-lideranca-de-equipe_114360-10883 1 (1).svg'
 
 export default function Login() {
-  const navigate = useNavigate();
+  const auth = useContext(AuthContext)
 
-  const [show, setShow] = React.useState(false);
-  const handleClick = () => setShow(!show);
+  const navigate = useNavigate()
+
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const handleLogin = async () => {
+    if (email && password) {
+      const isLogged = await auth.signin(email, password)
+      if (isLogged) {
+        navigate('/home')
+      } else {
+        alert('Não deu certo.')
+      }
+    }
+  }
 
   return (
     <div className="w-screen h-screen flex items-center justify-center overflow-hidden">
@@ -31,23 +43,35 @@ export default function Login() {
 
           <form action="" className="flex flex-col gap-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <InputTemplate labelTitle="Email" type="email" />
+              {/* <InputTemplate labelTitle="Email" type="email" /> */}
+              <input
+                type="text"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Digite seu email"
+              />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <InputTemplate labelTitle="Senha" type="password" />
+              {/* <InputTemplate labelTitle="Senha" type="password" /> */}
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Digite sua senha"
+              />
             </div>
 
             <div className="flex flex-col md:flex-row justify-between items-start gap-4">
               <Checkbox defaultChecked>Lembrar de mim</Checkbox>
               <Link color="teal.500" href="#">
-                {" "}
-                Esqueceu sua senha?{" "}
+                {' '}
+                Esqueceu sua senha?{' '}
               </Link>
             </div>
             <div className="flex flex-col md:flex-row justify-between items-start gap-4">
               <Text>
-                Não tem uma conta? {" "}
+                Não tem uma conta?{' '}
                 <Link color="teal.500" href="/signUp">
                   Cadastre-se
                 </Link>
@@ -57,7 +81,7 @@ export default function Login() {
             <button
               type="submit"
               className="mt-4 transition bg-gray-300 hover:bg-gray-500 hover:text-gray-100 font-bold py-1 px-2 rounded-2xl drop-shadow-md"
-              onClick={() => navigate("/home")}
+              onClick={handleLogin}
             >
               Login
             </button>
@@ -72,5 +96,5 @@ export default function Login() {
         </div>
       </div>
     </div>
-  );
+  )
 }
