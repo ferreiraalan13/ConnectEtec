@@ -23,8 +23,9 @@ export default function App() {
         <div className="flex flex-col gap-3">
           <Evento />
           <Evento />
+          opaa
         </div>
       </div>
-    </div>
+    </div> 
   );
 }
