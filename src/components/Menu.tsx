@@ -25,7 +25,7 @@ export default function Menu() {
   }
 
   return (
-    <div className="bg-gray-100 flex flex-col w-[295px] p-[15px] gap-[100px] h-screen rounded-[16px] fixed">
+    <div className="bg-gray-100 flex flex-col w-[] p-[15px] gap-[100px] h-screen rounded-[10px] fixed mt-3">
       <div className="flex gap-2 w-full justify-center">
         <div>
           <img src={imagem} alt="" />
