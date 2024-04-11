@@ -36,7 +36,7 @@ export default function Post() {
   return (
     <>
       {tasks.map((task) => (
-        <Card key={task.id} marginLeft={''} w={''} height="fit" padding={'20px'} fontSize={'20px'}>
+        <Card key={task.id} marginLeft={''} w={'30rem'} height="" padding={'20px'} fontSize={'20px'}>
           <CardHeader>
             <Flex>
               <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
@@ -59,8 +59,8 @@ export default function Post() {
               src={task.img}
               padding={'10px'}
               borderRadius={'20px'}
-              maxHeight={'600px'}
-              maxWidth={'600px'}
+              maxHeight={'400px'}
+              maxWidth={'400px'}
               marginLeft={'10px'}
             />
           </div>

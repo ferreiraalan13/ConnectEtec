@@ -1,4 +1,4 @@
-import { Input } from '@chakra-ui/react'
+import { Input } from "@chakra-ui/react";
 import {
   CirclePlus,
   Home,
@@ -6,23 +6,24 @@ import {
   PartyPopper,
   Settings,
   Users,
-} from 'lucide-react'
-import { useContext } from 'react'
-import { useNavigate } from 'react-router-dom'
+} from "lucide-react";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
-import userImage from '../assets/img/1702865313114.jpeg'
-import imagem from '../assets/img/Frame 5.svg'
-import { AuthContext } from '../Contexts/Auth/AuthContext'
+import userImage from "../assets/img/1702865313114.jpeg";
+import imagem from "../assets/img/Frame 5.svg";
+import { AuthContext } from "../Contexts/Auth/AuthContext";
+import ItensMenu from "./ItensMenu";
 
 export default function Menu() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const auth = useContext(AuthContext)
+  const auth = useContext(AuthContext);
 
   const handleLogout = async () => {
-    await auth.signout()
-    navigate('/')
-  }
+    await auth.signout();
+    navigate("/");
+  };
 
   return (
     <div className="bg-gray-100 flex flex-col w-[] p-[15px] gap-[100px] h-screen rounded-[10px] fixed mt-3">
@@ -32,57 +33,39 @@ export default function Menu() {
         </div>
       </div>
       <div className="flex flex-col w-full gap-[10px] ">
-        <button
-          className="bg-gray-300 text-gray-700 flex gap-3 p-2 rounded-lg"
-          onClick={() => navigate('/home')}
-        >
-          {' '}
-          <Home />
-          Inicio
-        </button>
+        <ItensMenu label="Inicio" route="/home">
+          {" "}
+          <Home />{" "}
+        </ItensMenu>
 
-        <Input placeholder="Basic usage"></Input>
-
-        <button
-          className="bg-gray-300 text-gray-700 flex gap-3 p-2 rounded-lg"
-          onClick={() => navigate('/criarPublicacao')}
-        >
-          {' '}
-          <CirclePlus /> Criar Publicação
-        </button>
-        <button className="bg-gray-300 text-gray-700 flex gap-3 p-2 rounded-lg">
-          {' '}
+        <ItensMenu label="Criar Publicacao" route="/criarPublicacao">
+          {" "}
+          <CirclePlus />{" "}
+        </ItensMenu>
+        <ItensMenu label="Amigos">
           <Users />
-          Amigos
-        </button>
-        <button className="bg-gray-300 text-gray-700 flex gap-3 p-2 rounded-lg">
-          {' '}
-          <PartyPopper />
-          Eventos
-        </button>
-        <button className="bg-gray-300 text-gray-700 flex gap-3 p-2 rounded-lg">
-          {' '}
-          <Settings />
-          Configuracao
-        </button>
-        <button
-          className="bg-gray-300 text-gray-700 flex gap-3 p-2 rounded-lg"
-          onClick={() => navigate('/homeperfil')}
-        >
+        </ItensMenu>
+        <ItensMenu label="Eventos">
+          {" "}
+          <PartyPopper />{" "}
+        </ItensMenu>
+        <ItensMenu label="Configuracao">
+          {" "}
+          <Settings />{" "}
+        </ItensMenu>
+        <ItensMenu label="Perfil" route="/homeperfil">
+          {" "}
           <img
             className="w-[26px] rounded-full bg-gray-300"
             src={userImage}
             alt=""
           />
-          {auth.user?.name}
-        </button>
-        <button
-          className="bg-gray-300 text-gray-700 flex gap-3 p-2 rounded-lg"
-          onClick={handleLogout}
-        >
-          <LogOut /> Sair
-        </button>
+        </ItensMenu>
+        <ItensMenu label="Sair" customFunction={handleLogout}>
+          {" "}
+          <LogOut />
+        </ItensMenu>
       </div>
     </div>
-  )
+  );
 }
