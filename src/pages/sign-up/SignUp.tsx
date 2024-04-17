@@ -11,7 +11,6 @@ interface FormData {
   nomeCompleto: string;
   nomeSocial?: string;
   login: string;
-  curso?: string;
   senha: string;
   tipoUsuario: string;
 }
@@ -24,20 +23,14 @@ export default function App() {
     senha: "",
     nomeCompleto: "",
     nomeSocial: "",
-    curso: "",
     tipoUsuario: "",
   });
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      // Criando uma cópia dos dados do formulário
       const formDataToSend = { ...formData };
 
-      // Verificando se os campos curso e nomeSocial estão vazios e atribuindo null se forem
-      if (formDataToSend.curso === "") {
-        formDataToSend.curso = null as unknown as string | undefined;
-      }
       if (formDataToSend.nomeSocial === "") {
         formDataToSend.nomeSocial = null as unknown as string | undefined;
       }
@@ -91,7 +84,7 @@ export default function App() {
                 }
               />
               <Input
-                placeholder="Nome Social"
+                placeholder="Nome Social (Opcional)"
                 type="text"
                 id="nomeSocial"
                 name="nomeSocial"
@@ -111,15 +104,6 @@ export default function App() {
                 value={formData.login}
                 onChange={(e) =>
                   setFormData({ ...formData, login: e.target.value })
-                }
-              />
-              <Input
-                placeholder="Curso"
-                type="text"
-                name="curso"
-                value={formData.curso}
-                onChange={(e) =>
-                  setFormData({ ...formData, curso: e.target.value })
                 }
               />
             </div>
@@ -149,7 +133,7 @@ export default function App() {
             <div className="flex flex-col md:flex-row justify-between items-start gap-4">
               <label className="flex items-center gap-2 cursor-pointer">
                 <div className="w-3 h-3 rounded-full flex relative">
-                  <input type="checkbox" className="" />
+                  <input type="checkbox" className="" required />
                 </div>
                 Aceito os termos de uso
               </label>
