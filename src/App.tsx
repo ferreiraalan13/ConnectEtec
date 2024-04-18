@@ -7,12 +7,11 @@ import HomeCriarPublicacao from "./pages/home/HomeCriarPublicacao";
 import Login from "./pages/login/Login";
 
 import { RequireAuth } from "./Contexts/Auth/RequireAuth";
-import HomeTeste from "./pages/home/HomeTeste";
+import HomeMobile from "./pages/home/HomeMobile";
 import { useMediaQuery } from "@chakra-ui/react";
 
 function App() {
-
-  const [isMobile] = useMediaQuery('(max-width: 768px)');
+  const [isMobile] = useMediaQuery("(max-width: 768px)");
 
   return (
     <div className="App">
@@ -22,25 +21,14 @@ function App() {
           <Route
             path="/home"
             element={
-              <RequireAuth>
-                <Home />
-              </RequireAuth>
+              <RequireAuth>{isMobile ? <HomeMobile /> : <Home />}</RequireAuth>
             }
           ></Route>
-          <Route
-            path="/homeTeste"
-            element={
-              <RequireAuth>
-                {isMobile ? <HomeTeste /> : <Home />}
-                
-              </RequireAuth>
-            }
-          ></Route>
+
           <Route
             path="/criarPublicacao"
             element={
               <RequireAuth>
-                
                 <HomeCriarPublicacao />
               </RequireAuth>
             }

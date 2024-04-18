@@ -9,13 +9,19 @@ import { AuthContext } from "../../Contexts/Auth/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 import MenuFinal from "../../components/MenuFinal";
+import Eventos from "../../components/Evento";
 
 export default function App() {
   const navigate = useNavigate();
   const auth = useContext(AuthContext);
 
   return (
-    <Box height={"100vh"} overflow={"hidden"} className="flex bg-gray-300">
+    <Box
+      height={"100vh"}
+      overflow={"hidden"}
+      gap={0}
+      className="flex bg-gray-300"
+    >
       <MenuFinal />
 
       <Box
@@ -36,7 +42,14 @@ export default function App() {
         overflowX={"hidden"}
         width={"100%"}
       >
-        <Post />
+        <Box display={"flex"} justifyContent={"space-around"}>
+          <Box display={"flex"} flexDirection={"column"} gap={3}>
+            <Post />
+          </Box>
+          <Box>
+            <Eventos />
+          </Box>
+        </Box>
       </Box>
     </Box>
   );
