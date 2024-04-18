@@ -1,5 +1,7 @@
 import Post from "../../components/Post";
 
+import logoConnect from "../../assets/img/logoConnect.png"
+
 import { Menu as MenuLogo } from "lucide-react";
 
 import MenuTeste from "../../components/Menu";
@@ -39,9 +41,11 @@ export default function HomeTeste() {
   const auth = useContext(AuthContext);
 
   return (
-    <Box height={"100vh"} overflow={"hidden"} className="flex bg-gray-300">
+    <>
+  <Box height={"100vh"} overflow={"hidden"} className={`min-lg:hidden flex bg-gray-300`}>
+      
       <Box
-        padding={"20px"}
+        padding={""}
         css={{
           "&::-webkit-scrollbar": {
             width: "13px",
@@ -58,10 +62,32 @@ export default function HomeTeste() {
         overflowX={"hidden"}
         width={"100%"}
       >
-        <DrawerExample />
-        <Post />
+        <Box
+        className="bg-gray-300"
+          p={1}
+          w={"full"}
+          bg={""}
+          display={"flex"}
+          justifyContent={"space-between"}
+          position={"sticky"}
+          top={0}
+          zIndex={2} // Ajuste o z-index para garantir que o DrawerExample fique sobreposto
+        >
+          <div className={`text-black origin-left font-medium text-2xl duration-300 p-1`}> ConnectEtec</div>
+          <DrawerExample />
+        </Box>
+        
+        <Container // Envolve o Post e DrawerExample em um contêiner
+          position={"relative"} // Posição relativa para garantir que o DrawerExample seja fixado corretamente
+          top={0}
+          zIndex={1} // Z-index menor para garantir que o conteúdo do Post fique abaixo do DrawerExample
+        >
+          <Post />
+        </Container>
       </Box>
     </Box>
+    </>
+    
   );
 }
 
@@ -72,16 +98,17 @@ function DrawerExample() {
   return (
     <>
       <Button
-        position={"relative"}
+        
         ref={btnRef}
         colorScheme="teal"
         onClick={onOpen}
+        
       >
         <MenuLogo />
       </Button>
       <Drawer
         isOpen={isOpen}
-        placement="left"
+        placement="right"
         onClose={onClose}
         finalFocusRef={btnRef}
       >

@@ -36,7 +36,7 @@ export default function Post() {
   return (
     <>
       {tasks.map((task) => (
-        <Card key={task.id} marginLeft={""} w={"300px"} padding={"5px"}>
+        <Card key={task.id} marginLeft={""} w={"full"} padding={"5px"}>
           <CardHeader w={"full"} fontSize={"sm"}>
             <Flex>
               <Flex flex="1" gap="1" alignItems="center" flexWrap="wrap">

@@ -33,7 +33,7 @@ export default function MenuFinal() {
       } duration-300 relative`}
     >
       <div className="inline-flex">
-        <PocketKnife className="text-4xl cursor-pointer block float-left" />
+        
         <h1
           className={`text-black origin-left font-medium text-2xl duration-300 ${
             !open && "scale-0"
@@ -53,13 +53,13 @@ export default function MenuFinal() {
             open && "mr-2"
           } `}
         />
-        <input
+        {/*<input
           type="search"
           placeholder="Pesquisar"
           className={`text-base text-white bg-transparent w-full focus:outline-none ${
             !open && "hidden"
           }`}
-        />
+        />*/}
       </div>
 
       <ul className="pt-2">
