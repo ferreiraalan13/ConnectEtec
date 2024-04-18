@@ -12,7 +12,7 @@ export default function Perfil() {
       h=""
       padding="10px"
       borderRadius={"16px"}
-      marginLeft={"310px"}
+      marginLeft={""}
     >
       <div className="w-[780px] h-72 bg-gray-100 rounded-2xl">
         <div className="w-full h-36">

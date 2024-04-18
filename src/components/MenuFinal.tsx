@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import userImage from "../assets/img/1702865313114.jpeg";
 import { AuthContext } from "../Contexts/Auth/AuthContext";
 
-export default function MenuFinal() {
+export default function Menu() {
   const auth = useContext(AuthContext);
 
   const handleLogout = async () => {
@@ -29,11 +29,18 @@ export default function MenuFinal() {
   return (
     <div
       className={`bg-gray-100 h-screen p-5 pt-8 ${
-        open ? "w-full" : "w-20"
+        open ? "w-72" : "w-20"
       } duration-300 relative`}
     >
+      <ArrowLeft
+        className={`bg-white text-purple-950 rounded-full absolute -right-3 top-9 border border-black cursor-pointer ${
+          !open && "rotate-180"
+        }`}
+        onClick={() => setOpen(!open)}
+      />
+
       <div className="inline-flex">
-        
+        <PocketKnife className="text-4xl cursor-pointer block float-left" />
         <h1
           className={`text-black origin-left font-medium text-2xl duration-300 ${
             !open && "scale-0"
@@ -53,13 +60,13 @@ export default function MenuFinal() {
             open && "mr-2"
           } `}
         />
-        {/*<input
+        <input
           type="search"
           placeholder="Pesquisar"
           className={`text-base text-white bg-transparent w-full focus:outline-none ${
             !open && "hidden"
           }`}
-        />*/}
+        />
       </div>
 
       <ul className="pt-2">

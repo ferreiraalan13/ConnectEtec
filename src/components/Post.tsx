@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import {
   Card,
   CardHeader,
@@ -12,9 +12,20 @@ import {
   Image,
   Box,
   Heading,
-} from '@chakra-ui/react';
-import { ThumbsUp, MessageSquare } from 'lucide-react';
-import { Task } from '../types/types';
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+} from "@chakra-ui/react";
+import {
+  ThumbsUp,
+  MessageSquare,
+  Delete,
+  Ellipsis,
+  Trash2,
+} from "lucide-react";
+import { Task } from "../types/types";
+import { Menu as MenuLogo } from "lucide-react";
 
 export default function Post() {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -22,11 +33,11 @@ export default function Post() {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await fetch('../../data/db.json');
+        const response = await fetch("../../data/db.json");
         const data = await response.json();
         setTasks(data.tasks);
       } catch (error) {
-        console.error('Erro ao carregar tarefas:', error);
+        console.error("Erro ao carregar tarefas:", error);
       }
     };
 
@@ -36,32 +47,53 @@ export default function Post() {
   return (
     <>
       {tasks.map((task) => (
-        <Card key={task.id} marginLeft={''} w={''} height="fit" padding={'20px'} fontSize={'20px'}>
-          <CardHeader>
+        <Card
+          key={task.id}
+          marginLeft={""}
+          w={"full"}
+          alignItems={"left"}
+          padding={"0"}
+        >
+          <CardHeader w={"full"} fontSize={"sm"}>
             <Flex>
-              <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
-                <Avatar name="Segun Adebayo" src={task.avatarImg} w={'60px'} h={'60px'} />
+              <Flex flex="1" gap="1" alignItems="stretch">
+                <Avatar src={task.avatarImg} w={"60px"} h={"60px"} />
                 <Box>
                   <Heading size="sm">{task.nameUser}</Heading>
-                  <Text>{task.curso}</Text>
+                  <Text fontSize={"small"}>{task.curso}</Text>
                 </Box>
               </Flex>
-              <IconButton variant="ghost" colorScheme="gray" aria-label="See menu" />
+
+              <Menu>
+                <MenuButton
+                  as={IconButton}
+                  aria-label="Options"
+                  icon={<Ellipsis />}
+                  variant="outline"
+                />
+                <MenuList>
+                  <MenuItem icon={<Trash2 />}>Excluir Postagem</MenuItem>
+                </MenuList>
+              </Menu>
             </Flex>
           </CardHeader>
-          <CardBody maxH={'150px'}>
-            <Text>{task.description}</Text>
+          <CardBody maxH={"120px"} maxW={"600px"} fontSize={"small"} pt={0}>
+            <Text fontSize={{ sm: "10px", md: "15px" }}>
+              {task.description}
+            </Text>
           </CardBody>
 
-          <div className="flex justify-center">
+          <div className="flex justify-center m-0">
             <Image
+              flexWrap={"wrap"}
               objectFit="cover"
               src={task.img}
-              padding={'10px'}
-              borderRadius={'20px'}
-              maxHeight={'600px'}
-              maxWidth={'600px'}
-              marginLeft={'10px'}
+              padding={"5px"}
+              marginTop={"30px"}
+              borderRadius={"20px"}
+              maxHeight={"250px"}
+              maxWidth={"250px"}
+              marginLeft={"10px"}
             />
           </div>
 
@@ -69,10 +101,11 @@ export default function Post() {
             justify="space-between"
             flexWrap="wrap"
             sx={{
-              '& > button': {
-                minW: '136px',
+              "& > button": {
+                minW: "",
               },
-            }}>
+            }}
+          >
             <Button flex="1" variant="ghost">
               <ThumbsUp />
             </Button>
