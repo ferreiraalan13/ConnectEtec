@@ -1,20 +1,11 @@
 import Post from "../../components/Post";
 
-import { Box, Container, Flex } from "@chakra-ui/react";
-import Evento from "../../components/Evento";
-
-import { useContext } from "react";
-
-import { AuthContext } from "../../Contexts/Auth/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { Box } from "@chakra-ui/react";
 
 import MenuFinal from "../../components/MenuFinal";
 import Eventos from "../../components/Evento";
 
 export default function App() {
-  const navigate = useNavigate();
-  const auth = useContext(AuthContext);
-
   return (
     <Box
       height={"100vh"}

@@ -17,15 +17,8 @@ import {
   MenuList,
   MenuItem,
 } from "@chakra-ui/react";
-import {
-  ThumbsUp,
-  MessageSquare,
-  Delete,
-  Ellipsis,
-  Trash2,
-} from "lucide-react";
+import { ThumbsUp, MessageSquare, Ellipsis, Trash2 } from "lucide-react";
 import { Task } from "../types/types";
-import { Menu as MenuLogo } from "lucide-react";
 
 export default function Post() {
   const [tasks, setTasks] = useState<Task[]>([]);

@@ -1,45 +1,16 @@
 import Post from "../../components/Post";
 
-import logoConnect from "../../assets/img/logoConnect.png";
-
 import { Menu as MenuLogo } from "lucide-react";
 
 import MenuTeste from "../../components/Menu";
 
-import {
-  Box,
-  Button,
-  Container,
-  Flex,
-  Input,
-  Radio,
-  RadioGroup,
-  Stack,
-  useDisclosure,
-} from "@chakra-ui/react";
-import Evento from "../../components/Evento";
+import { Box, Button, Container, useDisclosure } from "@chakra-ui/react";
 
-import React, { useContext, useRef } from "react";
+import { useRef } from "react";
 
-import { AuthContext } from "../../Contexts/Auth/AuthContext";
-import { useNavigate } from "react-router-dom";
-
-import MenuFinal from "../../components/MenuFinal";
-
-import {
-  Drawer,
-  DrawerBody,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
-} from "@chakra-ui/react";
+import { Drawer, DrawerOverlay, DrawerContent } from "@chakra-ui/react";
 
 export default function HomeTeste() {
-  const navigate = useNavigate();
-  const auth = useContext(AuthContext);
-
   return (
     <>
       <Box

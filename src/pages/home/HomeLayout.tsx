@@ -1,10 +1,7 @@
-import Post from "../../components/Post";
-
-import { Box, SimpleGrid } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import Evento from "../../components/Evento";
 import Header from "../../components/Header";
 import Menu from "../../components/Menu";
-import CriarPost from "../../components/CriarPost";
 
 export default function App() {
   return (

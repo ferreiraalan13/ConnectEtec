@@ -1,6 +1,4 @@
 import { Box } from "@chakra-ui/react";
-import Evento from "../../components/Evento";
-import Menu from "../../components/Menu";
 import Perfil from "../../components/Perfil";
 import MenuFinal from "../../components/MenuFinal";
 

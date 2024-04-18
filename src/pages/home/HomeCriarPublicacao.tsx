@@ -1,6 +1,4 @@
-import { Box, Flex } from "@chakra-ui/react";
-import Evento from "../../components/Evento";
-import Menu from "../../components/Menu";
+import { Box } from "@chakra-ui/react";
 import CriarPost from "../../components/CriarPost";
 import MenuFinal from "../../components/MenuFinal";
 

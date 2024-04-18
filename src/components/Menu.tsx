@@ -4,9 +4,7 @@ import {
   LogOut,
   Settings,
   Users,
-  ArrowLeft,
   Home,
-  PocketKnife,
   Search,
 } from "lucide-react";
 import { useContext, useState } from "react";
@@ -23,7 +21,7 @@ export default function MenuFinal() {
     navigate("/");
   };
 
-  const [open, setOpen] = useState(true);
+  const [open] = useState(true);
   const navigate = useNavigate();
 
   return (
@@ -33,7 +31,6 @@ export default function MenuFinal() {
       } duration-300 relative`}
     >
       <div className="inline-flex">
-        
         <h1
           className={`text-black origin-left font-medium text-2xl duration-300 ${
             !open && "scale-0"
