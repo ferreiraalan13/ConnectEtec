@@ -1,29 +1,29 @@
-import { Checkbox, Link, Text } from '@chakra-ui/react'
-import { useContext, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Checkbox, Link, Text } from "@chakra-ui/react";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import background from '../../assets/Background.svg'
-import { AuthContext } from '../../Contexts/Auth/AuthContext'
-import image from './formando-a-ilustracao-do-conceito-de-lideranca-de-equipe_114360-10883 1 (1).svg'
+import background from "../../assets/Background.svg";
+import { AuthContext } from "../../Contexts/Auth/AuthContext";
+import image from "./formando-a-ilustracao-do-conceito-de-lideranca-de-equipe_114360-10883 1 (1).svg";
 
 export default function Login() {
-  const auth = useContext(AuthContext)
+  const auth = useContext(AuthContext);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
     if (email && password) {
-      const isLogged = await auth.signin(email, password)
+      const isLogged = await auth.signin(email, password);
       if (isLogged) {
-        navigate('/home')
+        navigate("/home");
       } else {
-        alert('Não deu certo.')
+        alert("Não deu certo.");
       }
     }
-  }
+  };
 
   return (
     <div className="w-screen h-screen flex items-center justify-center overflow-hidden">
@@ -64,15 +64,12 @@ export default function Login() {
 
             <div className="flex flex-col md:flex-row justify-between items-start gap-4">
               <Checkbox defaultChecked>Lembrar de mim</Checkbox>
-              <Link color="teal.500" href="#">
-                {' '}
-                Esqueceu sua senha?{' '}
-              </Link>
+              <Link color="teal.500"> Esqueceu sua senha? </Link>
             </div>
             <div className="flex flex-col md:flex-row justify-between items-start gap-4">
               <Text>
-                Não tem uma conta?{' '}
-                <Link color="teal.500" href="/signUp">
+                Não tem uma conta?{" "}
+                <Link color="teal.500" onClick={() => navigate("/signup")}>
                   Cadastre-se
                 </Link>
               </Text>
@@ -96,5 +93,5 @@ export default function Login() {
         </div>
       </div>
     </div>
-  )
+  );
 }
