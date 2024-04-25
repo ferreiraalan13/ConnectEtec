@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: import.meta.env.REACT_APP_API,
+  baseURL: 'http://localhost:8080/',
 })
 
 export const useApi = () => ({
@@ -12,13 +12,15 @@ export const useApi = () => ({
     const response = await api.post('/validate', { token })
     return response.data
   },
-  signin: async (email: string, password: string) => {
+  signin: async (login: string, senha: string) => {
+    
+    const response = await api.post('usuario/login', { login, senha })
+    console.log(response.data)
+    return response.data
     return {
       user: { id: 3, name: 'jose', email: 'jose@gmail.com' },
       token: '123456789',
     }
-    const response = await api.post('/signin', { email, password })
-    return response.data
   },
   logout: async () => {
     return { status: true }
