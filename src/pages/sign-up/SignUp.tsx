@@ -79,7 +79,17 @@ export default function App() {
       }
 
       if (formDataToSend.tipoUsuario === "") {
-        formDataToSend.tipoUsuario = "ALUNO";
+        formDataToSend.tipoUsuario = "USUARIO";
+      }
+      if (formDataToSend.tipoUsuario === "ADMINISTRADOR") {
+        toast({
+          title: "Erro",
+          description: "Não é possivel cadastrar como ADMINISTRADOR",
+          status: "error",
+          duration: 1000,
+          isClosable: true,
+        });
+        return;
       }
 
       const response = await axios.post(
@@ -195,9 +205,8 @@ export default function App() {
                   setFormData({ ...formData, tipoUsuario: e.target.value })
                 }
               >
-                <option value="ALUNO">Aluno</option>
-                <option value="PROFESSOR">Professor</option>
-                <option value="DIRETOR">Diretor</option>
+                <option value="USUARIO">Usuario</option>
+                <option value="ADMINISTRADOR">Administrador</option>
               </Select>
             </div>
 
