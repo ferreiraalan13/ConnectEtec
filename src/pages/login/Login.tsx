@@ -1,4 +1,4 @@
-import { Checkbox, Link, Text } from "@chakra-ui/react";
+import { Checkbox, Input, Link, Text } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -44,7 +44,7 @@ export default function Login() {
           <form action="" className="flex flex-col gap-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* <InputTemplate labelTitle="Email" type="email" /> */}
-              <input
+              <Input
                 type="text"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -54,7 +54,7 @@ export default function Login() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* <InputTemplate labelTitle="Senha" type="password" /> */}
-              <input
+              <Input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}

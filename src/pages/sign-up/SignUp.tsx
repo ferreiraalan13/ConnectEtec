@@ -3,20 +3,39 @@ import background from "../../assets/Background.svg";
 import line from "../../assets/Line.svg";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useState } from "react";
+import React, { useState } from "react";
 
-import { Input } from "@chakra-ui/react";
+import {
+  Input,
+  Select,
+  useToast,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  Button,
+  Checkbox,
+} from "@chakra-ui/react";
 
 interface FormData {
   nomeCompleto: string;
   nomeSocial?: string;
   login: string;
   senha: string;
-  tipoUsuario: string;
+  tipoUsuario?: string;
 }
 
 export default function App() {
+  const toast = useToast();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const navigate = useNavigate();
+  const [confirmSenha, setConfirmSenha] = useState<string>("");
+  const [confirmEmail, setConfirmEmail] = useState<string>("");
 
   const [formData, setFormData] = useState<FormData>({
     login: "",
@@ -31,15 +50,60 @@ export default function App() {
     try {
       const formDataToSend = { ...formData };
 
+      if (formData.senha !== confirmSenha) {
+        console.error("As senhas não coincidem");
+        toast({
+          title: "Erro",
+          description: "As senhas não coincidem",
+          status: "error",
+          duration: 1000,
+          isClosable: true,
+        });
+        return;
+      }
+
+      if (formData.login !== confirmEmail) {
+        console.error("Os emails não coincidem");
+        toast({
+          title: "Erro",
+          description: "Os emails não coincidem",
+          status: "error",
+          duration: 1000,
+          isClosable: true,
+        });
+        return;
+      }
+
       if (formDataToSend.nomeSocial === "") {
         formDataToSend.nomeSocial = null as unknown as string | undefined;
       }
+
+      if (formDataToSend.tipoUsuario === "") {
+        formDataToSend.tipoUsuario = "USUARIO";
+      }
+      if (formDataToSend.tipoUsuario === "ADMINISTRADOR") {
+        toast({
+          title: "Erro",
+          description: "Não é possivel cadastrar como ADMINISTRADOR",
+          status: "error",
+          duration: 1000,
+          isClosable: true,
+        });
+        return;
+      }
+
       const response = await axios.post(
         "http://localhost:8080/usuario/salvar",
         formDataToSend
       );
       console.log("Cadastro realizado com sucesso!", response.data);
-      alert("Cadastro realizado com sucesso");
+      toast({
+        title: "Sucesso",
+        description: "Cadastro realizado com sucesso",
+        status: "success",
+        duration: 1000,
+        isClosable: true,
+      });
       navigate("/");
     } catch (error) {
       console.error("Erro ao cadastrar:", error);
@@ -106,6 +170,14 @@ export default function App() {
                   setFormData({ ...formData, login: e.target.value })
                 }
               />
+              <Input
+                placeholder="Confirme o Email"
+                type="email"
+                name="login"
+                value={confirmEmail}
+                onChange={(e) => setConfirmEmail(e.target.value)}
+                required
+              />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -118,28 +190,81 @@ export default function App() {
                   setFormData({ ...formData, senha: e.target.value })
                 }
               />
-              <Input placeholder="Confirme a senha" type="password" />
               <Input
-                placeholder="tipo Usuario"
-                type="text"
-                name="tipoUsuario"
-                value={formData.tipoUsuario}
+                placeholder="Confirme a senha"
+                type="password"
+                value={confirmSenha}
+                onChange={(e) => setConfirmSenha(e.target.value)}
+                required
+              />
+
+              <Select
+                placeholder="Tipo de usuario"
+                disabled
                 onChange={(e) =>
                   setFormData({ ...formData, tipoUsuario: e.target.value })
                 }
-              />
+              >
+                <option value="USUARIO">Usuario</option>
+                <option value="ADMINISTRADOR">Administrador</option>
+              </Select>
             </div>
 
             <div className="flex flex-col md:flex-row justify-between items-start gap-4">
-              <label className="flex items-center gap-2 cursor-pointer">
-                <div className="w-3 h-3 rounded-full flex relative">
-                  <input type="checkbox" className="" required />
-                </div>
-                Aceito os termos de uso
-              </label>
-              <a href="/terms" className="text-blue-500 hover:underline">
+              <Checkbox required>Aceito termos de uso</Checkbox>
+
+              <Button mt={3} onClick={onOpen}>
                 Ler termos de uso
-              </a>
+              </Button>
+
+              <Modal
+                onClose={onClose}
+                isOpen={isOpen}
+                scrollBehavior={"inside"}
+              >
+                <ModalOverlay />
+                <ModalContent>
+                  <ModalHeader>Termos de Uso</ModalHeader>
+                  <ModalCloseButton />
+                  <ModalBody>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Maiores, quisquam saepe nobis deserunt hic molestias cum
+                    ipsam consequuntur voluptatibus expedita beatae quibusdam.
+                    Aliquam a harum iste doloremque nisi, consequatur mollitia?
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Maiores, quisquam saepe nobis deserunt hic molestias cum
+                    ipsam consequuntur voluptatibus expedita beatae quibusdam.
+                    Aliquam a harum iste doloremque nisi, consequatur mollitia?
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Maiores, quisquam saepe nobis deserunt hic molestias cum
+                    ipsam consequuntur voluptatibus expedita beatae quibusdam.
+                    Aliquam a harum iste doloremque nisi, consequatur mollitia?
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Maiores, quisquam saepe nobis deserunt hic molestias cum
+                    ipsam consequuntur voluptatibus expedita beatae quibusdam.
+                    Aliquam a harum iste doloremque nisi, consequatur mollitia?
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Maiores, quisquam saepe nobis deserunt hic molestias cum
+                    ipsam consequuntur voluptatibus expedita beatae quibusdam.
+                    Aliquam a harum iste doloremque nisi, consequatur mollitia?
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Maiores, quisquam saepe nobis deserunt hic molestias cum
+                    ipsam consequuntur voluptatibus expedita beatae quibusdam.
+                    Aliquam a harum iste doloremque nisi, consequatur mollitia?
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Maiores, quisquam saepe nobis deserunt hic molestias cum
+                    ipsam consequuntur voluptatibus expedita beatae quibusdam.
+                    Aliquam a harum iste doloremque nisi, consequatur mollitia?
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Maiores, quisquam saepe nobis deserunt hic molestias cum
+                    ipsam consequuntur voluptatibus expedita beatae quibusdam.
+                    Aliquam a harum iste doloremque nisi, consequatur mollitia?
+                  </ModalBody>
+                  <ModalFooter>
+                    <Button onClick={onClose}>Close</Button>
+                  </ModalFooter>
+                </ModalContent>
+              </Modal>
             </div>
 
             <button
