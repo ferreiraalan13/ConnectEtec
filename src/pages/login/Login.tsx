@@ -1,9 +1,9 @@
 import { Checkbox, Input, Link, Text } from "@chakra-ui/react";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import background from "../../assets/Background.svg";
-import { AuthContext } from "../../Contexts/Auth/AuthContext";
+//import { AuthContext } from "../../Contexts/Auth/AuthContext";
 import image from "./formando-a-ilustracao-do-conceito-de-lideranca-de-equipe_114360-10883 1 (1).svg";
 import axios from "axios";
 
@@ -13,7 +13,9 @@ interface FormData {
 }
 
 export default function Login() {
-  const auth = useContext(AuthContext);
+  {
+    /*const auth = useContext(AuthContext);*/
+  }
 
   const navigate = useNavigate();
 
