@@ -93,7 +93,7 @@ export default function App() {
       }
 
       const response = await axios.post(
-        "http://localhost:8080/usuario/salvar",
+        "http://localhost:8080/usuario/cadastrar",
         formDataToSend
       );
       console.log("Cadastro realizado com sucesso!", response.data);

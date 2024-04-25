@@ -9,6 +9,7 @@ import Login from "./pages/login/Login";
 import { RequireAuth } from "./Contexts/Auth/RequireAuth";
 import HomeMobile from "./pages/home/HomeMobile";
 import { useMediaQuery } from "@chakra-ui/react";
+import EditarPerfil from "./pages/edit-perfil/EditarPerfil";
 
 function App() {
   const [isMobile] = useMediaQuery("(max-width: 768px)");
@@ -38,6 +39,14 @@ function App() {
             element={
               <RequireAuth>
                 <HomePerfil />
+              </RequireAuth>
+            }
+          ></Route>
+          <Route
+            path="/editarPerfil"
+            element={
+              <RequireAuth>
+                <EditarPerfil />
               </RequireAuth>
             }
           ></Route>

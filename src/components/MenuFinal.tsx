@@ -116,7 +116,10 @@ export default function Menu() {
           <span>
             <Settings />
           </span>
-          <span className={`text-base font-medium flex-1 ${!open && "hidden"}`}>
+          <span
+            onClick={() => navigate("/editarPerfil")}
+            className={`text-base font-medium flex-1 ${!open && "hidden"}`}
+          >
             Configuração
           </span>
         </li>
