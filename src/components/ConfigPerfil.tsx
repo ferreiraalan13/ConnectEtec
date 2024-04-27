@@ -1,33 +1,40 @@
 import React, { useState } from "react";
-import {
-  Box,
-  Button,
-  FormControl,
-  FormLabel,
-  Input,
-  Text,
-  Textarea,
-} from "@chakra-ui/react";
+import { Box, Button, FormControl, FormLabel, Input } from "@chakra-ui/react";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { storage as firebaseStorage } from "../firebase";
 
-interface FormData {
-  fotoPerfil?: string;
-  banner?: string;
-  sobre?: string;
-}
+export default function ConfigPerfil() {
+  const [fotoPerfil, setFotoPerfil] = useState<File | null>(null);
+  const [imagemURL, setImagemURL] = useState<string | null>(null);
 
-const ConfigPerfil: React.FC = () => {
-  const [formData, setFormData] = useState<FormData>({
-    fotoPerfil: "",
-    banner: "",
-    sobre: "",
-  });
+  const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    if (!fotoPerfil) {
+      console.error("Nenhuma imagem selecionada.");
+      return;
+    }
+
+    try {
+      const timestamp = Date.now();
+      const nomeArquivo = `${timestamp}_${fotoPerfil.name}`;
+
+      const storageRef = ref(firebaseStorage, `imagens/${nomeArquivo}`);
+
+      await uploadBytes(storageRef, fotoPerfil);
+
+      const url = await getDownloadURL(storageRef);
+      setImagemURL(url);
+      console.log(imagemURL);
+
+      console.log("Imagem enviada com sucesso para o Firebase Storage.");
+    } catch (error) {
+      console.error("Erro ao enviar imagem para o Firebase Storage:", error);
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleFormSubmit}>
       <FormControl p={5}>
         <Box textAlign={"center"} mb={4} fontSize="xl" fontWeight="bold">
           Editar Perfil
@@ -38,34 +45,8 @@ const ConfigPerfil: React.FC = () => {
           <Input
             alignContent={"center"}
             type="file"
-            value={formData.fotoPerfil}
             onChange={(e) =>
-              setFormData({ ...formData, fotoPerfil: e.target.value })
-            }
-          />
-
-          <FormLabel fontWeight={"bold"} mt={4}>
-            Banner Perfil
-          </FormLabel>
-          <Input
-            alignContent={"center"}
-            type="file"
-            value={formData.banner}
-            onChange={(e) =>
-              setFormData({ ...formData, banner: e.target.value })
-            }
-          />
-
-          <Text fontWeight={"bold"} mt={4} mb={2}>
-            Sobre:
-          </Text>
-          <Textarea
-            placeholder="Escreva aqui um pouco sobre você"
-            size="sm"
-            resize="vertical"
-            value={formData.sobre}
-            onChange={(e) =>
-              setFormData({ ...formData, sobre: e.target.value })
+              setFotoPerfil(e.target.files ? e.target.files[0] : null)
             }
           />
         </Box>
@@ -77,6 +58,4 @@ const ConfigPerfil: React.FC = () => {
       </FormControl>
     </form>
   );
-};
-
-export default ConfigPerfil;
+}
