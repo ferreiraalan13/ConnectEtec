@@ -45,7 +45,7 @@ export default function Login() {
       );
       localStorage.setItem("authToken", response.data);
       navigate("/home");
-      window.location.href = window.location.href;
+      //window.location.href = window.location.href;
     } catch (error) {
       console.error("Erro ao cadastrar:", error);
       alert("ERRO AO LOGAR");
