@@ -19,6 +19,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Login />}></Route>
+
           <Route
             path="/home"
             element={
@@ -42,14 +43,7 @@ function App() {
               </RequireAuth>
             }
           ></Route>
-          <Route
-            path="/editarPerfil"
-            element={
-              <RequireAuth>
-                <EditarPerfil />
-              </RequireAuth>
-            }
-          ></Route>
+          <Route path="/editarPerfil" element={<EditarPerfil />}></Route>
           <Route path="/signup" element={<SignUp />}></Route>
         </Routes>
       </Router>

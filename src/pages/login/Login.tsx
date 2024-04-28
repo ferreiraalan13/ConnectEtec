@@ -1,27 +1,54 @@
 import { Checkbox, Input, Link, Text } from "@chakra-ui/react";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import background from "../../assets/Background.svg";
-import { AuthContext } from "../../Contexts/Auth/AuthContext";
+//import { AuthContext } from "../../Contexts/Auth/AuthContext";
 import image from "./formando-a-ilustracao-do-conceito-de-lideranca-de-equipe_114360-10883 1 (1).svg";
+import axios from "axios";
+
+interface FormData {
+  login: string;
+  senha: string;
+}
 
 export default function Login() {
-  const auth = useContext(AuthContext);
+  {
+    /*const auth = useContext(AuthContext);*/
+  }
 
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState<FormData>({
+    login: "",
+    senha: "",
+  });
 
-  const handleLogin = async () => {
-    if (email && password) {
-      const isLogged = await auth.signin(email, password);
+  /*const handleLogin = async () => {
+    
+    if (login && senha) {
+      const isLogged = await auth.signin(login, senha);
       if (isLogged) {
         navigate("/home");
       } else {
         alert("Não deu certo.");
       }
+    }
+  };*/
+
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/usuario/login",
+        formData
+      );
+      localStorage.setItem("authToken", response.data);
+      navigate("/home");
+      window.location.href = window.location.href;
+    } catch (error) {
+      console.error("Erro ao cadastrar:", error);
+      alert("ERRO AO LOGAR");
     }
   };
 
@@ -41,13 +68,19 @@ export default function Login() {
             </h1>
           </div>
 
-          <form action="" className="flex flex-col gap-6">
+          <form
+            onSubmit={handleLogin}
+            action=""
+            className="flex flex-col gap-6"
+          >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* <InputTemplate labelTitle="Email" type="email" /> */}
               <Input
                 type="text"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={formData.login}
+                onChange={(e) =>
+                  setFormData({ ...formData, login: e.target.value })
+                }
                 placeholder="Digite seu email"
               />
             </div>
@@ -56,8 +89,10 @@ export default function Login() {
               {/* <InputTemplate labelTitle="Senha" type="password" /> */}
               <Input
                 type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={formData.senha}
+                onChange={(e) =>
+                  setFormData({ ...formData, senha: e.target.value })
+                }
                 placeholder="Digite sua senha"
               />
             </div>
@@ -78,7 +113,6 @@ export default function Login() {
             <button
               type="submit"
               className="mt-4 transition bg-gray-300 hover:bg-gray-500 hover:text-gray-100 font-bold py-1 px-2 rounded-2xl drop-shadow-md"
-              onClick={handleLogin}
             >
               Login
             </button>
