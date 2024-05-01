@@ -4,12 +4,11 @@ import {
   LogOut,
   Settings,
   Users,
-  ArrowLeft,
   Home,
   PocketKnife,
   Search,
 } from "lucide-react";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import userImage from "../assets/img/1702865313114.jpeg";
@@ -23,42 +22,31 @@ export default function Menu() {
     navigate("/");
   };
 
-  const [open, setOpen] = useState(true);
+  
   const navigate = useNavigate();
 
   return (
     <div
-      className={`bg-gray-100 h-screen p-5 pt-8 ${
-        open ? "w-72" : "w-20"
-      } duration-300 relative`}
+      className={`bg-gray-100 h-screen p-5 pt-8
+         "w-72"
+       relative`}
     >
-      <ArrowLeft
-        className={`bg-white text-purple-950 rounded-full absolute -right-3 top-9 border border-black cursor-pointer ${
-          !open && "rotate-180"
-        }`}
-        onClick={() => setOpen(!open)}
-      />
 
       <div className="inline-flex">
         <PocketKnife className="text-4xl cursor-pointer block float-left" />
         <h1
-          className={`text-black origin-left font-medium text-2xl duration-300 ${
-            !open && "scale-0"
-          }`}
+          className={`text-black origin-left font-medium text-2xl duration-300 
+          `}
         >
           ConnectEtec
         </h1>
       </div>
 
       <div
-        className={`flex items-center rounded-md bg-gray-700 mt-6 ${
-          !open ? "px-2.5" : "px-4"
-        } py-2`}
+        className={`flex items-center rounded-md bg-gray-700 mt-6 py-2`}
       >
         <Search
-          className={`text-white text-lg float-left cursor-pointer ${
-            open && "mr-2"
-          } `}
+          className={`text-white text-lg float-left cursor-pointer `}
         />
         <input
           type="search"
@@ -77,7 +65,7 @@ export default function Menu() {
           <span>
             <Home />
           </span>
-          <span className={`text-base font-medium flex-1 ${!open && "hidden"}`}>
+          <span className={`text-base font-medium flex-1 `}>
             Inicio
           </span>
         </li>
@@ -89,7 +77,7 @@ export default function Menu() {
           <span>
             <CirclePlus />
           </span>
-          <span className={`text-base font-medium flex-1 ${!open && "hidden"}`}>
+          <span className={`text-base font-medium flex-1 `}>
             Criar Publicação
           </span>
         </li>
@@ -98,7 +86,7 @@ export default function Menu() {
           <span>
             <Users />
           </span>
-          <span className={`text-base font-medium flex-1 ${!open && "hidden"}`}>
+          <span className={`text-base font-medium flex-1 `}>
             Amigos
           </span>
         </li>
@@ -107,7 +95,7 @@ export default function Menu() {
           <span>
             <PartyPopper />
           </span>
-          <span className={`text-base font-medium flex-1 ${!open && "hidden"}`}>
+          <span className={`text-base font-medium flex-1`}>
             Eventos
           </span>
         </li>
@@ -118,7 +106,7 @@ export default function Menu() {
           </span>
           <span
             onClick={() => navigate("/editarPerfil")}
-            className={`text-base font-medium flex-1 ${!open && "hidden"}`}
+            className={`text-base font-medium flex-1 `}
           >
             Configuração
           </span>
@@ -135,7 +123,7 @@ export default function Menu() {
               alt=""
             />
           </span>
-          <span className={`text-base font-medium flex-1 ${!open && "hidden"}`}>
+          <span className={`text-base font-medium flex-1 `}>
             Perfil
           </span>
         </li>
@@ -147,7 +135,7 @@ export default function Menu() {
           <span>
             <LogOut />
           </span>
-          <span className={`text-base font-medium flex-1 ${!open && "hidden"}`}>
+          <span className={`text-base font-medium flex-1 `}>
             Sair
           </span>
         </li>
