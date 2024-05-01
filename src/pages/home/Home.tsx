@@ -7,23 +7,27 @@ import Eventos from "../../components/Evento";
 
 export default function App() {
   return (
+    <div className="flex justify-center bg-gray-300">
     <Box
       height={"100vh"}
       overflow={"hidden"}
       gap={0}
       className="flex bg-gray-300"
+      display={'flex'}
     >
       <MenuFinal />
+      
 
       <Box
         padding={"20px"}
         css={{
           "&::-webkit-scrollbar": {
-            width: "13px",
-            height: "13px",
+            width: "0",
+            height: "0",
             borderRadius: "20px",
             backgroundColor: "darkgray",
             marginRight: "4px",
+            background: "transparent"
           },
           "&::-webkit-scrollbar-thumb": {
             background: "grey",
@@ -33,7 +37,7 @@ export default function App() {
         overflowX={"hidden"}
         width={"100%"}
       >
-        <Box display={"flex"} justifyContent={"space-around"}>
+        <Box display={"flex"} justifyContent={""} gap={3}>
           <Box display={"flex"} flexDirection={"column"} gap={3}>
             <Post />
           </Box>
@@ -43,5 +47,6 @@ export default function App() {
         </Box>
       </Box>
     </Box>
+    </div>
   );
 }
