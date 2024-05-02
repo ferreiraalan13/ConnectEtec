@@ -1,8 +1,15 @@
 import React, { useState } from "react";
-import { Box, Button, FormControl, FormLabel, Input, Textarea } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  Textarea,
+} from "@chakra-ui/react";
 import axios from "axios"; // Importe o Axios
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { storage as firebaseStorage } from "../firebase";
+import { storage as firebaseStorage } from "../firebase/firebase";
 
 interface FormData {
   imagemURL?: string;
@@ -18,31 +25,31 @@ export default function ConfigPerfil() {
 
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-  
+
     if (!fotoPerfil) {
       console.error("Nenhuma imagem selecionada.");
       return;
     }
-  
+
     try {
       const timestamp = Date.now();
       const nomeArquivo = `${timestamp}_${fotoPerfil.name}`;
-  
+
       const storageRef = ref(firebaseStorage, `imagens/${nomeArquivo}`);
-  
+
       await uploadBytes(storageRef, fotoPerfil);
-  
+
       const url = await getDownloadURL(storageRef);
-  
+
       // Agora os dados devem estar atualizados antes de enviar para a API
       const formDataWithUrl = { ...formData, imagemURL: url };
-  
+
       // Envie os dados para a API
       await axios.post("sua_url_de_api_aqui", formDataWithUrl);
-  
+
       // Atualize o estado com a URL da imagem após o envio bem-sucedido
       setFormData(formDataWithUrl);
-  
+
       console.log("Imagem enviada com sucesso para o Firebase Storage.");
       console.log("Dados enviados para a API:", formDataWithUrl);
     } catch (error) {
@@ -57,7 +64,13 @@ export default function ConfigPerfil() {
           Editar Perfil
         </Box>
 
-        <Box width={"500px"} p={2} display={'flex'} flexDirection={'column'} gap={5} >
+        <Box
+          width={"500px"}
+          p={2}
+          display={"flex"}
+          flexDirection={"column"}
+          gap={5}
+        >
           <Box>
             <FormLabel fontWeight={"bold"}>Foto de perfil</FormLabel>
             <Input

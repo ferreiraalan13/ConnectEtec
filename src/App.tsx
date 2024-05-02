@@ -1,54 +1,74 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-
 import Home from "./pages/home/Home";
 import SignUp from "./pages/sign-up/SignUp";
 import HomePerfil from "./pages/home/HomePerfil";
 import HomeCriarPublicacao from "./pages/home/HomeCriarPublicacao";
 import Login from "./pages/login/Login";
-
-import { RequireAuth } from "./Contexts/Auth/RequireAuth";
-import HomeMobile from "./pages/home/HomeMobile";
-import { useMediaQuery } from "@chakra-ui/react";
+import { Spinner, useMediaQuery } from "@chakra-ui/react";
 import EditarPerfil from "./pages/edit-perfil/EditarPerfil";
+import { onAuthStateChanged } from "firebase/auth";
+import { useEffect, useState } from "react";
+import { auth } from "./firebase/firebase";
+import { ProtectedRoute } from "./components/protectedRoute";
 
 function App() {
-  const [isMobile] = useMediaQuery("(max-width: 768px)");
+  const [isFetching, setIsFetching] = useState<boolean>(true);
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+      setIsFetching(false);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  if (isFetching) {
+    return <Spinner />;
+  }
 
   return (
     <div className="App">
       <Router>
         <Routes>
-          <Route path="/" element={<Login />}></Route>
-
+          <Route path="/" element={<Login />} />
           <Route
             path="/home"
             element={
-              <RequireAuth>{isMobile ? <HomeMobile /> : <Home />}</RequireAuth>
+              <ProtectedRoute user={user}>
+                <Home />
+              </ProtectedRoute>
             }
-          ></Route>
-
+          />
           <Route
             path="/criarPublicacao"
             element={
-              <RequireAuth>
+              <ProtectedRoute user={user}>
                 <HomeCriarPublicacao />
-              </RequireAuth>
+              </ProtectedRoute>
             }
-          ></Route>
+          />
           <Route
             path="/homePerfil"
             element={
-              <RequireAuth>
+              <ProtectedRoute user={user}>
                 <HomePerfil />
-              </RequireAuth>
+              </ProtectedRoute>
             }
-          ></Route>
-          <Route path="/editarPerfil" element={<EditarPerfil />}></Route>
-          <Route path="/signup" element={<SignUp />}></Route>
+          />
+          <Route
+            path="/editarPerfil"
+            element={
+              <ProtectedRoute user={user}>
+                <EditarPerfil />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/signup" element={<SignUp />} />
         </Routes>
       </Router>
     </div>
   );
 }
-//
+
 export default App;

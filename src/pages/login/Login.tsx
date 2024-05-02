@@ -6,6 +6,8 @@ import background from "../../assets/Background.svg";
 //import { AuthContext } from "../../Contexts/Auth/AuthContext";
 import image from "./formando-a-ilustracao-do-conceito-de-lideranca-de-equipe_114360-10883 1 (1).svg";
 import axios from "axios";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase/firebase";
 
 interface FormData {
   login: string;
@@ -44,10 +46,26 @@ export default function Login() {
         formData
       );
       localStorage.setItem("authToken", response.data);
-      navigate("/home");
-      window.location.href = window.location.href;
+
+      signInWithEmailAndPassword(auth, formData.login, formData.senha)
+        .then(
+          (
+            {
+              /*userCredential*/
+            }
+          ) => {
+            //const user = userCredential.user;
+            //console.log(user);
+            navigate("/home");
+          }
+        )
+        .catch((error) => {
+          console.error("Erro ao Logar", error);
+        });
+
+      //navigate("/home");
     } catch (error) {
-      console.error("Erro ao cadastrar:", error);
+      console.error("Erro ao Logar", error);
       alert("ERRO AO LOGAR");
     }
   };

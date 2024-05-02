@@ -12,18 +12,26 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import userImage from "../assets/img/1702865313114.jpeg";
-import { AuthContext } from "../Contexts/Auth/AuthContext";
+import { signOut } from "firebase/auth";
+
+import { auth } from "../firebase/firebase";
+//import { AuthContext } from "../Contexts/Auth/AuthContext";
 
 export default function Menu() {
-  const auth = useContext(AuthContext);
+  //const auth = useContext(AuthContext);
 
-  const handleLogout = async () => {
-    await auth.signout();
-    navigate("/");
-  };
+  // const handleLogout = async () => {
+  //   await auth.signout();
+  //   navigate("/");
+  // };
 
-  
   const navigate = useNavigate();
+
+  const handleSignOut = () => {
+    signOut(auth)
+      .then(() => console.log("Sign Out"))
+      .catch((error) => console.log(error));
+  };
 
   return (
     <div
@@ -31,7 +39,6 @@ export default function Menu() {
          "w-72"
        relative`}
     >
-
       <div className="inline-flex">
         <PocketKnife className="text-4xl cursor-pointer block float-left" />
         <h1
@@ -42,12 +49,8 @@ export default function Menu() {
         </h1>
       </div>
 
-      <div
-        className={`flex items-center rounded-md bg-gray-700 mt-6 py-2`}
-      >
-        <Search
-          className={`text-white text-lg float-left cursor-pointer `}
-        />
+      <div className={`flex items-center rounded-md bg-gray-700 mt-6 py-2`}>
+        <Search className={`text-white text-lg float-left cursor-pointer `} />
         <input
           type="search"
           placeholder="Pesquisar"
@@ -65,9 +68,7 @@ export default function Menu() {
           <span>
             <Home />
           </span>
-          <span className={`text-base font-medium flex-1 `}>
-            Inicio
-          </span>
+          <span className={`text-base font-medium flex-1 `}>Inicio</span>
         </li>
 
         <li
@@ -86,18 +87,14 @@ export default function Menu() {
           <span>
             <Users />
           </span>
-          <span className={`text-base font-medium flex-1 `}>
-            Amigos
-          </span>
+          <span className={`text-base font-medium flex-1 `}>Amigos</span>
         </li>
 
         <li className="text-Black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-2">
           <span>
             <PartyPopper />
           </span>
-          <span className={`text-base font-medium flex-1`}>
-            Eventos
-          </span>
+          <span className={`text-base font-medium flex-1`}>Eventos</span>
         </li>
 
         <li className="text-Black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-2">
@@ -123,21 +120,17 @@ export default function Menu() {
               alt=""
             />
           </span>
-          <span className={`text-base font-medium flex-1 `}>
-            Perfil
-          </span>
+          <span className={`text-base font-medium flex-1 `}>Perfil</span>
         </li>
 
         <li
           className="text-Black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-2"
-          onClick={() => handleLogout()}
+          onClick={handleSignOut}
         >
           <span>
             <LogOut />
           </span>
-          <span className={`text-base font-medium flex-1 `}>
-            Sair
-          </span>
+          <span className={`text-base font-medium flex-1 `}>Sair</span>
         </li>
       </ul>
     </div>

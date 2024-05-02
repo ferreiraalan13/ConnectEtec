@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import React, { useState } from "react";
 
+import { auth } from "../../firebase/firebase";
+
 import {
   Input,
   Select,
@@ -20,6 +22,7 @@ import {
   Button,
   Checkbox,
 } from "@chakra-ui/react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 interface FormData {
   nomeCompleto: string;
@@ -104,6 +107,21 @@ export default function App() {
         duration: 1000,
         isClosable: true,
       });
+
+      createUserWithEmailAndPassword(
+        auth,
+        formDataToSend.login,
+        formDataToSend.senha
+      )
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log("Usuário criado:", user);
+          // Aqui você pode redirecionar o usuário ou fazer outras ações necessárias
+        })
+        .catch((error) => {
+          console.error("Erro ao criar usuário:", error);
+        });
+
       navigate("/");
     } catch (error) {
       console.error("Erro ao cadastrar:", error);
