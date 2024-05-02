@@ -7,17 +7,17 @@ import {
   Home,
   Search,
 } from "lucide-react";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import userImage from "../assets/img/1702865313114.jpeg";
-import { AuthContext } from "../Contexts/Auth/AuthContext";
+//import { AuthContext } from "../Contexts/Auth/AuthContext";
 
 export default function MenuFinal() {
-  const auth = useContext(AuthContext);
+  //const auth = useContext(AuthContext);
 
   const handleLogout = async () => {
-    await auth.signout();
+    //await auth.signout();
     navigate("/");
   };
 
