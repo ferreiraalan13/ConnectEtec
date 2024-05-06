@@ -2,7 +2,7 @@ import image from "../../assets/signup-image.svg";
 import background from "../../assets/Background.svg";
 import line from "../../assets/Line.svg";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+//import axios from "axios";
 import React, { useState } from "react";
 
 import { auth } from "../../firebase/firebase";
@@ -95,18 +95,18 @@ export default function App() {
         return;
       }
 
-      const response = await axios.post(
-        "http://localhost:8080/usuario/cadastrar",
-        formDataToSend
-      );
-      console.log("Cadastro realizado com sucesso!", response.data);
-      toast({
-        title: "Sucesso",
-        description: "Cadastro realizado com sucesso",
-        status: "success",
-        duration: 1000,
-        isClosable: true,
-      });
+      // const response = await axios.post(
+      //   "http://localhost:8080/usuario/cadastrar",
+      //   formDataToSend
+      // );
+      // console.log("Cadastro realizado com sucesso!", response.data);
+      // toast({
+      //   title: "Sucesso",
+      //   description: "Cadastro realizado com sucesso",
+      //   status: "success",
+      //   duration: 1000,
+      //   isClosable: true,
+      // });
 
       createUserWithEmailAndPassword(
         auth,

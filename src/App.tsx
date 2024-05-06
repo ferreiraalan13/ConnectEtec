@@ -4,16 +4,17 @@ import SignUp from "./pages/sign-up/SignUp";
 import HomePerfil from "./pages/home/HomePerfil";
 import HomeCriarPublicacao from "./pages/home/HomeCriarPublicacao";
 import Login from "./pages/login/Login";
-import { Spinner, useMediaQuery } from "@chakra-ui/react";
+import { Spinner } from "@chakra-ui/react";
 import EditarPerfil from "./pages/edit-perfil/EditarPerfil";
 import { onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { auth } from "./firebase/firebase";
 import { ProtectedRoute } from "./components/protectedRoute";
+import ResetPassword from "./pages/resetPassword";
 
 function App() {
   const [isFetching, setIsFetching] = useState<boolean>(true);
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<unknown>(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -65,6 +66,7 @@ function App() {
             }
           />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/resetPassword" element={<ResetPassword/>} />
         </Routes>
       </Router>
     </div>

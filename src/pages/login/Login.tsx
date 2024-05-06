@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import background from "../../assets/Background.svg";
 //import { AuthContext } from "../../Contexts/Auth/AuthContext";
 import image from "./formando-a-ilustracao-do-conceito-de-lideranca-de-equipe_114360-10883 1 (1).svg";
-import axios from "axios";
+//import axios from "axios";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
 
@@ -41,15 +41,16 @@ export default function Login() {
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:8080/usuario/login",
-        formData
-      );
-      localStorage.setItem("authToken", response.data);
+      // const response = await axios.post(
+      //   "http://localhost:8080/usuario/login",
+      //   formData
+      // );
+      // localStorage.setItem("authToken", response.data);
 
       signInWithEmailAndPassword(auth, formData.login, formData.senha)
         .then(
           (
+            // eslint-disable-next-line no-empty-pattern
             {
               /*userCredential*/
             }
@@ -117,7 +118,7 @@ export default function Login() {
 
             <div className="flex flex-col md:flex-row justify-between items-start gap-4">
               <Checkbox defaultChecked>Lembrar de mim</Checkbox>
-              <Link color="teal.500"> Esqueceu sua senha? </Link>
+              <Link onClick={()=> navigate("/resetPassword")} color="teal.500"> Esqueceu sua senha? </Link>
             </div>
             <div className="flex flex-col md:flex-row justify-between items-start gap-4">
               <Text>

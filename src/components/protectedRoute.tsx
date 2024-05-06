@@ -2,7 +2,7 @@ import { Navigate } from "react-router-dom";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
-  user: any;
+  user: unknown;
 }
 
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
