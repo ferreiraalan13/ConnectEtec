@@ -1,18 +1,13 @@
-import Post from "../../components/Post";
-
+import { Box, Button, Container, Drawer, DrawerContent, DrawerOverlay, useDisclosure } from "@chakra-ui/react";
+import CriarPost from "../../components/CriarPost";
+import MenuFinal from "../../components/MenuFinal";
 import { Menu as MenuLogo } from "lucide-react";
-
-import { Box, Button, Container, useDisclosure } from "@chakra-ui/react";
-
 import { useRef } from "react";
 
-import { Drawer, DrawerOverlay, DrawerContent } from "@chakra-ui/react";
-import MenuFinal from "../../components/MenuFinal";
-
-export default function HomeTeste() {
+export default function App() {
   return (
     <>
-      <Box
+    <Box
         height={"100vh"}
         overflow={"hidden"}
         className={`min-lg:hidden flex bg-gray-300`}
@@ -61,7 +56,7 @@ export default function HomeTeste() {
             zIndex={1} // Z-index menor para garantir que o conteúdo do Post fique abaixo do DrawerExample
           >
             <Box display={"flex"} flexDirection={"column"} gap={3}>
-              <Post />
+              <CriarPost/>
             </Box>
           </Container>
         </Box>

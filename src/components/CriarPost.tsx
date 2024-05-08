@@ -15,11 +15,12 @@ export default function CriarPost() {
       <Box
         className="flex flex-col gap-5"
         bg="white"
-        w="800px"
+        maxW="1000px"
         h="500px"
         padding="10px"
         borderRadius={"16px"}
         marginLeft={""}
+        
       >
         <div className="flex justify-center gap font-bold text-2xl">
           Criar Publicação

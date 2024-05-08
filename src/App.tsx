@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/home/Home";
 import SignUp from "./pages/sign-up/SignUp";
 import HomePerfil from "./pages/home/HomePerfil";
-import HomeCriarPublicacao from "./pages/home/HomeCriarPublicacao";
+import CriarPublicacao from "./pages/criarPublicacao/CriarPublicacao";
 import Login from "./pages/login/Login";
 import { Spinner } from "@chakra-ui/react";
 import EditarPerfil from "./pages/edit-perfil/EditarPerfil";
@@ -11,10 +11,14 @@ import { useEffect, useState } from "react";
 import { auth } from "./firebase/firebase";
 import { ProtectedRoute } from "./components/protectedRoute";
 import ResetPassword from "./pages/resetPassword";
+import { useMediaQuery } from "@chakra-ui/react";
+import HomeMobile from "./pages/home/HomeMobile"
+import CriarPublicacaoMobile from "./pages/criarPublicacao/CriarPublicacaoMobile"
 
 function App() {
   const [isFetching, setIsFetching] = useState<boolean>(true);
   const [user, setUser] = useState<unknown>(null);
+  const [isMobile] = useMediaQuery("(max-width: 768px)");
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -37,7 +41,8 @@ function App() {
             path="/home"
             element={
               <ProtectedRoute user={user}>
-                <Home />
+                {isMobile ? <HomeMobile/> : <Home />}
+                
               </ProtectedRoute>
             }
           />
@@ -45,7 +50,8 @@ function App() {
             path="/criarPublicacao"
             element={
               <ProtectedRoute user={user}>
-                <HomeCriarPublicacao />
+                {isMobile? <CriarPublicacaoMobile/> : <CriarPublicacao />}
+                
               </ProtectedRoute>
             }
           />
