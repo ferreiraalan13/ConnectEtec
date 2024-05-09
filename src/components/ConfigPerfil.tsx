@@ -12,15 +12,19 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage as firebaseStorage } from "../firebase/firebase";
 
 interface FormData {
-  imagemURL?: string;
+  urlFotoPerfil?: string;
   sobre?: string;
+  nomeSocial?: string;
+  nomeCompleto?: string;
 }
 
 export default function ConfigPerfil() {
   const [fotoPerfil, setFotoPerfil] = useState<File | null>(null);
   const [formData, setFormData] = useState<FormData>({
-    imagemURL: "",
+    urlFotoPerfil: "",
     sobre: "",
+    nomeCompleto: "",
+    nomeSocial: "",
   });
 
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -44,8 +48,13 @@ export default function ConfigPerfil() {
       // Agora os dados devem estar atualizados antes de enviar para a API
       const formDataWithUrl = { ...formData, imagemURL: url };
 
+      // Configurar o cabeçalho padrão com o token de autenticação
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${localStorage.getItem("authToken")}`;
+
       // Envie os dados para a API
-      await axios.post("sua_url_de_api_aqui", formDataWithUrl);
+      await axios.put("sua_url_de_api_aqui", formDataWithUrl);
 
       // Atualize o estado com a URL da imagem após o envio bem-sucedido
       setFormData(formDataWithUrl);
@@ -53,7 +62,7 @@ export default function ConfigPerfil() {
       console.log("Imagem enviada com sucesso para o Firebase Storage.");
       console.log("Dados enviados para a API:", formDataWithUrl);
     } catch (error) {
-      console.error("Erro ao enviar imagem para o Firebase Storage:", error);
+      console.error("Erro ao atualizar cadastro:", error);
     }
   };
 
@@ -86,6 +95,24 @@ export default function ConfigPerfil() {
             <Textarea
               onChange={(e) =>
                 setFormData({ ...formData, sobre: e.target.value })
+              }
+            />
+          </Box>
+          <Box>
+            <FormLabel>Nome Completo</FormLabel>
+            <Input
+              type="text"
+              onChange={(e) =>
+                setFormData({ ...formData, nomeCompleto: e.target.value })
+              }
+            />
+          </Box>
+          <Box>
+            <FormLabel>Nome Social</FormLabel>
+            <Input
+              type="text"
+              onChange={(e) =>
+                setFormData({ ...formData, nomeSocial: e.target.value })
               }
             />
           </Box>

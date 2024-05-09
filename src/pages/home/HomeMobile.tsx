@@ -1,13 +1,8 @@
 import Post from "../../components/Post";
 
-import { Menu as MenuLogo } from "lucide-react";
+import { Box, Container } from "@chakra-ui/react";
 
-import { Box, Button, Container, useDisclosure } from "@chakra-ui/react";
-
-import { useRef } from "react";
-
-import { Drawer, DrawerOverlay, DrawerContent } from "@chakra-ui/react";
-import MenuFinal from "../../components/MenuFinal";
+import DrawerExample from "../../components/DrawerExample";
 
 export default function HomeTeste() {
   return (
@@ -66,30 +61,6 @@ export default function HomeTeste() {
           </Container>
         </Box>
       </Box>
-    </>
-  );
-}
-
-function DrawerExample() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = useRef<HTMLButtonElement>(null);
-
-  return (
-    <>
-      <Button ref={btnRef} colorScheme="teal" onClick={onOpen}>
-        <MenuLogo />
-      </Button>
-      <Drawer
-        isOpen={isOpen}
-        placement="right"
-        onClose={onClose}
-        finalFocusRef={btnRef}
-      >
-        <DrawerOverlay />
-        <DrawerContent>
-          <MenuFinal />
-        </DrawerContent>
-      </Drawer>
     </>
   );
 }

@@ -2,7 +2,7 @@ import image from "../../assets/signup-image.svg";
 import background from "../../assets/Background.svg";
 import line from "../../assets/Line.svg";
 import { useNavigate } from "react-router-dom";
-//import axios from "axios";
+import axios from "axios";
 import React, { useState } from "react";
 
 import { auth } from "../../firebase/firebase";
@@ -23,6 +23,7 @@ import {
   Checkbox,
 } from "@chakra-ui/react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import Termos from "./TermosDeUso";
 
 interface FormData {
   nomeCompleto: string;
@@ -95,18 +96,18 @@ export default function App() {
         return;
       }
 
-      // const response = await axios.post(
-      //   "http://localhost:8080/usuario/cadastrar",
-      //   formDataToSend
-      // );
-      // console.log("Cadastro realizado com sucesso!", response.data);
-      // toast({
-      //   title: "Sucesso",
-      //   description: "Cadastro realizado com sucesso",
-      //   status: "success",
-      //   duration: 1000,
-      //   isClosable: true,
-      // });
+      const response = await axios.post(
+        "http://localhost:8080/usuario/cadastrar",
+        formDataToSend
+      );
+      console.log("Cadastro realizado com sucesso!", response.data);
+      toast({
+        title: "Sucesso",
+        description: "Cadastro realizado com sucesso",
+        status: "success",
+        duration: 1000,
+        isClosable: true,
+      });
 
       createUserWithEmailAndPassword(
         auth,
@@ -245,38 +246,7 @@ export default function App() {
                   <ModalHeader>Termos de Uso</ModalHeader>
                   <ModalCloseButton />
                   <ModalBody>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Maiores, quisquam saepe nobis deserunt hic molestias cum
-                    ipsam consequuntur voluptatibus expedita beatae quibusdam.
-                    Aliquam a harum iste doloremque nisi, consequatur mollitia?
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Maiores, quisquam saepe nobis deserunt hic molestias cum
-                    ipsam consequuntur voluptatibus expedita beatae quibusdam.
-                    Aliquam a harum iste doloremque nisi, consequatur mollitia?
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Maiores, quisquam saepe nobis deserunt hic molestias cum
-                    ipsam consequuntur voluptatibus expedita beatae quibusdam.
-                    Aliquam a harum iste doloremque nisi, consequatur mollitia?
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Maiores, quisquam saepe nobis deserunt hic molestias cum
-                    ipsam consequuntur voluptatibus expedita beatae quibusdam.
-                    Aliquam a harum iste doloremque nisi, consequatur mollitia?
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Maiores, quisquam saepe nobis deserunt hic molestias cum
-                    ipsam consequuntur voluptatibus expedita beatae quibusdam.
-                    Aliquam a harum iste doloremque nisi, consequatur mollitia?
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Maiores, quisquam saepe nobis deserunt hic molestias cum
-                    ipsam consequuntur voluptatibus expedita beatae quibusdam.
-                    Aliquam a harum iste doloremque nisi, consequatur mollitia?
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Maiores, quisquam saepe nobis deserunt hic molestias cum
-                    ipsam consequuntur voluptatibus expedita beatae quibusdam.
-                    Aliquam a harum iste doloremque nisi, consequatur mollitia?
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Maiores, quisquam saepe nobis deserunt hic molestias cum
-                    ipsam consequuntur voluptatibus expedita beatae quibusdam.
-                    Aliquam a harum iste doloremque nisi, consequatur mollitia?
+                    <Termos />
                   </ModalBody>
                   <ModalFooter>
                     <Button onClick={onClose}>Close</Button>

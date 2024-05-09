@@ -30,7 +30,12 @@ export default function Menu() {
 
   const handleSignOut = () => {
     signOut(auth)
-      .then(() => console.log("Sign Out"))
+      .then(() => {
+        // Limpar token de autenticação do localStorage
+        localStorage.removeItem("authToken");
+        console.log("Sign Out");
+        navigate("/"); // ou qualquer outra rota que você queira redirecionar após o logout
+      })
       .catch((error) => console.log(error));
   };
 
@@ -115,7 +120,13 @@ export default function Menu() {
           onClick={() => navigate("/homeperfil")}
         >
           <span>
-            <Avatar name="Alan Ferreira" w={'30px'} h={'30px'} rounded={'100%'} src="https://firebasestorage.googleapis.com/v0/b/connectetec-5d4be.appspot.com/o/imagens%2F1714341821270_lagarto.jpeg?alt=media&token=b084eafe-0d23-4049-95b3-fa5d4f0ea87c"></Avatar>
+            <Avatar
+              name="Alan Ferreira"
+              w={"30px"}
+              h={"30px"}
+              rounded={"100%"}
+              src="https://firebasestorage.googleapis.com/v0/b/connectetec-5d4be.appspot.com/o/imagens%2F1714341821270_lagarto.jpeg?alt=media&token=b084eafe-0d23-4049-95b3-fa5d4f0ea87c"
+            ></Avatar>
             {/* <img
               className="w-[26px] rounded-full bg-gray-300"
               src={userImage}
