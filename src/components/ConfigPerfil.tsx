@@ -19,6 +19,7 @@ interface FormData {
 }
 
 export default function ConfigPerfil() {
+
   const [fotoPerfil, setFotoPerfil] = useState<File | null>(null);
   const [formData, setFormData] = useState<FormData>({
     urlFotoPerfil: "",
@@ -46,7 +47,7 @@ export default function ConfigPerfil() {
       const url = await getDownloadURL(storageRef);
 
       // Agora os dados devem estar atualizados antes de enviar para a API
-      const formDataWithUrl = { ...formData, imagemURL: url };
+      const formDataWithUrl = { ...formData, urlFotoPerfil: url };
 
       // Configurar o cabeçalho padrão com o token de autenticação
       axios.defaults.headers.common[
@@ -54,7 +55,7 @@ export default function ConfigPerfil() {
       ] = `Bearer ${localStorage.getItem("authToken")}`;
 
       // Envie os dados para a API
-      await axios.put("sua_url_de_api_aqui", formDataWithUrl);
+      await axios.put("http://localhost:8080/perfilUsuario/editar", formDataWithUrl);
 
       // Atualize o estado com a URL da imagem após o envio bem-sucedido
       setFormData(formDataWithUrl);
