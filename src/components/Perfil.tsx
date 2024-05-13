@@ -1,6 +1,14 @@
-import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import {
+  Avatar,
+  Box,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  Text,
+} from "@chakra-ui/react";
 import Banner from "../assets/Background.svg";
-import meninolindo from "../assets/img/1702865313114.jpeg";
 import Post from "./Post";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -49,12 +57,8 @@ export default function Perfil() {
             className="w-full h-full object-cover rounded-t-2xl"
           />
           <div className="px-5 -translate-y-16 flex items-end">
-            <img
-              src={perfilData?.urlFotoPerfil}
-              alt=""
-              className="rounded-full w-32 h-32 "
-            />
-            <h1>{perfilData?.nomeCompleto}</h1>
+            <Avatar src={perfilData?.urlFotoPerfil} w={150} h={150} />
+            <Text fontSize="2xl">{perfilData?.nomeCompleto}</Text>
           </div>
         </div>
       </div>
