@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -14,6 +14,14 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage as firebaseStorage } from "../firebase/firebase";
 import { useNavigate } from "react-router-dom";
 
+interface PerfilData {
+  nomeCompleto?: string;
+  nomeSocial?: string;
+  nomeUsuario?: string;
+  urlFotoPerfil?: string;
+  sobre?: string;
+}
+
 interface FormData {
   urlFotoPerfil?: string;
   sobre?: string;
@@ -22,6 +30,30 @@ interface FormData {
 }
 
 export default function ConfigPerfil() {
+  axios.defaults.headers.common[
+    "Authorization"
+  ] = `Bearer ${localStorage.getItem("authToken")}`;
+
+  const [, setPerfilData] = useState<PerfilData | null>(null);
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/perfilUsuario/buscarMeuPerfil")
+      .then((response) => {
+        setPerfilData(response.data);
+
+        // Pré-preencher o formulário com os dados do perfil
+        setFormData({
+          urlFotoPerfil: response.data.urlFotoPerfil || "",
+          sobre: response.data.sobre || "",
+          nomeCompleto: response.data.nomeCompleto || "",
+          nomeSocial: response.data.nomeSocial || "",
+        });
+      })
+      .catch((error) => {
+        console.error("Erro ao carregar perfil:", error);
+      });
+  }, []);
+
   const navigate = useNavigate();
   const toast = useToast();
   const [fotoPerfil, setFotoPerfil] = useState<File | null>(null);
@@ -40,7 +72,7 @@ export default function ConfigPerfil() {
       toast({
         title: "Erro",
         description:
-          "Por favor, selecione uma foto de perfil valida para continuar",
+          "Por favor, selecione uma foto de perfil válida para continuar",
         status: "error",
         duration: 4000,
         isClosable: true,
@@ -64,10 +96,6 @@ export default function ConfigPerfil() {
       const url = await getDownloadURL(storageRef);
 
       const formDataWithUrl = { ...formData, urlFotoPerfil: url };
-
-      axios.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${localStorage.getItem("authToken")}`;
 
       await axios.put(
         "http://localhost:8080/perfilUsuario/editar",
@@ -103,7 +131,7 @@ export default function ConfigPerfil() {
     } else {
       toast({
         title: "Erro, Tipo de arquivo não suportado.",
-        description: "Por favor, selecione um arquivo com extensao: jpg, png",
+        description: "Por favor, selecione um arquivo com extensão: jpg, png",
         status: "error",
         duration: 4000,
         isClosable: true,
@@ -132,11 +160,13 @@ export default function ConfigPerfil() {
               alignContent={"center"}
               type="file"
               onChange={handleFileChange}
+              defaultValue={formData.urlFotoPerfil}
             />
           </Box>
           <Box>
             <FormLabel>Sobre</FormLabel>
             <Textarea
+              defaultValue={formData.sobre}
               onChange={(e) =>
                 setFormData({ ...formData, sobre: e.target.value })
               }
@@ -146,6 +176,7 @@ export default function ConfigPerfil() {
             <FormLabel>Nome Completo</FormLabel>
             <Input
               type="text"
+              defaultValue={formData.nomeCompleto}
               onChange={(e) =>
                 setFormData({ ...formData, nomeCompleto: e.target.value })
               }
@@ -155,6 +186,7 @@ export default function ConfigPerfil() {
             <FormLabel>Nome Social</FormLabel>
             <Input
               type="text"
+              defaultValue={formData.nomeSocial}
               onChange={(e) =>
                 setFormData({ ...formData, nomeSocial: e.target.value })
               }

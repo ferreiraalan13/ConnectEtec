@@ -2,8 +2,35 @@ import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import Banner from "../assets/Background.svg";
 import meninolindo from "../assets/img/1702865313114.jpeg";
 import Post from "./Post";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+interface PerfilData {
+  nomeCompleto: string;
+  nomeSocial: string;
+  nomeUsuario: string;
+  urlFotoPerfil: string;
+  sobre: string;
+}
 
 export default function Perfil() {
+  const [perfilData, setPerfilData] = useState<PerfilData | null>(null);
+
+  axios.defaults.headers.common[
+    "Authorization"
+  ] = `Bearer ${localStorage.getItem("authToken")}`;
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/perfilUsuario/buscarMeuPerfil")
+      .then((response) => {
+        setPerfilData(response.data);
+      })
+      .catch((error) => {
+        console.error("Erro ao carregar perfil:", error);
+      });
+  }, []);
+
   return (
     <Box
       className="flex flex-col gap-5"
@@ -22,8 +49,12 @@ export default function Perfil() {
             className="w-full h-full object-cover rounded-t-2xl"
           />
           <div className="px-5 -translate-y-16 flex items-end">
-            <img src={meninolindo} alt="" className="rounded-full w-32 h-32 " />
-            <h1>Fulano da Silva Souza</h1>
+            <img
+              src={perfilData?.urlFotoPerfil}
+              alt=""
+              className="rounded-full w-32 h-32 "
+            />
+            <h1>{perfilData?.nomeCompleto}</h1>
           </div>
         </div>
       </div>
@@ -36,10 +67,7 @@ export default function Perfil() {
           <TabPanel>
             <div>
               <h1 className="">Bibliografia</h1>
-              <h2>
-                Ola, meu nome é Alan, sou aluno de desenvolvimento de sistemas
-                da Etec jardim angela. =D
-              </h2>
+              <h2>{perfilData?.sobre}</h2>
             </div>
           </TabPanel>
           <TabPanel>

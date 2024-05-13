@@ -8,25 +8,43 @@ import {
   PocketKnife,
   Search,
 } from "lucide-react";
-import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
 
-import userImage from "../assets/img/1702865313114.jpeg";
+import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 
 import { auth } from "../firebase/firebase";
 import { Avatar } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 //import { AuthContext } from "../Contexts/Auth/AuthContext";
 
+interface PerfilData {
+  nomeCompleto?: string;
+  nomeSocial?: string;
+  nomeUsuario?: string;
+  urlFotoPerfil?: string;
+  sobre?: string;
+}
+
 export default function Menu() {
-  //const auth = useContext(AuthContext);
-
-  // const handleLogout = async () => {
-  //   await auth.signout();
-  //   navigate("/");
-  // };
-
   const navigate = useNavigate();
+
+  const [perfilData, setPerfilData] = useState<PerfilData | null>(null);
+
+  axios.defaults.headers.common[
+    "Authorization"
+  ] = `Bearer ${localStorage.getItem("authToken")}`;
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/perfilUsuario/buscarMeuPerfil")
+      .then((response) => {
+        setPerfilData(response.data);
+      })
+      .catch((error) => {
+        console.error("Erro ao carregar perfil:", error);
+      });
+  }, []);
 
   const handleSignOut = () => {
     signOut(auth)
@@ -53,17 +71,6 @@ export default function Menu() {
         >
           ConnectEtec
         </h1>
-      </div>
-
-      <div className={`flex items-center rounded-md bg-gray-700 mt-6 py-2`}>
-        <Search className={`text-white text-lg float-left cursor-pointer `} />
-        <input
-          type="search"
-          placeholder="Pesquisar"
-          className={`text-base text-white bg-transparent w-full focus:outline-none ${
-            !open && "hidden"
-          }`}
-        />
       </div>
 
       <ul className="pt-2">
@@ -121,11 +128,11 @@ export default function Menu() {
         >
           <span>
             <Avatar
-              name="Alan Ferreira"
+              name={perfilData?.nomeCompleto}
               w={"30px"}
               h={"30px"}
               rounded={"100%"}
-              src="https://firebasestorage.googleapis.com/v0/b/connectetec-5d4be.appspot.com/o/imagens%2Fpublicacao%2F%201715554087355_CAM02170.jpg?alt=media&token=f49d011c-86f2-48f1-b89f-1cd6a38c3e01"
+              src={perfilData?.urlFotoPerfil}
             ></Avatar>
             {/* <img
               className="w-[26px] rounded-full bg-gray-300"
