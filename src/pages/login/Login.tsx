@@ -1,13 +1,12 @@
 import { Checkbox, Input, Link, Text } from "@chakra-ui/react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import background from "../../assets/Background.svg";
 //import { AuthContext } from "../../Contexts/Auth/AuthContext";
 import image from "./formando-a-ilustracao-do-conceito-de-lideranca-de-equipe_114360-10883 1 (1).svg";
-import axios from "axios";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase/firebase";
+
+import { ContextAuth } from "../../contexts/Authentication";
 
 interface FormData {
   login: string;
@@ -21,54 +20,18 @@ export default function Login() {
 
   const navigate = useNavigate();
 
+  const { signIn } = useContext(ContextAuth);
+
   const [formData, setFormData] = useState<FormData>({
     login: "",
     senha: "",
   });
 
-  /*const handleLogin = async () => {
-    
-    if (login && senha) {
-      const isLogged = await auth.signin(login, senha);
-      if (isLogged) {
-        navigate("/home");
-      } else {
-        alert("Não deu certo.");
-      }
-    }
-  };*/
-
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      const response = await axios.post(
-        "http://localhost:8080/usuario/login",
-        formData
-      );
-      localStorage.setItem("authToken", response.data);
-
-      signInWithEmailAndPassword(auth, formData.login, formData.senha)
-        .then(
-          (
-            // eslint-disable-next-line no-empty-pattern
-            {
-              /*userCredential*/
-            }
-          ) => {
-            //const user = userCredential.user;
-            //console.log(user);
-            navigate("/home");
-          }
-        )
-        .catch((error) => {
-          console.error("Erro ao Logar", error);
-        });
-
-      //navigate("/home");
-    } catch (error) {
-      console.error("Erro ao Logar", error);
-      alert("ERRO AO LOGAR");
-    }
+    signIn(formData.login, formData.senha).catch(() => {
+      alert("Erro ao logar");
+    });
   };
 
   return (

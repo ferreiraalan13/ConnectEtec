@@ -1,14 +1,18 @@
-import { Navigate } from "react-router-dom";
+import { useContext } from "react";
+import { ContextAuth } from "../contexts/Authentication";
 
 interface ProtectedRouteProps {
-  children: React.ReactNode;
-  user: unknown;
+  authenticatedRoute: JSX.Element;
+  noAuthRoute: JSX.Element;
 }
 
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
-  children,
-  user,
+  authenticatedRoute,
+  noAuthRoute,
 }) => {
-  //console.log(user);
-  return user ? <>{children}</> : <Navigate to="/" />;
+  const { isAuth } = useContext(ContextAuth);
+  if (isAuth === undefined) {
+    return null;
+  }
+  return isAuth ? authenticatedRoute : noAuthRoute;
 };

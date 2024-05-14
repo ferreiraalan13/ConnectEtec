@@ -15,8 +15,8 @@ import { useState } from "react";
 
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage as firebaseStorage } from "../firebase/firebase";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { configApi } from "../services/configApi";
 
 interface FormData {
   urlMidia?: string;
@@ -35,7 +35,7 @@ export default function CriarPost() {
     idGrupo: null,
     tag: "",
   });
-  const [isSubmitting, setIsSubmitting] = useState(false); // Definindo o estado isSubmitting aqui
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -59,18 +59,10 @@ export default function CriarPost() {
 
       const url = await getDownloadURL(storageRef);
 
-      // Agora os dados devem estar atualizados antes de enviar para a API
       const formDataWithUrl = { ...formData, urlMidia: url };
 
-      // Configurar o cabeçalho padrão com o token de autenticação
-      axios.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${localStorage.getItem("authToken")}`;
+      await configApi.post("http://localhost:8080/post/criar", formDataWithUrl);
 
-      // Envie os dados para a API
-      await axios.post("http://localhost:8080/post/criar", formDataWithUrl);
-
-      // Atualize o estado com a URL da imagem após o envio bem-sucedido
       setFormData(formDataWithUrl);
 
       toast({
@@ -89,7 +81,7 @@ export default function CriarPost() {
   };
 
   const isValidImage = (file: File): boolean => {
-    const acceptedTypes = ["image/jpeg", "image/png", "image/gif"]; // Tipos de imagem aceitos
+    const acceptedTypes = ["image/jpeg", "image/png", "image/gif"];
     return acceptedTypes.includes(file.type);
   };
 

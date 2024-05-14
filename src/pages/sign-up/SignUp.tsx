@@ -2,7 +2,7 @@ import image from "../../assets/signup-image.svg";
 import background from "../../assets/Background.svg";
 import line from "../../assets/Line.svg";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+
 import React, { useState } from "react";
 
 import { auth } from "../../firebase/firebase";
@@ -24,10 +24,11 @@ import {
 } from "@chakra-ui/react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import Termos from "./TermosDeUso";
+import { configApi } from "../../services/configApi";
 
 interface FormData {
   nomeCompleto: string;
-  nomeSocial?: string;
+  nomeSocial?: string | null;
   login: string;
   senha: string;
   tipoUsuario?: string;
@@ -79,7 +80,7 @@ export default function App() {
       }
 
       if (formDataToSend.nomeSocial === "") {
-        formDataToSend.nomeSocial = null as unknown as string | undefined;
+        formDataToSend.nomeSocial = null;
       }
 
       if (formDataToSend.tipoUsuario === "") {
@@ -96,11 +97,7 @@ export default function App() {
         return;
       }
 
-      const response = await axios.post(
-        "http://localhost:8080/usuario/cadastrar",
-        formDataToSend
-      );
-      console.log("Cadastro realizado com sucesso!", response.data);
+      await configApi.post("usuario/cadastrar", formDataToSend);
       toast({
         title: "Sucesso",
         description: "Cadastro realizado com sucesso",
@@ -171,7 +168,7 @@ export default function App() {
                 type="text"
                 id="nomeSocial"
                 name="nomeSocial"
-                value={formData.nomeSocial}
+                value={formData.nomeSocial || ""}
                 onChange={(e) =>
                   setFormData({ ...formData, nomeSocial: e.target.value })
                 }

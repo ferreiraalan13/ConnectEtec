@@ -10,34 +10,11 @@ import {
 } from "@chakra-ui/react";
 import Banner from "../assets/Background.svg";
 import Post from "./Post";
-import { useEffect, useState } from "react";
-import axios from "axios";
 
-interface PerfilData {
-  nomeCompleto: string;
-  nomeSocial: string;
-  nomeUsuario: string;
-  urlFotoPerfil: string;
-  sobre: string;
-}
+import { useRequestProfile } from "../services/hooks/useRequestProfile";
 
 export default function Perfil() {
-  const [perfilData, setPerfilData] = useState<PerfilData | null>(null);
-
-  axios.defaults.headers.common[
-    "Authorization"
-  ] = `Bearer ${localStorage.getItem("authToken")}`;
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:8080/perfilUsuario/buscarMeuPerfil")
-      .then((response) => {
-        setPerfilData(response.data);
-      })
-      .catch((error) => {
-        console.error("Erro ao carregar perfil:", error);
-      });
-  }, []);
+  const { data } = useRequestProfile();
 
   return (
     <Box
@@ -57,8 +34,8 @@ export default function Perfil() {
             className="w-full h-full object-cover rounded-t-2xl"
           />
           <div className="px-5 -translate-y-16 flex items-end">
-            <Avatar src={perfilData?.urlFotoPerfil} w={150} h={150} />
-            <Text fontSize="2xl">{perfilData?.nomeCompleto}</Text>
+            <Avatar src={data?.urlFotoPerfil} w={150} h={150} />
+            <Text fontSize="2xl">{data?.nomeCompleto}</Text>
           </div>
         </div>
       </div>
@@ -71,7 +48,7 @@ export default function Perfil() {
           <TabPanel>
             <div>
               <h1 className="">Bibliografia</h1>
-              <h2>{perfilData?.sobre}</h2>
+              <h2>{data?.sobre}</h2>
             </div>
           </TabPanel>
           <TabPanel>

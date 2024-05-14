@@ -9,10 +9,11 @@ import {
   Textarea,
   useToast,
 } from "@chakra-ui/react";
-import axios from "axios";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage as firebaseStorage } from "../firebase/firebase";
 import { useNavigate } from "react-router-dom";
+import { configApi } from "../services/configApi";
+import { useRequestProfile } from "../services/hooks/useRequestProfile";
 
 interface PerfilData {
   nomeCompleto?: string;
@@ -30,29 +31,19 @@ interface FormData {
 }
 
 export default function ConfigPerfil() {
-  axios.defaults.headers.common[
-    "Authorization"
-  ] = `Bearer ${localStorage.getItem("authToken")}`;
-
   const [, setPerfilData] = useState<PerfilData | null>(null);
-  useEffect(() => {
-    axios
-      .get("http://localhost:8080/perfilUsuario/buscarMeuPerfil")
-      .then((response) => {
-        setPerfilData(response.data);
+  const { data } = useRequestProfile();
 
-        // Pré-preencher o formulário com os dados do perfil
-        setFormData({
-          urlFotoPerfil: response.data.urlFotoPerfil || "",
-          sobre: response.data.sobre || "",
-          nomeCompleto: response.data.nomeCompleto || "",
-          nomeSocial: response.data.nomeSocial || "",
-        });
-      })
-      .catch((error) => {
-        console.error("Erro ao carregar perfil:", error);
-      });
-  }, []);
+  useEffect(() => {
+    setPerfilData(data || null);
+
+    setFormData({
+      urlFotoPerfil: data?.urlFotoPerfil || "",
+      sobre: data?.sobre || "",
+      nomeCompleto: data?.nomeCompleto || "",
+      nomeSocial: data?.nomeSocial || "",
+    });
+  }, [data]);
 
   const navigate = useNavigate();
   const toast = useToast();
@@ -97,10 +88,7 @@ export default function ConfigPerfil() {
 
       const formDataWithUrl = { ...formData, urlFotoPerfil: url };
 
-      await axios.put(
-        "http://localhost:8080/perfilUsuario/editar",
-        formDataWithUrl
-      );
+      await configApi.put("perfilUsuario/editar", formDataWithUrl);
 
       setFormData(formDataWithUrl);
 

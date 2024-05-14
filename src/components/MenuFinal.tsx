@@ -6,56 +6,19 @@ import {
   Users,
   Home,
   PocketKnife,
-  Search,
 } from "lucide-react";
 
 import { useNavigate } from "react-router-dom";
-import { signOut } from "firebase/auth";
-
-import { auth } from "../firebase/firebase";
 import { Avatar } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import axios from "axios";
-//import { AuthContext } from "../Contexts/Auth/AuthContext";
 
-interface PerfilData {
-  nomeCompleto?: string;
-  nomeSocial?: string;
-  nomeUsuario?: string;
-  urlFotoPerfil?: string;
-  sobre?: string;
-}
+import { useRequestProfile } from "../services/hooks/useRequestProfile";
+import { useContext } from "react";
+import { ContextAuth } from "../contexts/Authentication";
 
 export default function Menu() {
   const navigate = useNavigate();
-
-  const [perfilData, setPerfilData] = useState<PerfilData | null>(null);
-
-  axios.defaults.headers.common[
-    "Authorization"
-  ] = `Bearer ${localStorage.getItem("authToken")}`;
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:8080/perfilUsuario/buscarMeuPerfil")
-      .then((response) => {
-        setPerfilData(response.data);
-      })
-      .catch((error) => {
-        console.error("Erro ao carregar perfil:", error);
-      });
-  }, []);
-
-  const handleSignOut = () => {
-    signOut(auth)
-      .then(() => {
-        // Limpar token de autenticação do localStorage
-        localStorage.removeItem("authToken");
-        console.log("Sign Out");
-        navigate("/"); // ou qualquer outra rota que você queira redirecionar após o logout
-      })
-      .catch((error) => console.log(error));
-  };
+  const { signOut } = useContext(ContextAuth);
+  const { data } = useRequestProfile();
 
   return (
     <div
@@ -128,24 +91,19 @@ export default function Menu() {
         >
           <span>
             <Avatar
-              name={perfilData?.nomeCompleto}
+              name={data?.nomeCompleto}
               w={"30px"}
               h={"30px"}
               rounded={"100%"}
-              src={perfilData?.urlFotoPerfil}
+              src={data?.urlFotoPerfil}
             ></Avatar>
-            {/* <img
-              className="w-[26px] rounded-full bg-gray-300"
-              src={userImage}
-              alt=""
-            /> */}
           </span>
           <span className={`text-base font-medium flex-1 `}>Perfil</span>
         </li>
 
         <li
           className="text-Black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-2"
-          onClick={handleSignOut}
+          onClick={signOut}
         >
           <span>
             <LogOut />

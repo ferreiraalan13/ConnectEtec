@@ -49,7 +49,7 @@ export default function Post() {
         >
           <CardHeader w={"full"} fontSize={"sm"}>
             <Flex>
-              <Flex flex="1" gap="1" alignItems="stretch">
+              <Flex flex="1" gap="5px" alignItems="stretch">
                 <Avatar src={task.avatarImg} w={"60px"} h={"60px"} />
                 <Box>
                   <Heading size="sm">{task.nameUser}</Heading>
@@ -70,7 +70,7 @@ export default function Post() {
               </Menu>
             </Flex>
           </CardHeader>
-          <CardBody maxH={"120px"} maxW={"600px"} fontSize={"small"} pt={0}>
+          <CardBody maxW={"600px"} fontSize={"small"} pt={0}>
             <Text fontSize={{ sm: "10px", md: "15px" }}>
               {task.description}
             </Text>
@@ -80,13 +80,11 @@ export default function Post() {
             <Image
               flexWrap={"wrap"}
               objectFit="cover"
+              borderRadius={"10px"}
+              maxHeight={"350px"}
+              maxWidth={"350px"}
+              width={"100%"}
               src={task.img}
-              padding={"5px"}
-              marginTop={"30px"}
-              borderRadius={"20px"}
-              maxHeight={"250px"}
-              maxWidth={"250px"}
-              marginLeft={"10px"}
             />
           </div>
 
