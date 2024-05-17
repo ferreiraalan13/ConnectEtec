@@ -1,8 +1,9 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Container } from "@chakra-ui/react";
 
 import MenuFinal from "../../components/MenuFinal";
 import Eventos from "../../components/Evento";
-import ConfigPerfil from "../../components/ConfigPerfil";
+import ConfigPerfil from "./AlterarFotoPerfil";
+import AlterarDados from "./AlterarDados";
 
 export default function App() {
   return (
@@ -40,7 +41,15 @@ export default function App() {
             rounded={"6px"}
             bg={"white"}
           >
-            <ConfigPerfil />
+            <Container
+              p="10"
+              display={"flex"}
+              flexDirection={"column"}
+              gap={10}
+            >
+              <ConfigPerfil />
+              <AlterarDados />
+            </Container>
           </Box>
 
           <Box>
