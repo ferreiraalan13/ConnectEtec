@@ -3,7 +3,6 @@ import {
   Avatar,
   Button,
   FormControl,
-  FormLabel,
   Input,
   Spinner,
   Stack,
@@ -119,14 +118,16 @@ const AlterarFotoPerfil: React.FC = () => {
       justifyContent={"center"}
       alignItems={"center"}
     >
-      <form onSubmit={handleFormSubmit}>
+      <form
+        onSubmit={handleFormSubmit}
+        className="flex items-center flex-col gap-2"
+      >
         <Avatar src={previewUrl || ""} size="xl" mt="4" />
         <FormControl>
-          <FormLabel>Alterar foto de perfil</FormLabel>
           <Input type="file" onChange={handleFileChange} />
         </FormControl>
 
-        <Button type="submit" mt="4">
+        <Button w={"100%"} type="submit" mt="4">
           {isSubmitting ? <Spinner /> : "Alterar foto de Perfil"}
         </Button>
       </form>

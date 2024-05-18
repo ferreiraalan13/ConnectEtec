@@ -40,13 +40,9 @@ export default function App() {
             gap={3}
             rounded={"6px"}
             bg={"white"}
+            w={"600px"}
           >
-            <Container
-              p="10"
-              display={"flex"}
-              flexDirection={"column"}
-              gap={10}
-            >
+            <Container p="5" display={"flex"} flexDirection={"column"} gap={10}>
               <ConfigPerfil />
               <AlterarDados />
             </Container>
