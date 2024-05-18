@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Avatar,
-  Box,
   Button,
   FormControl,
   FormLabel,
@@ -20,13 +19,13 @@ interface FormData {
 }
 
 const AlterarFotoPerfil: React.FC = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { data } = useRequestProfile();
   const toast = useToast();
   const [fotoPublicacao, setFotoPublicacao] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | undefined>(
     data?.urlFotoPerfil
   );
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     urlFotoPerfil: "",
   });
@@ -81,7 +80,7 @@ const AlterarFotoPerfil: React.FC = () => {
   };
 
   const isValidImage = (file: File): boolean => {
-    const acceptedTypes = ["jpeg", "png", "gif"];
+    const acceptedTypes = ["image/jpeg", "image/png", "image/gif"];
     return acceptedTypes.includes(file.type);
   };
 
@@ -99,9 +98,17 @@ const AlterarFotoPerfil: React.FC = () => {
         isClosable: true,
       });
       setFotoPublicacao(null);
-      setPreviewUrl(data?.urlFotoPerfil);
+      setPreviewUrl(undefined);
     }
   };
+
+  useEffect(() => {
+    return () => {
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+      }
+    };
+  }, [previewUrl]);
 
   return (
     <Stack
@@ -111,22 +118,13 @@ const AlterarFotoPerfil: React.FC = () => {
       display={"flex"}
       justifyContent={"center"}
       alignItems={"center"}
-      alignContent={"center"}
     >
       <form onSubmit={handleFormSubmit}>
-        <Box
-          display={"flex"}
-          justifyContent={"center"}
-          mb="10px"
-          alignItems={"center"}
-          gap={10}
-        >
-          <Avatar src={previewUrl || ""} size="xl" mt="4" />
-          <FormControl>
-            <FormLabel textAlign={"center"}>Alterar foto de perfil</FormLabel>
-            <Input type="file" onChange={handleFileChange} />
-          </FormControl>
-        </Box>
+        <Avatar src={previewUrl || ""} size="xl" mt="4" />
+        <FormControl>
+          <FormLabel>Alterar foto de perfil</FormLabel>
+          <Input type="file" onChange={handleFileChange} />
+        </FormControl>
 
         <Button type="submit" mt="4">
           {isSubmitting ? <Spinner /> : "Alterar foto de Perfil"}
