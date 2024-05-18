@@ -7,46 +7,45 @@ import Eventos from "../../components/Evento";
 
 export default function App() {
   return (
-    <div className="flex justify-center bg-gray-300">
-    <Box
-      height={"100vh"}
-      overflow={"hidden"}
-      gap={0}
-      className="flex bg-gray-300"
-      display={'flex'}
-    >
-      <MenuFinal />
-      
-
+    <div className="flex  bg-gray-300">
       <Box
-        padding={"20px"}
-        css={{
-          "&::-webkit-scrollbar": {
-            width: "0",
-            height: "0",
-            borderRadius: "20px",
-            backgroundColor: "darkgray",
-            marginRight: "4px",
-            background: "transparent"
-          },
-          "&::-webkit-scrollbar-thumb": {
-            background: "grey",
-            borderRadius: "20px",
-          },
-        }}
-        overflowX={"hidden"}
-        width={"100%"}
+        height={"100vh"}
+        overflow={"hidden"}
+        gap={0}
+        className="flex bg-gray-300"
+        display={"flex"}
       >
-        <Box display={"flex"} justifyContent={""} gap={3}>
-          <Box display={"flex"} flexDirection={"column"} gap={3}>
-            <Post />
-          </Box>
-          <Box>
-            <Eventos />
+        <MenuFinal />
+
+        <Box
+          padding={"20px"}
+          css={{
+            "&::-webkit-scrollbar": {
+              width: "0",
+              height: "0",
+              borderRadius: "20px",
+              backgroundColor: "darkgray",
+              marginRight: "4px",
+              background: "transparent",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              background: "grey",
+              borderRadius: "20px",
+            },
+          }}
+          overflowX={"hidden"}
+          width={"100%"}
+        >
+          <Box display={"flex"} justifyContent={""} gap={3}>
+            <Box display={"flex"} flexDirection={"column"} w={"1000px"} gap={3}>
+              <Post />
+            </Box>
+            <Box>
+              <Eventos />
+            </Box>
           </Box>
         </Box>
       </Box>
-    </Box>
     </div>
   );
 }

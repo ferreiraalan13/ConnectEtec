@@ -70,7 +70,7 @@ export default function Post() {
               </Menu>
             </Flex>
           </CardHeader>
-          <CardBody maxW={"600px"} fontSize={"small"} pt={0}>
+          <CardBody maxW={"1000px"} fontSize={"small"} pt={0}>
             <Text fontSize={{ sm: "10px", md: "15px" }}>
               {task.description}
             </Text>
