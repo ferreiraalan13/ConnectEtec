@@ -1,22 +1,35 @@
 import { useState } from "react";
-import { Input } from "@chakra-ui/react";
+import { Input, Spinner } from "@chakra-ui/react";
 import background from "../../assets/Background.svg";
-import { auth } from "../../firebase/firebase"; // Importe a instância de autenticação do Firebase
-import { sendPasswordResetEmail } from "firebase/auth"; // Importe a função sendPasswordResetEmail do módulo auth do Firebase
+import { configApi } from "../../services/configApi";
+import { useNavigate } from "react-router-dom";
+
+interface FormData {
+  login?: string;
+}
 
 export default function ResetPassword() {
-  const [email, setEmail] = useState("");
-  const [error] = useState(null);
-  const [success, setSuccess] = useState(false);
+  const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleResetPassword = async (e: { preventDefault: () => void; }) => {
+  const [formData, setFormData] = useState<FormData>({
+    login: "",
+  });
+
+  const handleResetPassword = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    try {
-      await sendPasswordResetEmail(auth, email); // Use a função sendPasswordResetEmail do módulo auth do Firebase
-      setSuccess(true);
-    } catch (error) {
-      console.log("Deu ruim")
-    }
+    setIsSubmitting(true);
+    configApi
+      .post("usuario/recuperarConta", formData)
+      .then((response) => {
+        navigate("/resetar-senha-pin", { state: response.data });
+      })
+      .catch(() => {
+        navigate("/resetar-senha-pin", { state: " " });
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
   };
 
   return (
@@ -36,21 +49,17 @@ export default function ResetPassword() {
               <Input
                 type="email"
                 placeholder="Digite seu email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) =>
+                  setFormData({ ...formData, login: e.target.value })
+                }
               />
             </div>
-            {error && <p className="text-red-500">{error}</p>}
-            {success && (
-              <p className="text-green-500">
-                Um e-mail de redefinição de senha foi enviado para {email}.
-              </p>
-            )}
+
             <button
               type="submit"
               className="mt-4 transition bg-gray-300 hover:bg-gray-500 hover:text-gray-100 font-bold py-1 px-2 rounded-2xl drop-shadow-md"
             >
-              Enviar
+              {isSubmitting ? <Spinner /> : "Enviar"}
             </button>
           </form>
         </div>

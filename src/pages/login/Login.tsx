@@ -1,9 +1,8 @@
-import { Checkbox, Input, Link, Text } from "@chakra-ui/react";
+import { Checkbox, Input, Link, Text, useToast } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import background from "../../assets/Background.svg";
-//import { AuthContext } from "../../Contexts/Auth/AuthContext";
 import image from "./formando-a-ilustracao-do-conceito-de-lideranca-de-equipe_114360-10883 1 (1).svg";
 
 import { ContextAuth } from "../../contexts/Authentication";
@@ -14,9 +13,7 @@ interface FormData {
 }
 
 export default function Login() {
-  {
-    /*const auth = useContext(AuthContext);*/
-  }
+  const toast = useToast();
 
   const navigate = useNavigate();
 
@@ -30,7 +27,13 @@ export default function Login() {
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     signIn(formData.login, formData.senha).catch(() => {
-      alert("Erro ao logar");
+      toast({
+        title: "Erro ao logar",
+        description: "Verifique seu email e senha",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
     });
   };
 
@@ -81,7 +84,7 @@ export default function Login() {
 
             <div className="flex flex-col md:flex-row justify-between items-start gap-4">
               <Checkbox defaultChecked>Lembrar de mim</Checkbox>
-              <Link onClick={() => navigate("/resetPassword")} color="teal.500">
+              <Link onClick={() => navigate("/resetar-senha")} color="teal.500">
                 {" "}
                 Esqueceu sua senha?{" "}
               </Link>

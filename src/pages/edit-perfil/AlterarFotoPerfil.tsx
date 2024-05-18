@@ -1,37 +1,56 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Avatar,
+  Box,
   Button,
   FormControl,
   FormLabel,
   Input,
+  Spinner,
   Stack,
   useToast,
 } from "@chakra-ui/react";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage as firebaseStorage } from "../../firebase/firebase";
 import { configApi } from "../../services/configApi";
+import { useRequestProfile } from "../../services/hooks/useRequestProfile";
 
 interface FormData {
   urlFotoPerfil?: string;
 }
 
 const AlterarFotoPerfil: React.FC = () => {
+  const { data } = useRequestProfile();
   const toast = useToast();
   const [fotoPublicacao, setFotoPublicacao] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | undefined>(
+    data?.urlFotoPerfil
+  );
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     urlFotoPerfil: "",
   });
+
+  useEffect(() => {
+    setPreviewUrl(data?.urlFotoPerfil);
+  }, [data?.urlFotoPerfil]);
 
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (!fotoPublicacao) {
-      console.error("Nenhuma imagem selecionada.");
+      toast({
+        title: "Errro",
+        description: "Nenhuma imagem selecionada",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
       return;
     }
 
     try {
+      setIsSubmitting(true);
       const timestamp = Date.now();
       const nomeArquivo = `${timestamp}_${fotoPublicacao.name}`;
 
@@ -56,11 +75,13 @@ const AlterarFotoPerfil: React.FC = () => {
       });
     } catch (error) {
       console.error("Erro ao atualizar foto de perfil", error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   const isValidImage = (file: File): boolean => {
-    const acceptedTypes = ["image/jpeg", "image/png", "image/gif"];
+    const acceptedTypes = ["jpeg", "png", "gif"];
     return acceptedTypes.includes(file.type);
   };
 
@@ -68,6 +89,7 @@ const AlterarFotoPerfil: React.FC = () => {
     const file = e.target.files ? e.target.files[0] : null;
     if (file && isValidImage(file)) {
       setFotoPublicacao(file);
+      setPreviewUrl(URL.createObjectURL(file));
     } else {
       toast({
         title: "Erro, Tipo de arquivo não suportado.",
@@ -77,6 +99,7 @@ const AlterarFotoPerfil: React.FC = () => {
         isClosable: true,
       });
       setFotoPublicacao(null);
+      setPreviewUrl(data?.urlFotoPerfil);
     }
   };
 
@@ -88,16 +111,25 @@ const AlterarFotoPerfil: React.FC = () => {
       display={"flex"}
       justifyContent={"center"}
       alignItems={"center"}
+      alignContent={"center"}
     >
       <form onSubmit={handleFormSubmit}>
-        <Avatar src="" size="xl" mt="4" />
-        <FormControl>
-          <FormLabel>Alterar foto de perfil</FormLabel>
-          <Input type="file" onChange={handleFileChange} />
-        </FormControl>
+        <Box
+          display={"flex"}
+          justifyContent={"center"}
+          mb="10px"
+          alignItems={"center"}
+          gap={10}
+        >
+          <Avatar src={previewUrl || ""} size="xl" mt="4" />
+          <FormControl>
+            <FormLabel textAlign={"center"}>Alterar foto de perfil</FormLabel>
+            <Input type="file" onChange={handleFileChange} />
+          </FormControl>
+        </Box>
 
         <Button type="submit" mt="4">
-          Alterar foto de perfil
+          {isSubmitting ? <Spinner /> : "Alterar foto de Perfil"}
         </Button>
       </form>
     </Stack>

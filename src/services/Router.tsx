@@ -10,6 +10,7 @@ import ResetPassword from "../pages/resetPassword";
 import { useMediaQuery } from "@chakra-ui/react";
 import HomeMobile from "../pages/home/HomeMobile";
 import CriarPublicacaoMobile from "../pages/criarPublicacao/CriarPublicacaoMobile";
+import PasswordReset from "../pages/resetPassword/PasswordReset";
 
 function Router() {
   const [isMobile] = useMediaQuery("(max-width: 768px)");
@@ -87,11 +88,20 @@ function Router() {
         />
 
         <Route
-          path="/resetPassword"
+          path="/resetar-senha"
           element={
             <ProtectedRoute
               authenticatedRoute={<Navigate to={"/home"} />}
               noAuthRoute={<ResetPassword />}
+            />
+          }
+        />
+        <Route
+          path="/resetar-senha-pin"
+          element={
+            <ProtectedRoute
+              authenticatedRoute={<Navigate to={"/home"} />}
+              noAuthRoute={<PasswordReset />}
             />
           }
         />
