@@ -22,6 +22,8 @@ const ProviderAuth: React.FC<IOwnProps> = ({ children }) => {
       localStorage.setItem("authToken", token);
       configApi.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       setIsAuth(true);
+    } else {
+      setIsAuth(false);
     }
   }, []);
 

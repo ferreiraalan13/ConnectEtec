@@ -11,8 +11,8 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   noAuthRoute,
 }) => {
   const { isAuth } = useContext(ContextAuth);
-  // if (isAuth === undefined) {
-  //   return null;
-  // }
+  if (isAuth === undefined) {
+    return null;
+  }
   return isAuth ? authenticatedRoute : noAuthRoute;
 };
