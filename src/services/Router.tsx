@@ -11,6 +11,7 @@ import { useMediaQuery } from "@chakra-ui/react";
 import HomeMobile from "../pages/home/HomeMobile";
 import CriarPublicacaoMobile from "../pages/criarPublicacao/CriarPublicacaoMobile";
 import PasswordReset from "../pages/resetPassword/PasswordReset";
+import SignUpConfirm from "../pages/sign-up/ConfirmPage";
 
 function Router() {
   const [isMobile] = useMediaQuery("(max-width: 768px)");
@@ -102,6 +103,15 @@ function Router() {
             <ProtectedRoute
               authenticatedRoute={<Navigate to={"/home"} />}
               noAuthRoute={<PasswordReset />}
+            />
+          }
+        />
+        <Route
+          path="/cadastro-confirmacao"
+          element={
+            <ProtectedRoute
+              authenticatedRoute={<Navigate to={"/home"} />}
+              noAuthRoute={<SignUpConfirm />}
             />
           }
         />

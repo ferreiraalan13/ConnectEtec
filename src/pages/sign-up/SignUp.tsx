@@ -5,8 +5,6 @@ import { useNavigate } from "react-router-dom";
 
 import React, { useState } from "react";
 
-import { auth } from "../../firebase/firebase";
-
 import {
   Input,
   Select,
@@ -21,8 +19,9 @@ import {
   useDisclosure,
   Button,
   Checkbox,
+  Spinner,
 } from "@chakra-ui/react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+
 import Termos from "./TermosDeUso";
 import { configApi } from "../../services/configApi";
 
@@ -32,6 +31,8 @@ interface FormData {
   login: string;
   senha: string;
   tipoUsuario?: string;
+  idRequest?: string;
+  codigoDeValidacao?: number;
 }
 
 export default function App() {
@@ -41,6 +42,7 @@ export default function App() {
   const navigate = useNavigate();
   const [confirmSenha, setConfirmSenha] = useState<string>("");
   const [confirmEmail, setConfirmEmail] = useState<string>("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [formData, setFormData] = useState<FormData>({
     login: "",
@@ -48,11 +50,15 @@ export default function App() {
     nomeCompleto: "",
     nomeSocial: "",
     tipoUsuario: "",
+    idRequest: "",
+    codigoDeValidacao: undefined,
   });
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     try {
+      setIsSubmitting(true);
       const formDataToSend = { ...formData };
 
       if (formData.senha !== confirmSenha) {
@@ -97,30 +103,25 @@ export default function App() {
         return;
       }
 
-      await configApi.post("usuario/cadastrar", formDataToSend);
-      toast({
-        title: "Sucesso",
-        description: "Cadastro realizado com sucesso",
-        status: "success",
-        duration: 1000,
-        isClosable: true,
-      });
+      await configApi
+        .post("usuario/emailValidacao", { login: formDataToSend.login })
+        .then((response) => {
+          toast({
+            title: "Sucesso",
+            description: "Siga o proximo passo",
+            status: "success",
+            duration: 1000,
+            isClosable: true,
+          });
 
-      createUserWithEmailAndPassword(
-        auth,
-        formDataToSend.login,
-        formDataToSend.senha
-      )
-        .then((userCredential) => {
-          const user = userCredential.user;
-          console.log("Usuário criado:", user);
-          // Aqui você pode redirecionar o usuário ou fazer outras ações necessárias
+          formDataToSend.idRequest = response.data;
+
+          navigate("/cadastro-confirmacao", { state: formDataToSend });
         })
-        .catch((error) => {
-          console.error("Erro ao criar usuário:", error);
+        .catch(() => {})
+        .finally(() => {
+          setIsSubmitting(false);
         });
-
-      navigate("/");
     } catch (error) {
       console.error("Erro ao cadastrar:", error);
     }
@@ -256,7 +257,7 @@ export default function App() {
               type="submit"
               className="mt-4 transition bg-gray-300 hover:bg-gray-500 hover:text-gray-100 font-bold py-1 px-2 rounded-2xl drop-shadow-md"
             >
-              Cadastre-se
+              {isSubmitting ? <Spinner /> : "Cadastre-se"}
             </button>
           </form>
         </div>
