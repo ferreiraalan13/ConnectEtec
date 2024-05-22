@@ -20,13 +20,13 @@ export default function Perfil() {
     <Box
       className="flex flex-col gap-5"
       bg="white"
-      w="800px"
+      maxW="800px"
       h=""
       padding="10px"
       borderRadius={"16px"}
       marginLeft={""}
     >
-      <div className="w-[780px] h-72 bg-gray-100 rounded-2xl">
+      <div className="w-[full] h-72 bg-gray-100 rounded-2xl">
         <div className="w-full h-36">
           <img
             src={Banner}

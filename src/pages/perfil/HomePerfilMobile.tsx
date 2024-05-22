@@ -1,8 +1,7 @@
 import { Box, Container } from "@chakra-ui/react";
 
 import DrawerExample from "../../components/DrawerExample";
-import ConfigPerfil from '../edit-perfil/AlterarFotoPerfil'
-import AlterarDados from '../edit-perfil/AlterarDados'
+
 import Perfil from "../../components/Perfil";
 
 export default function HomePerfilMobile() {
