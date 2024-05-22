@@ -70,6 +70,7 @@ export default function App() {
           duration: 1000,
           isClosable: true,
         });
+        setIsSubmitting(false);
         return;
       }
 
@@ -82,6 +83,7 @@ export default function App() {
           duration: 1000,
           isClosable: true,
         });
+        setIsSubmitting(false);
         return;
       }
 
@@ -253,12 +255,18 @@ export default function App() {
               </Modal>
             </div>
 
-            <button
-              type="submit"
-              className="mt-4 transition bg-gray-300 hover:bg-gray-500 hover:text-gray-100 font-bold py-1 px-2 rounded-2xl drop-shadow-md"
-            >
-              {isSubmitting ? <Spinner /> : "Cadastre-se"}
-            </button>
+            {isSubmitting ? (
+              <Button className="mt-4 transition bg-gray-300 hover:bg-gray-500 hover:text-gray-100 font-bold py-1 px-2 rounded-2xl drop-shadow-md">
+                <Spinner />
+              </Button>
+            ) : (
+              <Button
+                type="submit"
+                className="mt-4 transition bg-gray-300 hover:bg-gray-500 hover:text-gray-100 font-bold py-1 px-2 rounded-2xl drop-shadow-md"
+              >
+                Cadastre-se
+              </Button>
+            )}
           </form>
         </div>
       </div>

@@ -72,6 +72,8 @@ const SignUpConfirm: React.FC = () => {
       display={"flex"}
       justifyContent={"center"}
       alignItems={"center"}
+    
+      
     >
       <Stack
         as="form"
@@ -83,9 +85,10 @@ const SignUpConfirm: React.FC = () => {
         display={"flex"}
         gap={10}
         alignItems={"center"}
+        minW={'300px'}
       >
         <FormLabel>
-          Para finalizar seu cadastro, Insira o PIN recebido em seu E-mail
+          Para finalizar seu cadastro, Insira o PIN recebido em seu E-mail: {formData.login}
         </FormLabel>
         <HStack>
           <PinInput

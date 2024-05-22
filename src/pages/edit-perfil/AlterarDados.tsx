@@ -54,7 +54,7 @@ const AlterarDados: React.FC = () => {
   };
 
   return (
-    <Stack p="5" border={"1px solid"} borderRadius={"4"} display={"flex"}>
+    <Stack p="5" borderRadius={"4"} display={"flex"} bg={'white'}>
       <Stack as="form" w="100%" onSubmit={handleFormSubmit}>
         <FormControl>
           <FormLabel>Nome Completo</FormLabel>

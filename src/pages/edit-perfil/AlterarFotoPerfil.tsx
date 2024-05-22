@@ -110,9 +110,9 @@ const AlterarFotoPerfil: React.FC = () => {
   }, [previewUrl]);
 
   return (
-    <Stack
+    <Stack 
+      bg={'white'}
       p="5"
-      border={"1px solid"}
       borderRadius={"4"}
       display={"flex"}
       justifyContent={"center"}

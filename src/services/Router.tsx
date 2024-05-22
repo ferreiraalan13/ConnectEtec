@@ -1,7 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Home from "../pages/home/Home";
 import SignUp from "../pages/sign-up/SignUp";
-import HomePerfil from "../pages/home/HomePerfil";
+import HomePerfil from "../pages/perfil/HomePerfil";
 import CriarPublicacao from "../pages/criarPublicacao/CriarPublicacao";
 import Login from "../pages/login/Login";
 import EditarPerfil from "../pages/edit-perfil/EditarPerfil";
@@ -12,6 +12,8 @@ import HomeMobile from "../pages/home/HomeMobile";
 import CriarPublicacaoMobile from "../pages/criarPublicacao/CriarPublicacaoMobile";
 import PasswordReset from "../pages/resetPassword/PasswordReset";
 import SignUpConfirm from "../pages/sign-up/ConfirmPage";
+import EditarPerfilMobile from "../pages/edit-perfil/EditarPerfilMobile";
+import HomePerfilMobile from "../pages/perfil/HomePerfilMobile";
 
 function Router() {
   const [isMobile] = useMediaQuery("(max-width: 768px)");
@@ -64,7 +66,7 @@ function Router() {
           path="/homePerfil"
           element={
             <ProtectedRoute
-              authenticatedRoute={<HomePerfil />}
+              authenticatedRoute={isMobile? <HomePerfilMobile/> : <HomePerfil />}
               noAuthRoute={<Navigate to={"/login"} />}
             />
           }
@@ -73,11 +75,12 @@ function Router() {
           path="/editarPerfil"
           element={
             <ProtectedRoute
-              authenticatedRoute={<EditarPerfil />}
+              authenticatedRoute={isMobile? <EditarPerfilMobile/> : <EditarPerfil />}
               noAuthRoute={<Navigate to={"/login"} />}
             />
           }
         />
+        
         <Route
           path="/signup"
           element={
