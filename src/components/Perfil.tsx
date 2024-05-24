@@ -47,8 +47,8 @@ export default function Perfil() {
         <TabPanels>
           <TabPanel>
             <div>
-              <h1 className="">Bibliografia</h1>
-              <h2>{data?.sobre}</h2>
+              <h1 className="">Biografia</h1>
+              <Text mt="20px" whiteSpace="pre-wrap">{`${data?.sobre}`}</Text>
             </div>
           </TabPanel>
           <TabPanel>

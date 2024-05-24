@@ -1,6 +1,6 @@
-import { useQuery } from "react-query";
+import { UseQueryResult, useQuery } from "react-query";
 import { configApi } from "../configApi";
-
+import { AxiosError } from "axios";
 
 export interface PostData {
   idPost: string;
@@ -15,19 +15,16 @@ export interface PostData {
   tag?: string;
 }
 
-const RequestPost = async () => {
-  const response = await configApi.get<PostData[]>("perfilUsuario/buscarMeusPosts");
-  
+const RequestPost = async ():Promise<PostData[]> => {
+  const response = await configApi.get<PostData[]>(
+    "perfilUsuario/buscarMeusPosts"
+  );
+
   return response.data;
 };
 
-
-
-export const useRequestPost = () => {
-  
- 
-  
-  return useQuery('profile', RequestPost, {
+export const useRequestPost = (): UseQueryResult<PostData[], AxiosError> => {
+  return useQuery("post", RequestPost, {
     refetchOnWindowFocus: false,
     refetchOnMount: false,
   });

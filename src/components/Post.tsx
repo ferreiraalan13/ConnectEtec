@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import {
   Card,
   CardHeader,
@@ -22,18 +21,15 @@ import { ThumbsUp, MessageSquare, Ellipsis, Trash2 } from "lucide-react";
 import { useRequestPost } from "../services/hooks/useRequestPost";
 
 export default function Post() {
+  const { data, isLoading } = useRequestPost();
 
-  
-  const {data} = useRequestPost()
-
-  
- useEffect(()=>{
-  console.log(data)
- },[data])
+  if (isLoading) {
+    return <Text>Carregando</Text>;
+  }
 
   return (
     <>
-      {Array.isArray(data) && data.map((data)  => (
+      {data?.map((data) => (
         <Card
           key={data.idPost}
           marginLeft={""}
@@ -65,9 +61,7 @@ export default function Post() {
             </Flex>
           </CardHeader>
           <CardBody maxW={"1000px"} fontSize={"small"} pt={0}>
-            <Text fontSize={{ sm: "10px", md: "15px" }}>
-              {data.conteudo}
-            </Text>
+            <Text fontSize={{ sm: "10px", md: "15px" }}>{data.conteudo}</Text>
           </CardBody>
 
           <div className="flex justify-center m-0">
