@@ -1,7 +1,8 @@
 import { useQuery } from "react-query";
 import { configApi } from "../configApi";
 
-export interface PerfilData {
+
+export interface PostData {
   idPost: string;
   nomeAutor?: string;
   urlFotoPerfilUsuario?: string;
@@ -15,11 +16,17 @@ export interface PerfilData {
 }
 
 const RequestPost = async () => {
-  const response = await configApi.get<PerfilData[]>("perfilUsuario/buscarMeusPosts");
+  const response = await configApi.get<PostData[]>("perfilUsuario/buscarMeusPosts");
+  
   return response.data;
 };
 
+
+
 export const useRequestPost = () => {
+  
+ 
+  
   return useQuery('profile', RequestPost, {
     refetchOnWindowFocus: false,
     refetchOnMount: false,

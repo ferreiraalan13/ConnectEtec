@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {
   Card,
   CardHeader,
@@ -18,30 +18,24 @@ import {
   MenuItem,
 } from "@chakra-ui/react";
 import { ThumbsUp, MessageSquare, Ellipsis, Trash2 } from "lucide-react";
-import { Task } from "../types/types";
+
+import { useRequestPost } from "../services/hooks/useRequestPost";
 
 export default function Post() {
-  const [tasks, setTasks] = useState<Task[]>([]);
 
-  useEffect(() => {
-    const fetchTasks = async () => {
-      try {
-        const response = await fetch("../../data/db.json");
-        const data = await response.json();
-        setTasks(data.tasks);
-      } catch (error) {
-        console.error("Erro ao carregar tarefas:", error);
-      }
-    };
+  
+  const {data} = useRequestPost()
 
-    fetchTasks();
-  }, []);
+  
+ useEffect(()=>{
+  console.log(data)
+ },[data])
 
   return (
     <>
-      {tasks.map((task) => (
+      {Array.isArray(data) && data.map((data)  => (
         <Card
-          key={task.id}
+          key={data.idPost}
           marginLeft={""}
           w={"full"}
           alignItems={"left"}
@@ -50,10 +44,10 @@ export default function Post() {
           <CardHeader w={"full"} fontSize={"sm"}>
             <Flex>
               <Flex flex="1" gap="5px" alignItems="stretch">
-                <Avatar src={task.avatarImg} w={"60px"} h={"60px"} />
+                <Avatar src={data.urlFotoPerfilUsuario} w={"60px"} h={"60px"} />
                 <Box>
-                  <Heading size="sm">{task.nameUser}</Heading>
-                  <Text fontSize={"small"}>{task.curso}</Text>
+                  <Heading size="sm">{data.nomeAutor}</Heading>
+                  <Text fontSize={"small"}>{data.tag}</Text>
                 </Box>
               </Flex>
 
@@ -72,7 +66,7 @@ export default function Post() {
           </CardHeader>
           <CardBody maxW={"1000px"} fontSize={"small"} pt={0}>
             <Text fontSize={{ sm: "10px", md: "15px" }}>
-              {task.description}
+              {data.conteudo}
             </Text>
           </CardBody>
 
@@ -84,7 +78,7 @@ export default function Post() {
               maxHeight={"350px"}
               maxWidth={"350px"}
               width={"100%"}
-              src={task.img}
+              src={data.urlMidia}
             />
           </div>
 

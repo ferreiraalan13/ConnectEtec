@@ -24,7 +24,7 @@ interface FormData {
 const SignUpConfirm: React.FC = () => {
   const dados = useLocation().state;
 
-  console.log(dados);
+
 
   const [formData, setFormData] = useState<FormData>({
     login: dados.login,
