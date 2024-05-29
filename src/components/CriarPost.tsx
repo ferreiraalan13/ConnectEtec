@@ -18,6 +18,7 @@ import { storage as firebaseStorage } from "../firebase/firebase";
 import { useNavigate } from "react-router-dom";
 import { configApi } from "../services/configApi";
 
+
 interface FormData {
   urlMidia?: string;
   conteudo?: string;
@@ -72,7 +73,8 @@ export default function CriarPost() {
         duration: 2000,
         isClosable: true,
       });
-      navigate("/home");
+      window.location.reload();
+      
     } catch (error) {
       console.error("Erro ao atualizar cadastro:", error);
     } finally {

@@ -48,13 +48,14 @@ const AlterarDados: React.FC = () => {
     try {
       await configApi.patch("perfilUsuario/editarDados", updatedFormData);
       alert("Dados alterados com sucesso!");
+      window.location.href = window.location.href;
     } catch (error) {
       alert("Erro ao alterar dados.");
     }
   };
 
   return (
-    <Stack p="5" borderRadius={"4"} display={"flex"} bg={'white'}>
+    <Stack p="5" borderRadius={"4"} display={"flex"} bg={'white'} boxShadow='2px 2px 2px 2px rgba(0, 0, 0, 0.2)'>
       <Stack as="form" w="100%" onSubmit={handleFormSubmit}>
         <FormControl>
           <FormLabel>Nome Completo</FormLabel>

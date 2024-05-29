@@ -1,18 +1,18 @@
 
 import { initializeApp } from "firebase/app";
 import {getStorage} from 'firebase/storage'
-import {getAuth} from "firebase/auth";
+
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB92CvETQ3lfD685pckMHRsDpOsgDPogtQ",
-  authDomain: "connectetec-5d4be.firebaseapp.com",
-  projectId: "connectetec-5d4be",
-  storageBucket: "connectetec-5d4be.appspot.com",
-  messagingSenderId: "805371735920",
-  appId: "1:805371735920:web:962d35e0ae1036be4829b5"
+  apiKey: "AIzaSyB8Rw09oOkVvtUPjyDmdNfZbLm0H6xvcWU",
+  authDomain: "connectetec-6e89c.firebaseapp.com",
+  projectId: "connectetec-6e89c",
+  storageBucket: "connectetec-6e89c.appspot.com",
+  messagingSenderId: "898148406939",
+  appId: "1:898148406939:web:d63a635490db1983a3d83e",
+  measurementId: "G-C1D899V8G8"
 };
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
 export const storage = getStorage(app)
-export const auth = getAuth(app)

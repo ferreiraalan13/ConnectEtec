@@ -4,6 +4,7 @@ import MenuFinal from "../../components/MenuFinal";
 import Eventos from "../../components/Evento";
 import ConfigPerfil from "./AlterarFotoPerfil";
 import AlterarDados from "./AlterarDados";
+import AlterarSenha from "./AlterarSenha";
 
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
       overflow={"hidden"}
       gap={0}
       className="flex bg-gray-300"
+      
     >
       <MenuFinal />
 
@@ -45,6 +47,7 @@ export default function App() {
             <Container p="5" display={"flex"} flexDirection={"column"} gap={10}>
               <ConfigPerfil />
               <AlterarDados />
+              <AlterarSenha/>
             </Container>
           </Box>
 

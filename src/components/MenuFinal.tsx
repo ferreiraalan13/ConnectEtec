@@ -58,20 +58,20 @@ export default function Menu() {
             Criar Publicação
           </span>
         </li>
-
+{/* 
         <li className="text-Black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-2">
           <span>
             <Users />
           </span>
           <span className={`text-base font-medium flex-1 `}>Amigos</span>
-        </li>
+        </li> */}
 
-        <li className="text-Black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-2">
+        {/* <li className="text-Black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-2">
           <span>
             <PartyPopper />
           </span>
           <span className={`text-base font-medium flex-1`}>Eventos</span>
-        </li>
+        </li> */}
 
         <li className="text-Black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-2">
           <span>

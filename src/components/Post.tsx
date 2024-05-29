@@ -15,20 +15,41 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+  Stack,
+  Spinner,
 } from "@chakra-ui/react";
 import { ThumbsUp, MessageSquare, Ellipsis, Trash2 } from "lucide-react";
 
 import { useRequestPost } from "../services/hooks/useRequestPost";
 
+
+
 export default function Post() {
+  
   const { data, isLoading } = useRequestPost();
 
   if (isLoading) {
-    return <Text>Carregando</Text>;
+    return (
+      <Stack borderRadius={'4px'} w={'full'} bg={'white'} h={'385px'} align={'center'} justifyContent={'center'}>
+          <Text fontWeight={'bold'} fontSize={'30px'}>Carregando Posts Aguarde...</Text>
+          <Spinner/>
+        </Stack>
+    );
   }
+
+
+    if (!data){
+      return (
+        <Stack borderRadius={'4px'} w={'full'} bg={'white'} h={'385px'} align={'center'} justifyContent={'center'}>
+          <Text fontWeight={'bold'} fontSize={'30px'}>Sem Posts no momento</Text>
+        </Stack>
+      )
+    }
+
 
   return (
     <>
+    
       {data?.map((data) => (
         <Card
           key={data.idPost}
