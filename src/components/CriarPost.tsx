@@ -12,26 +12,27 @@ import {
 import userImage from "../assets/img/1702865313114.jpeg";
 import { Image } from "lucide-react";
 import { useState } from "react";
-
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage as firebaseStorage } from "../firebase/firebase";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { configApi } from "../services/configApi";
 
+import { useRequestProfile } from "../services/hooks/useRequestProfile";
 
 interface FormData {
-  urlMidia?: string;
+  urlMidia?: string | null;
   conteudo?: string;
   idGrupo?: string | null;
   tag?: string;
 }
 
 export default function CriarPost() {
+  const { data } = useRequestProfile();
   const toast = useToast();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [fotoPublicacao, setFotoPublicacao] = useState<File | null>(null);
   const [formData, setFormData] = useState<FormData>({
-    urlMidia: "",
+    urlMidia: null,
     conteudo: "",
     idGrupo: null,
     tag: "",
@@ -41,24 +42,22 @@ export default function CriarPost() {
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!fotoPublicacao) {
-      console.error("Nenhuma imagem selecionada.");
-      return;
-    }
-
     try {
       setIsSubmitting(true);
-      const timestamp = Date.now();
-      const nomeArquivo = `${timestamp}_${fotoPublicacao.name}`;
 
-      const storageRef = ref(
-        firebaseStorage,
-        `imagens/publicacao/${nomeArquivo}`
-      );
+      let url: string | null = null;
+      if (fotoPublicacao) {
+        const timestamp = Date.now();
+        const nomeArquivo = `${timestamp}_${fotoPublicacao.name}`;
 
-      await uploadBytes(storageRef, fotoPublicacao);
+        const storageRef = ref(
+          firebaseStorage,
+          `imagens/publicacao/${nomeArquivo}`
+        );
 
-      const url = await getDownloadURL(storageRef);
+        await uploadBytes(storageRef, fotoPublicacao);
+        url = await getDownloadURL(storageRef);
+      }
 
       const formDataWithUrl = { ...formData, urlMidia: url };
 
@@ -74,7 +73,6 @@ export default function CriarPost() {
         isClosable: true,
       });
       window.location.reload();
-      
     } catch (error) {
       console.error("Erro ao atualizar cadastro:", error);
     } finally {
@@ -125,13 +123,14 @@ export default function CriarPost() {
               src={userImage}
               alt=""
             />
-            Fulano <span className="text-gray-500">@Fulano</span>
+            {data?.nomeCompleto}
           </div>
         </div>
 
         <Select
           placeholder="Assunto"
           onChange={(e) => setFormData({ ...formData, tag: e.target.value })}
+          required
         >
           <option value="DESENVOLVIMENTO_DE_SISTEMAS">
             Desenvolvimento de sistemas

@@ -1,12 +1,4 @@
-import {
-  CirclePlus,
-  PartyPopper,
-  LogOut,
-  Settings,
-  Users,
-  Home,
-  PocketKnife,
-} from "lucide-react";
+import { CirclePlus, LogOut, Settings, Home, PocketKnife } from "lucide-react";
 
 import { useNavigate } from "react-router-dom";
 import { Avatar } from "@chakra-ui/react";
@@ -58,7 +50,7 @@ export default function Menu() {
             Criar Publicação
           </span>
         </li>
-{/* 
+        {/* 
         <li className="text-Black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-2">
           <span>
             <Users />
