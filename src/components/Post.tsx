@@ -105,7 +105,9 @@ export default function Post() {
             </Flex>
           </CardHeader>
           <CardBody maxW={"1000px"} fontSize={"small"} pt={0}>
-            <Text fontSize={{ sm: "10px", md: "15px" }}>{data.conteudo}</Text>
+            <Text whiteSpace="pre-wrap" fontSize={"18px"}>
+              {data.conteudo}
+            </Text>
           </CardBody>
 
           <div className="flex justify-center m-0">
