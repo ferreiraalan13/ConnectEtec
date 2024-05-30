@@ -1,8 +1,9 @@
 import { Box, Container } from "@chakra-ui/react";
 
 import DrawerExample from "../../components/DrawerExample";
-import ConfigPerfil from '../edit-perfil/AlterarFotoPerfil'
-import AlterarDados from '../edit-perfil/AlterarDados'
+import ConfigPerfil from "../edit-perfil/AlterarFotoPerfil";
+import AlterarDados from "../edit-perfil/AlterarDados";
+import AlterarSenha from "./AlterarSenha";
 
 export default function EditarPerfilMobile() {
   return (
@@ -39,7 +40,7 @@ export default function EditarPerfilMobile() {
             justifyContent={"space-between"}
             position={"sticky"}
             top={0}
-            zIndex={2} 
+            zIndex={2}
           >
             <div
               className={`text-black origin-left font-medium text-2xl duration-300 p-1`}
@@ -50,14 +51,11 @@ export default function EditarPerfilMobile() {
             <DrawerExample />
           </Box>
 
-          <Container 
-            position={"relative"} 
-            top={0}
-            zIndex={1} 
-          >
-            <Box display={"flex"} flexDirection={"column"} gap={3} >
+          <Container position={"relative"} top={0} zIndex={1}>
+            <Box display={"flex"} flexDirection={"column"} gap={3}>
               <ConfigPerfil />
               <AlterarDados />
+              <AlterarSenha />
             </Box>
           </Container>
         </Box>

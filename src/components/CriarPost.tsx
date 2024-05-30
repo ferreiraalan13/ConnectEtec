@@ -72,7 +72,6 @@ export default function CriarPost() {
         duration: 2000,
         isClosable: true,
       });
-      window.location.reload();
     } catch (error) {
       console.error("Erro ao atualizar cadastro:", error);
     } finally {

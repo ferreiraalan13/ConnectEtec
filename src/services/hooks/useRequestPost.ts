@@ -26,6 +26,6 @@ const RequestPost = async ():Promise<PostData[]> => {
 export const useRequestPost = (): UseQueryResult<PostData[], AxiosError> => {
   return useQuery("post", RequestPost, {
     refetchOnWindowFocus: false,
-    refetchOnMount: false,
+    refetchOnMount: true,
   });
 };

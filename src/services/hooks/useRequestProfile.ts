@@ -16,5 +16,5 @@ const RequestProfile = async() => {
 }
 
 export const useRequestProfile = () => {
-    return useQuery(['profile'], RequestProfile, {refetchOnWindowFocus: false, refetchOnMount: false} )
+    return useQuery(['profile'], RequestProfile, {refetchOnWindowFocus: false, refetchOnMount: true} )
 }

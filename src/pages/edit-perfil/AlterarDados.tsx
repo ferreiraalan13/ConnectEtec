@@ -5,6 +5,7 @@ import {
   Input,
   Stack,
   Textarea,
+  useToast,
 } from "@chakra-ui/react";
 import React, { FormEventHandler, useEffect, useState } from "react";
 import { useRequestProfile } from "../../services/hooks/useRequestProfile";
@@ -18,6 +19,7 @@ interface FormData {
 
 const AlterarDados: React.FC = () => {
   const { data } = useRequestProfile();
+  const toast = useToast();
   const [formData, setFormData] = useState<FormData>({
     nomeCompleto: "",
     nomeSocial: "",
@@ -47,15 +49,32 @@ const AlterarDados: React.FC = () => {
 
     try {
       await configApi.patch("perfilUsuario/editarDados", updatedFormData);
-      alert("Dados alterados com sucesso!");
-      window.location.href = window.location.href;
+      toast({
+        title: "Sucesso",
+        description: "Dados alterados com sucesso",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      });
     } catch (error) {
-      alert("Erro ao alterar dados.");
+      toast({
+        title: "Erro",
+        description: "Erro ao atualizar dados, tente novamente",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
     }
   };
 
   return (
-    <Stack p="5" borderRadius={"4"} display={"flex"} bg={'white'} boxShadow='2px 2px 2px 2px rgba(0, 0, 0, 0.2)'>
+    <Stack
+      p="5"
+      borderRadius={"4"}
+      display={"flex"}
+      bg={"white"}
+      boxShadow="2px 2px 2px 2px rgba(0, 0, 0, 0.2)"
+    >
       <Stack as="form" w="100%" onSubmit={handleFormSubmit}>
         <FormControl>
           <FormLabel>Nome Completo</FormLabel>
