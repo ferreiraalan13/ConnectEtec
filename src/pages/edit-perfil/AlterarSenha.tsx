@@ -3,8 +3,6 @@ import {
   FormControl,
   FormLabel,
   Input,
-  InputGroup,
-  InputRightElement,
   Stack,
   useToast,
 } from "@chakra-ui/react";
@@ -15,34 +13,24 @@ import { configApi } from "../../services/configApi";
 interface FormData {
   senhaAntiga?: string;
   novaSenha?: string | null;
- 
 }
 
 const AlterarSenha: React.FC = () => {
-
-  const [show, setShow] = React.useState(false)
-  const handleClick = () => setShow(!show)
-
-  const toast = useToast()
+  const toast = useToast();
 
   const [formData, setFormData] = useState<FormData>({
     senhaAntiga: "",
     novaSenha: "",
-
   });
 
   const [confirmSenha, setConfirmSenha] = useState({
     confirmSenha: "",
-
   });
-
-
-
 
   const handleFormSubmit: FormEventHandler<HTMLDivElement> = async (e) => {
     e.preventDefault();
 
-    if (formData.novaSenha != confirmSenha.confirmSenha){
+    if (formData.novaSenha != confirmSenha.confirmSenha) {
       toast({
         title: "Erro",
         description: "As senhas nao coincidem",
@@ -50,9 +38,8 @@ const AlterarSenha: React.FC = () => {
         duration: 2000,
         isClosable: true,
       });
-      return
+      return;
     }
-
 
     try {
       await configApi.patch("usuario/mudarSenha", formData);
@@ -75,7 +62,13 @@ const AlterarSenha: React.FC = () => {
   };
 
   return (
-    <Stack p="5" borderRadius={"4"} display={"flex"} bg={'white'} boxShadow='2px 2px 2px 2px rgba(0, 0, 0, 0.2)'>
+    <Stack
+      p="5"
+      borderRadius={"4"}
+      display={"flex"}
+      bg={"white"}
+      boxShadow="2px 2px 2px 2px rgba(0, 0, 0, 0.2)"
+    >
       <Stack as="form" w="100%" onSubmit={handleFormSubmit}>
         <FormControl>
           <FormLabel>Senha Antiga</FormLabel>
@@ -109,19 +102,6 @@ const AlterarSenha: React.FC = () => {
           />
         </FormControl>
 
-        <InputGroup size='md'>
-      <Input
-        pr='4.5rem'
-        type={show ? 'text' : 'password'}
-        placeholder='Enter password'
-      />
-      <InputRightElement width='4.5rem'>
-        <Button h='1.75rem' size='sm' onClick={handleClick}>
-          {show ? 'Hide' : 'Show'}
-        </Button>
-      </InputRightElement>
-    </InputGroup>
-        
         <Button type="submit">Alterar Senha</Button>
       </Stack>
     </Stack>

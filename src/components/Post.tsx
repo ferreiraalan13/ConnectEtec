@@ -17,39 +17,61 @@ import {
   MenuItem,
   Stack,
   Spinner,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  Textarea,
 } from "@chakra-ui/react";
 import { ThumbsUp, MessageSquare, Ellipsis, Trash2 } from "lucide-react";
 
 import { useRequestPost } from "../services/hooks/useRequestPost";
-
-
+import Comentario from "./Comentario";
 
 export default function Post() {
-  
   const { data, isLoading } = useRequestPost();
 
   if (isLoading) {
     return (
-      <Stack borderRadius={'4px'} w={'full'} bg={'white'} h={'385px'} align={'center'} justifyContent={'center'}>
-          <Text fontWeight={'bold'} fontSize={'30px'}>Carregando Posts Aguarde...</Text>
-          <Spinner/>
-        </Stack>
+      <Stack
+        borderRadius={"4px"}
+        w={"full"}
+        bg={"white"}
+        h={"385px"}
+        align={"center"}
+        justifyContent={"center"}
+      >
+        <Text fontWeight={"bold"} fontSize={"30px"}>
+          Carregando Posts Aguarde...
+        </Text>
+        <Spinner />
+      </Stack>
     );
   }
 
-
-    if (!data){
-      return (
-        <Stack borderRadius={'4px'} w={'full'} bg={'white'} h={'385px'} align={'center'} justifyContent={'center'}>
-          <Text fontWeight={'bold'} fontSize={'30px'}>Sem Posts no momento</Text>
-        </Stack>
-      )
-    }
-
+  if (!data) {
+    return (
+      <Stack
+        borderRadius={"4px"}
+        w={"full"}
+        bg={"white"}
+        h={"385px"}
+        align={"center"}
+        justifyContent={"center"}
+      >
+        <Text fontWeight={"bold"} fontSize={"30px"}>
+          Sem Posts no momento
+        </Text>
+      </Stack>
+    );
+  }
 
   return (
     <>
-    
       {data?.map((data) => (
         <Card
           key={data.idPost}
@@ -60,11 +82,12 @@ export default function Post() {
         >
           <CardHeader w={"full"} fontSize={"sm"}>
             <Flex>
-              <Flex flex="1" gap="5px" alignItems="stretch">
-                <Avatar src={data.urlFotoPerfilUsuario} w={"60px"} h={"60px"} />
+              <Flex flex="1" gap="5px" alignItems="center">
+                <Avatar src={data.urlFotoPerfilUsuario} w={"80px"} h={"80px"} />
                 <Box>
                   <Heading size="sm">{data.nomeAutor}</Heading>
-                  <Text fontSize={"small"}>{data.tag}</Text>
+                  <Text>{data.tag}</Text>
+                  <Text>29/05/2024 - 22:00</Text>
                 </Box>
               </Flex>
 
@@ -110,11 +133,55 @@ export default function Post() {
               <ThumbsUp />
             </Button>
             <Button flex="1" variant="ghost">
-              <MessageSquare />
+              <BoxComentario />
             </Button>
           </CardFooter>
         </Card>
       ))}
+    </>
+  );
+}
+
+function BoxComentario() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  return (
+    <>
+      <Stack w="100%" onClick={onOpen} align="center">
+        <MessageSquare />
+      </Stack>
+
+      <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent h="800px" w="100%" overflow={"auto"}>
+          <ModalHeader>Comentarios</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody display={"flex"} flexDir={"column"} gap={3}>
+            <Comentario />
+            <Comentario />
+          </ModalBody>
+
+          <ModalFooter justifyContent={"flex-start"}>
+            <Stack>
+              <Stack
+                flexDir="row"
+                align="center"
+                justifyContent={"space-between"}
+                w="100%"
+              >
+                <Avatar />
+                <Textarea
+                  resize="none"
+                  minH="0px"
+                  minW="0px"
+                  w={["150px", "200px", "200px", "260px", "260px"]}
+                />
+                <Button>Enviar</Button>
+              </Stack>
+            </Stack>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
 }
