@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   Card,
   CardHeader,
@@ -31,9 +32,31 @@ import { ThumbsUp, MessageSquare, Ellipsis, Trash2 } from "lucide-react";
 
 import { useRequestPost } from "../services/hooks/useRequestPost";
 import Comentario from "./Comentario";
+import { configApi } from "../services/configApi";
+
+interface PostData {
+  idPost: string;
+  nomeAutor?: string;
+  urlFotoPerfilUsuario?: string;
+  nomeGrupo?: string;
+  urlFotoPerfilGrupo?: string;
+  urlMidia?: string;
+  conteudo?: string;
+  qtdLike?: string;
+  momento?: string;
+  postCurtido: boolean;
+  tag?: string;
+}
 
 export default function Post() {
   const { data, isLoading } = useRequestPost();
+  const [posts, setPosts] = useState<PostData[]>([]);
+
+  useEffect(() => {
+    if (data) {
+      setPosts(data);
+    }
+  }, [data]);
 
   if (isLoading) {
     return (
@@ -70,11 +93,32 @@ export default function Post() {
     );
   }
 
+  const handleLike = async (postCurtido: boolean, idPost: string) => {
+    await configApi.patch("post/curtir", {
+      estaCurtido: postCurtido,
+      idPost: idPost,
+    });
+
+    setPosts((prevPosts) =>
+      prevPosts.map((post) =>
+        post.idPost === idPost
+          ? {
+              ...post,
+              postCurtido: !postCurtido,
+              qtdLike: (postCurtido
+                ? parseInt(post.qtdLike || "0") - 1
+                : parseInt(post.qtdLike || "0") + 1
+              ).toString(),
+            }
+          : post
+      )
+    );
+  };
   return (
     <>
-      {data?.map((data) => (
+      {posts.map((post) => (
         <Card
-          key={data.idPost}
+          key={post.idPost}
           marginLeft={""}
           w={"full"}
           alignItems={"left"}
@@ -83,11 +127,11 @@ export default function Post() {
           <CardHeader w={"full"} fontSize={"sm"}>
             <Flex>
               <Flex flex="1" gap="5px" alignItems="center">
-                <Avatar src={data.urlFotoPerfilUsuario} w={"80px"} h={"80px"} />
+                <Avatar src={post.urlFotoPerfilUsuario} w={"80px"} h={"80px"} />
                 <Box>
-                  <Heading size="sm">{data.nomeAutor}</Heading>
-                  <Text>{data.tag}</Text>
-                  <Text>{data.momento}</Text>
+                  <Heading size="sm">{post.nomeAutor}</Heading>
+                  <Text>{post.tag}</Text>
+                  <Text>{post.momento}</Text>
                 </Box>
               </Flex>
 
@@ -106,7 +150,7 @@ export default function Post() {
           </CardHeader>
           <CardBody maxW={"1000px"} fontSize={"small"} pt={0}>
             <Text whiteSpace="pre-wrap" fontSize={"18px"}>
-              {data.conteudo}
+              {post.conteudo}
             </Text>
           </CardBody>
 
@@ -118,7 +162,7 @@ export default function Post() {
               maxHeight={"350px"}
               maxWidth={"350px"}
               width={"100%"}
-              src={data.urlMidia}
+              src={post.urlMidia}
             />
           </div>
 
@@ -131,12 +175,23 @@ export default function Post() {
               },
             }}
           >
-            <Button flex="1" variant="ghost">
+            <Button
+              onClick={() => {
+                handleLike(post.postCurtido, post.idPost);
+              }}
+              flex="1"
+              variant="ghost"
+              colorScheme={post.postCurtido ? "blue" : "gray"}
+            >
               <ThumbsUp />
             </Button>
+
             <Button flex="1" variant="ghost">
               <BoxComentario />
             </Button>
+            <Stack flex="1" justify={"center"} align={"center"}>
+              <Text fontWeight="bold">Curtidas: {post.qtdLike}</Text>
+            </Stack>
           </CardFooter>
         </Card>
       ))}

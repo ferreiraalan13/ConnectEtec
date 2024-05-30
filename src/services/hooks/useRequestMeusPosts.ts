@@ -12,7 +12,7 @@ export interface PostData {
   conteudo?: string;
   qtdLike?: string;
   momento?: string;
-  postCurtido?: boolean;
+  postCurtido: boolean;
   tag?: string;
 }
 
