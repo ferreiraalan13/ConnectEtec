@@ -9,9 +9,9 @@ import {
   Text,
 } from "@chakra-ui/react";
 import Banner from "../assets/Background.svg";
-import Post from "./Post";
 
 import { useRequestProfile } from "../services/hooks/useRequestProfile";
+import MeusPosts from "./MeusPosts";
 
 export default function Perfil() {
   const { data } = useRequestProfile();
@@ -53,7 +53,7 @@ export default function Perfil() {
           </TabPanel>
           <TabPanel>
             <div className="flex flex-col gap-3">
-              <Post />
+              <MeusPosts />
             </div>
           </TabPanel>
         </TabPanels>
