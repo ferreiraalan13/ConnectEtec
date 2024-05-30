@@ -9,7 +9,7 @@ import {
   useToast,
   Spinner,
 } from "@chakra-ui/react";
-import userImage from "../assets/img/1702865313114.jpeg";
+
 import { Image } from "lucide-react";
 import { useState } from "react";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
@@ -119,7 +119,7 @@ export default function CriarPost() {
           <div className="flex bg-gray-300 text-gray-700 items-center gap-3 p-2 rounded-lg h-{78px} ">
             <img
               className="w-[50px] rounded-full bg-gray-300"
-              src={userImage}
+              src={data?.urlFotoPerfil}
               alt=""
             />
             {data?.nomeCompleto}

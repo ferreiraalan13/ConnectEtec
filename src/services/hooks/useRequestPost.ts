@@ -9,15 +9,16 @@ export interface PostData {
   nomeGrupo?: string;
   urlFotoPerfilGrupo?: string;
   urlMidia?: string;
-  momentoPublicacao?: string;
   conteudo?: string;
   qtdLike?: string;
+  momento?: string;
+  postCurtido?: boolean;
   tag?: string;
 }
 
 const RequestPost = async ():Promise<PostData[]> => {
   const response = await configApi.get<PostData[]>(
-    "perfilUsuario/buscarMeusPosts"
+    "post"
   );
 
   return response.data;

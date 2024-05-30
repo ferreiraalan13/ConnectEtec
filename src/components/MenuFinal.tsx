@@ -1,4 +1,4 @@
-import { CirclePlus, LogOut, Settings, Home, PocketKnife } from "lucide-react";
+import { CirclePlus, LogOut, Settings, Home } from "lucide-react";
 
 import { useNavigate } from "react-router-dom";
 import { Avatar } from "@chakra-ui/react";
@@ -19,7 +19,6 @@ export default function Menu() {
        relative`}
     >
       <div className="inline-flex">
-        <PocketKnife className="text-4xl cursor-pointer block float-left" />
         <h1
           className={`text-black origin-left font-medium text-2xl duration-300 
           `}

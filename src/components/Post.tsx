@@ -87,7 +87,7 @@ export default function Post() {
                 <Box>
                   <Heading size="sm">{data.nomeAutor}</Heading>
                   <Text>{data.tag}</Text>
-                  <Text>29/05/2024 - 22:00</Text>
+                  <Text>{data.momento}</Text>
                 </Box>
               </Flex>
 
