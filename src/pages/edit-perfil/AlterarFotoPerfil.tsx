@@ -110,14 +110,14 @@ const AlterarFotoPerfil: React.FC = () => {
   }, [previewUrl]);
 
   return (
-    <Stack 
-      bg={'white'}
+    <Stack
+      bg={"white"}
       p="5"
       borderRadius={"4"}
       display={"flex"}
       justifyContent={"center"}
       alignItems={"center"}
-      boxShadow='2px 2px 2px 2px rgba(0, 0, 0, 0.2)'
+      boxShadow="2px 2px 2px 2px rgba(0, 0, 0, 0.2)"
     >
       <form
         onSubmit={handleFormSubmit}
