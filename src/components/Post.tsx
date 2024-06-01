@@ -51,6 +51,8 @@ interface PostData {
 export default function Post() {
   const { data, isLoading } = useRequestPost();
   const [posts, setPosts] = useState<PostData[]>([]);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     if (data) {
@@ -114,6 +116,12 @@ export default function Post() {
       )
     );
   };
+
+  const handleImageClick = (imageUrl: string) => {
+    setSelectedImage(imageUrl);
+    onOpen();
+  };
+
   return (
     <>
       {posts.map((post) => (
@@ -155,15 +163,19 @@ export default function Post() {
           </CardBody>
 
           <div className="flex justify-center m-0">
-            <Image
-              flexWrap={"wrap"}
-              objectFit="cover"
-              borderRadius={"10px"}
-              maxHeight={"350px"}
-              maxWidth={"350px"}
-              width={"100%"}
-              src={post.urlMidia}
-            />
+            {post.urlMidia && (
+              <Image
+                flexWrap={"wrap"}
+                objectFit="cover"
+                borderRadius={"10px"}
+                maxHeight={"350px"}
+                maxWidth={"350px"}
+                width={"100%"}
+                src={post.urlMidia}
+                onClick={() => handleImageClick(post.urlMidia || "")}
+                cursor="pointer"
+              />
+            )}
           </div>
 
           <CardFooter
@@ -195,6 +207,8 @@ export default function Post() {
           </CardFooter>
         </Card>
       ))}
+
+      <ImageModal isOpen={isOpen} onClose={onClose} imageUrl={selectedImage} />
     </>
   );
 }
@@ -256,5 +270,26 @@ function BoxComentario() {
         </ModalContent>
       </Modal>
     </>
+  );
+}
+
+function ImageModal({
+  isOpen,
+  onClose,
+  imageUrl,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  imageUrl: string | null;
+}) {
+  return (
+    <Modal isOpen={isOpen} onClose={onClose} isCentered>
+      <ModalOverlay />
+      <ModalContent maxW={"fit-content"} bg="transparent">
+        <ModalBody display="flex" justifyContent="center" alignItems="center">
+          {imageUrl && <Image src={imageUrl} maxH="90vh" maxW="90vw" />}
+        </ModalBody>
+      </ModalContent>
+    </Modal>
   );
 }
