@@ -210,15 +210,30 @@ function BoxComentario() {
 
       <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent h="800px" w="100%" overflow={"auto"}>
+        <ModalContent h="800px" maxW="1000px" overflow={"auto"}>
           <ModalHeader>Comentarios</ModalHeader>
           <ModalCloseButton />
-          <ModalBody display={"flex"} flexDir={"column"} gap={3}>
+          <ModalBody
+            display={"flex"}
+            flexDir={"column"}
+            gap={3}
+            overflow={"auto"}
+          >
+            <Comentario />
+            <Comentario />
+            <Comentario />
+            <Comentario />
+            <Comentario />
+            <Comentario />
             <Comentario />
             <Comentario />
           </ModalBody>
 
-          <ModalFooter justifyContent={"flex-start"}>
+          <ModalFooter
+            h={"100px"}
+            justifyContent={"flex-start"}
+            boxShadow="2px 2px 10px 2px rgba(0,0,0,0.5)"
+          >
             <Stack>
               <Stack
                 flexDir="row"
@@ -231,7 +246,8 @@ function BoxComentario() {
                   resize="none"
                   minH="0px"
                   minW="0px"
-                  w={["150px", "200px", "200px", "260px", "260px"]}
+                  w={["150px", "200px", "200px", "800px", "800px"]}
+                  h={"50px"}
                 />
                 <Button>Enviar</Button>
               </Stack>

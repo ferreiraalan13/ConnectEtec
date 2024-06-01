@@ -8,6 +8,9 @@ import {
   Select,
   useToast,
   Spinner,
+  Stack,
+  Text,
+  Avatar,
 } from "@chakra-ui/react";
 
 import { Image } from "lucide-react";
@@ -102,11 +105,12 @@ export default function CriarPost() {
 
   return (
     <form action="" onSubmit={handleFormSubmit}>
-      <Box
-        className="flex flex-col gap-5"
+      <Stack
+        flexDir={"column"}
+        gap={10}
         bg="white"
         maxW="1000px"
-        h="500px"
+        h="600px"
         padding="10px"
         borderRadius={"16px"}
         marginLeft={""}
@@ -115,16 +119,21 @@ export default function CriarPost() {
           Criar Publicação
         </div>
 
-        <div className="flex gap-2 flex-col w-full">
-          <div className="flex bg-gray-300 text-gray-700 items-center gap-3 p-2 rounded-lg h-{78px} ">
-            <img
-              className="w-[50px] rounded-full bg-gray-300"
-              src={data?.urlFotoPerfil}
-              alt=""
-            />
-            {data?.nomeCompleto}
-          </div>
-        </div>
+        <Stack
+          flexDir={"row"}
+          align={"center"}
+          p={3}
+          borderRadius={"10px"}
+          boxShadow="2px 2px 2px 2px rgba(0,0,0,0.2)"
+        >
+          <Avatar
+            w={"80px"}
+            h={"80px"}
+            src={data?.urlFotoPerfil}
+            name={data?.nomeCompleto}
+          />
+          <Text fontSize={"20px"}>{data?.nomeCompleto}</Text>
+        </Stack>
 
         <Select
           placeholder="Assunto"
@@ -163,7 +172,7 @@ export default function CriarPost() {
         >
           {isSubmitting ? <Spinner /> : "Publicar"}
         </Button>
-      </Box>
+      </Stack>
     </form>
   );
 }
