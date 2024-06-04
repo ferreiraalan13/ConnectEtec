@@ -36,7 +36,7 @@ export default function App() {
         width={"100%"}
       >
         <Box display={"flex"} justifyContent={""} gap={3}>
-          <Stack w={"1000px"}>
+          <Stack w={"60%"}>
             <Post />
           </Stack>
 
