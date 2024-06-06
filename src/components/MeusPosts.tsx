@@ -134,7 +134,7 @@ export default function MeusPosts() {
 
   const handleDeletePost = async (idPost: string) => {
     try {
-      await configApi.delete(`/post/${idPost}`);
+      await configApi.delete(`/post?idPost=${idPost}`);
       setPosts(posts.filter((post) => post.idPost !== idPost));
     } catch (error) {
       console.error("Erro ao deletar o post:", error);
@@ -252,7 +252,7 @@ function BoxComentario({ idPost }: { idPost: string }) {
 
   const fetchComentarios = async () => {
     try {
-      const response = await configApi.post("/comentario/listar", { idPost });
+      const response = await configApi.get(`/comentario?idPost=${idPost}`);
 
       if (response.status === 204) {
         setComentarios([]);
