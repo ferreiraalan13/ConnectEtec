@@ -74,8 +74,15 @@ export default function BoxComentario({ idPost }: { idPost: string }) {
 
   return (
     <>
-      <Stack w="100%" onClick={onOpen} align="center">
+      <Stack
+        w="100%"
+        onClick={onOpen}
+        align="center"
+        flexDir="row"
+        justify="center"
+      >
         <MessageSquare />
+        <Text fontSize="20px">19</Text>
       </Stack>
 
       <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>

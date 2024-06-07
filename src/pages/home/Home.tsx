@@ -11,7 +11,7 @@ export default function App() {
       height={"100vh"}
       overflow={"hidden"}
       gap={0}
-      className="flex bg-gray-300"
+      className=" bg-gray-300"
       flexDir={"row"}
     >
       <MenuFinal />

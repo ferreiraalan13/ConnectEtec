@@ -6,24 +6,26 @@ import {
   AlertDialogHeader,
   AlertDialogOverlay,
   Button,
+  MenuItem,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { RefObject } from "react";
+import { Trash2 } from "lucide-react";
+import React, { ReactNode, RefObject } from "react";
 
 interface IOwnProps {
-  delete(): void;
+  children: ReactNode;
 }
 
-const AlertDialogExample: React.FC<IOwnProps> = () => {
+const AlertDialogExample: React.FC<IOwnProps> = ({ children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef: RefObject<HTMLButtonElement> =
     React.useRef<HTMLButtonElement>(null);
 
   return (
     <>
-      <Button colorScheme="red" onClick={onOpen}>
-        Delete Customer
-      </Button>
+      <MenuItem onClick={onOpen} icon={<Trash2 />}>
+        Excluir Postagem
+      </MenuItem>
 
       <AlertDialog
         isOpen={isOpen}
@@ -33,20 +35,19 @@ const AlertDialogExample: React.FC<IOwnProps> = () => {
         <AlertDialogOverlay>
           <AlertDialogContent>
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Delete Customer
+              Excluir postagem
             </AlertDialogHeader>
 
             <AlertDialogBody>
-              Are you sure? You can't undo this action afterwards.
+              Você tem certeza? Você não poderá desfazer essa ação.
             </AlertDialogBody>
 
             <AlertDialogFooter>
               <Button ref={cancelRef} onClick={onClose}>
-                Cancel
+                Cancelar
               </Button>
-              <Button colorScheme="red" onClick={onClose} ml={3}>
-                Delete
-              </Button>
+
+              {children}
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialogOverlay>
