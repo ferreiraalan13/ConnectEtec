@@ -1,26 +1,19 @@
 import { CirclePlus, LogOut, Settings, Home } from "lucide-react";
 
 import { useNavigate } from "react-router-dom";
-import { Avatar, Box } from "@chakra-ui/react";
-
+import { Avatar } from "@chakra-ui/react";
 import { useRequestProfile } from "../services/hooks/useRequestProfile";
 import { useContext } from "react";
 import { ContextAuth } from "../contexts/Authentication";
-
 export default function Menu() {
   const navigate = useNavigate();
   const { signOut } = useContext(ContextAuth);
   const { data } = useRequestProfile();
-
   return (
-    <Box
-      w="250px"
-      display="flex"
-      alignItems={"center"}
-      flexDir={"column"}
-      p={5}
-      pt={8}
-      bg={"gray.100"}
+    <div
+      className={`bg-gray-100 h-screen p-5 pt-8
+         "w-72"
+       relative`}
     >
       <div className="inline-flex">
         <h1
@@ -30,8 +23,7 @@ export default function Menu() {
           ConnectEtec
         </h1>
       </div>
-
-      <ul className="pt-2 ">
+      <ul className="pt-2">
         <li
           className="text-Black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-2"
           onClick={() => navigate("/home")}
@@ -41,7 +33,6 @@ export default function Menu() {
           </span>
           <span className={`text-base font-medium flex-1 `}>Inicio</span>
         </li>
-
         <li
           className="text-Black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-2"
           onClick={() => navigate("/criarpublicacao")}
@@ -53,7 +44,19 @@ export default function Menu() {
             Criar Publicação
           </span>
         </li>
-
+        {/* 
+        <li className="text-Black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-2">
+          <span>
+            <Users />
+          </span>
+          <span className={`text-base font-medium flex-1 `}>Amigos</span>
+        </li> */}
+        {/* <li className="text-Black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-2">
+          <span>
+            <PartyPopper />
+          </span>
+          <span className={`text-base font-medium flex-1`}>Eventos</span>
+        </li> */}
         <li className="text-Black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-2">
           <span>
             <Settings />
@@ -65,7 +68,6 @@ export default function Menu() {
             Configuração
           </span>
         </li>
-
         <li
           className="text-Black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-2"
           onClick={() => navigate("/homeperfil")}
@@ -81,7 +83,6 @@ export default function Menu() {
           </span>
           <span className={`text-base font-medium flex-1 `}>Perfil</span>
         </li>
-
         <li
           className="text-Black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-2"
           onClick={signOut}
@@ -92,6 +93,6 @@ export default function Menu() {
           <span className={`text-base font-medium flex-1 `}>Sair</span>
         </li>
       </ul>
-    </Box>
+    </div>
   );
 }

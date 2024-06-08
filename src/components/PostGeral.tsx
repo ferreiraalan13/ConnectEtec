@@ -25,11 +25,12 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { ThumbsUp, Ellipsis } from "lucide-react";
-import { useRequestPost } from "../services/hooks/useRequestPost";
 import { configApi } from "../services/configApi";
 import BoxComentario from "./BoxComentario";
 import ConfirmDelete from "./ConfirmacaoDelete";
 import { useNavigate } from "react-router-dom";
+import { UseQueryResult } from "react-query";
+import { AxiosError } from "axios";
 
 interface PostData {
   idPost: string;
@@ -45,9 +46,13 @@ interface PostData {
   tag?: string;
 }
 
-export default function Post() {
+interface PostProps {
+  useRequestPosts: () => UseQueryResult<PostData[], AxiosError>;
+}
+
+const PostGeral = ({ useRequestPosts }: PostProps) => {
   const toast = useToast();
-  const { data, isLoading } = useRequestPost();
+  const { data, isLoading } = useRequestPosts();
   const [posts, setPosts] = useState<PostData[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -251,7 +256,7 @@ export default function Post() {
       <ImageModal isOpen={isOpen} onClose={onClose} imageUrl={selectedImage} />
     </>
   );
-}
+};
 
 function ImageModal({
   isOpen,
@@ -273,3 +278,5 @@ function ImageModal({
     </Modal>
   );
 }
+
+export default PostGeral;

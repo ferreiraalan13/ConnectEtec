@@ -14,6 +14,8 @@ import PasswordReset from "../pages/resetPassword/PasswordReset";
 import SignUpConfirm from "../pages/sign-up/ConfirmPage";
 import EditarPerfilMobile from "../pages/edit-perfil/EditarPerfilMobile";
 import HomePerfilMobile from "../pages/perfil/HomePerfilMobile";
+import PerfilUsuario from "../pages/perfil/PerfilUsuario";
+import PerfilUsuarioMobile from "../pages/perfil/PerfilUsuarioMobile";
 
 function Router() {
   const [isMobile] = useMediaQuery("(max-width: 768px)");
@@ -66,21 +68,38 @@ function Router() {
           path="/homePerfil"
           element={
             <ProtectedRoute
-              authenticatedRoute={isMobile? <HomePerfilMobile/> : <HomePerfil />}
+              authenticatedRoute={
+                isMobile ? <HomePerfilMobile /> : <HomePerfil />
+              }
               noAuthRoute={<Navigate to={"/login"} />}
             />
           }
         />
+
+        <Route
+          path="/perfil-usuario"
+          element={
+            <ProtectedRoute
+              authenticatedRoute={
+                isMobile ? <PerfilUsuarioMobile /> : <PerfilUsuario />
+              }
+              noAuthRoute={<Navigate to={"/login"} />}
+            />
+          }
+        />
+
         <Route
           path="/editarPerfil"
           element={
             <ProtectedRoute
-              authenticatedRoute={isMobile? <EditarPerfilMobile/> : <EditarPerfil />}
+              authenticatedRoute={
+                isMobile ? <EditarPerfilMobile /> : <EditarPerfil />
+              }
               noAuthRoute={<Navigate to={"/login"} />}
             />
           }
         />
-        
+
         <Route
           path="/signup"
           element={

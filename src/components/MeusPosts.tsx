@@ -29,6 +29,7 @@ import { configApi } from "../services/configApi";
 import BoxComentario from "./BoxComentario";
 import ConfirmDelete from "./ConfirmacaoDelete";
 import { useRequestMeusPosts } from "../services/hooks/useRequestMeusPosts";
+import { useNavigate } from "react-router-dom";
 
 interface PostData {
   idPost: string;
@@ -50,6 +51,7 @@ export default function Post() {
   const [posts, setPosts] = useState<PostData[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (data) {
@@ -154,7 +156,15 @@ export default function Post() {
           <CardHeader w={"full"} fontSize={"sm"}>
             <Flex>
               <Flex flex="1" gap="5px" alignItems="center">
-                <Avatar src={post.urlFotoPerfilUsuario} w={"80px"} h={"80px"} />
+                <Avatar
+                  src={post.urlFotoPerfilUsuario}
+                  w={"80px"}
+                  h={"80px"}
+                  onClick={() => {
+                    navigate("/perfil-usuario");
+                  }}
+                  cursor="pointer"
+                />
                 <Box>
                   <Heading size="sm">{post.nomeAutor}</Heading>
                   <Text>{post.tag}</Text>
