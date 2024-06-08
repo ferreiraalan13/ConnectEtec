@@ -1,7 +1,4 @@
-import Post from "../../components/Post";
-
 import { Box, Container } from "@chakra-ui/react";
-
 import DrawerExample from "../../components/DrawerExample";
 import PostGeral from "../../components/PostGeral";
 import { useRequestPost } from "../../services/hooks/useRequestPost";
