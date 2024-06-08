@@ -3,6 +3,8 @@ import Post from "../../components/Post";
 import { Box, Container } from "@chakra-ui/react";
 
 import DrawerExample from "../../components/DrawerExample";
+import PostGeral from "../../components/PostGeral";
+import { useRequestPost } from "../../services/hooks/useRequestPost";
 
 export default function HomeTeste() {
   return (
@@ -56,7 +58,7 @@ export default function HomeTeste() {
             zIndex={1} // Z-index menor para garantir que o conteúdo do Post fique abaixo do DrawerExample
           >
             <Box display={"flex"} flexDirection={"column"} gap={3}>
-              <Post />
+              <PostGeral useRequestPosts={useRequestPost} />
             </Box>
           </Container>
         </Box>

@@ -44,6 +44,8 @@ interface PostData {
   momento?: string;
   postCurtido: boolean;
   tag?: string;
+  loginAutor?: string;
+  qtdComentarios?: number;
 }
 
 interface PostProps {
@@ -166,7 +168,7 @@ const PostGeral = ({ useRequestPosts }: PostProps) => {
                   w={"80px"}
                   h={"80px"}
                   onClick={() => {
-                    navigate("/perfil-usuario");
+                    navigate("/perfil-usuario", { state: post.loginAutor });
                   }}
                   cursor="pointer"
                 />
@@ -247,7 +249,9 @@ const PostGeral = ({ useRequestPosts }: PostProps) => {
             </Button>
 
             <Button flex="1" variant="ghost">
-              <BoxComentario idPost={post.idPost} />
+              <BoxComentario idPost={post.idPost}>
+                <Text fontSize="20px">{post.qtdComentarios}</Text>
+              </BoxComentario>
             </Button>
           </CardFooter>
         </Card>

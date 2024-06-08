@@ -25,11 +25,11 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { ThumbsUp, Ellipsis } from "lucide-react";
-import { useRequestPost } from "../services/hooks/useRequestPost";
 import { configApi } from "../services/configApi";
 import BoxComentario from "./BoxComentario";
 import ConfirmDelete from "./ConfirmacaoDelete";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useRequestUserPosts } from "../services/hooks/useRequestUserPost";
 
 interface PostData {
   idPost: string;
@@ -43,11 +43,14 @@ interface PostData {
   momento?: string;
   postCurtido: boolean;
   tag?: string;
+  loginAutor?: string;
+  qtdComentarios?: number;
 }
 
 export default function Post() {
   const toast = useToast();
-  const { data, isLoading } = useRequestPost();
+  const loginUsuario = useLocation().state as string;
+  const { data, isLoading } = useRequestUserPosts(loginUsuario);
   const [posts, setPosts] = useState<PostData[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -242,7 +245,9 @@ export default function Post() {
             </Button>
 
             <Button flex="1" variant="ghost">
-              <BoxComentario idPost={post.idPost} />
+              <BoxComentario idPost={post.idPost}>
+                <Text fontSize="20px">{post.qtdComentarios}</Text>
+              </BoxComentario>
             </Button>
           </CardFooter>
         </Card>

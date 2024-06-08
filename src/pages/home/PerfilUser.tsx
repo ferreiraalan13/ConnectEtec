@@ -9,12 +9,15 @@ import {
   Text,
 } from "@chakra-ui/react";
 import Banner from "../../assets/Background.svg";
-import { useRequestProfile } from "../../services/hooks/useRequestProfile";
-import PostGeral from "../../components/PostGeral";
-import { useRequestMeusPosts } from "../../services/hooks/useRequestMeusPosts";
+
+import { useLocation } from "react-router-dom";
+
+import Post from "../../components/Post";
+import { useRequestUserProfile } from "../../services/hooks/useRequestUserProfile";
 
 export default function PerfilUser() {
-  const { data } = useRequestProfile();
+  const loginAutor = useLocation().state as string;
+  const { data } = useRequestUserProfile(loginAutor);
 
   return (
     <Box
@@ -41,7 +44,7 @@ export default function PerfilUser() {
       </div>
       <Tabs variant="enclosed">
         <TabList>
-          <Tab>CACHORRO</Tab>
+          <Tab>Perfil</Tab>
           <Tab>Postagens</Tab>
         </TabList>
         <TabPanels>
@@ -53,7 +56,7 @@ export default function PerfilUser() {
           </TabPanel>
           <TabPanel>
             <div className="flex flex-col gap-3">
-              <PostGeral useRequestPosts={useRequestMeusPosts} />
+              <Post />
             </div>
           </TabPanel>
         </TabPanels>

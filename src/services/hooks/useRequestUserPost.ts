@@ -14,18 +14,20 @@ export interface PostData {
   momento?: string;
   postCurtido: boolean;
   tag?: string;
+  loginAutor?: string;
+  qtdComentarios?: number;
 }
 
-const RequestMeusPosts = async ():Promise<PostData[]> => {
+const RequestUserPosts = async (loginAutor: string): Promise<PostData[]> => {
   const response = await configApi.get<PostData[]>(
-    "perfilUsuario/buscarMeusPosts"
+    `perfilUsuario/buscarPosts?loginUsuario=${loginAutor}`
   );
 
   return response.data;
 };
 
-export const useRequestMeusPosts = (): UseQueryResult<PostData[], AxiosError> => {
-  return useQuery("MeusPosts", RequestMeusPosts, {
+export const useRequestUserPosts = (loginAutor: string): UseQueryResult<PostData[], AxiosError> => {
+  return useQuery(["UserPosts", loginAutor], () => RequestUserPosts(loginAutor), {
     refetchOnWindowFocus: false,
     refetchOnMount: true,
   });

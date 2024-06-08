@@ -19,7 +19,7 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { configApi } from "../services/configApi";
 import { useRequestProfile } from "../services/hooks/useRequestProfile";
 import { Ellipsis, MessageSquare } from "lucide-react";
@@ -34,9 +34,16 @@ interface ComentarioData {
   momento: string;
   qtdLike: number;
   comentarioCurtido: boolean;
+  children: ReactNode;
 }
 
-export default function BoxComentario({ idPost }: { idPost: string }) {
+export default function BoxComentario({
+  idPost,
+  children,
+}: {
+  idPost: string;
+  children: ReactNode;
+}) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [conteudo, setConteudo] = useState("");
   const [comentarios, setComentarios] = useState<ComentarioData[]>([]);
@@ -113,7 +120,7 @@ export default function BoxComentario({ idPost }: { idPost: string }) {
         justify="center"
       >
         <MessageSquare />
-        <Text fontSize="20px">19</Text>
+        <Text fontSize="20px">{children}</Text>
       </Stack>
 
       <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>

@@ -14,6 +14,8 @@ export interface PostData {
   momento?: string;
   postCurtido: boolean;
   tag?: string;
+  loginAutor?: string,
+  qtdComentarios?: number,
 }
 
 const RequestMeusPosts = async ():Promise<PostData[]> => {
