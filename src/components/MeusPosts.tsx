@@ -15,7 +15,6 @@ import {
   Menu,
   MenuButton,
   MenuList,
-  MenuItem,
   Stack,
   Spinner,
   useDisclosure,
@@ -23,11 +22,13 @@ import {
   ModalOverlay,
   ModalContent,
   ModalBody,
+  useToast,
 } from "@chakra-ui/react";
-import { ThumbsUp, Ellipsis, Trash2 } from "lucide-react";
+import { ThumbsUp, Ellipsis } from "lucide-react";
 import { configApi } from "../services/configApi";
-import { useRequestMeusPosts } from "../services/hooks/useRequestMeusPosts";
 import BoxComentario from "./BoxComentario";
+import ConfirmDelete from "./ConfirmacaoDelete";
+import { useRequestMeusPosts } from "../services/hooks/useRequestMeusPosts";
 
 interface PostData {
   idPost: string;
@@ -43,7 +44,8 @@ interface PostData {
   tag?: string;
 }
 
-export default function MeusPosts() {
+export default function Post() {
+  const toast = useToast();
   const { data, isLoading } = useRequestMeusPosts();
   const [posts, setPosts] = useState<PostData[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -121,8 +123,21 @@ export default function MeusPosts() {
     try {
       await configApi.delete(`/post?idPost=${idPost}`);
       setPosts(posts.filter((post) => post.idPost !== idPost));
+      toast({
+        title: "Postagem excluida com sucesso",
+        description: "",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      });
     } catch (error) {
-      console.error("Erro ao deletar o post:", error);
+      toast({
+        title: "Ops",
+        description: "Você não tem permissão para essa ação.",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
     }
   };
 
@@ -155,14 +170,18 @@ export default function MeusPosts() {
                   variant="outline"
                 />
                 <MenuList>
-                  <MenuItem
-                    onClick={() => {
-                      handleDeletePost(post.idPost);
-                    }}
-                    icon={<Trash2 />}
-                  >
-                    Excluir Postagem
-                  </MenuItem>
+                  <ConfirmDelete title="Excluir Postagem">
+                    <Button
+                      colorScheme="red"
+                      onClick={() => {
+                        handleDeletePost(post.idPost);
+                        onClose();
+                      }}
+                      ml={3}
+                    >
+                      Deletar
+                    </Button>
+                  </ConfirmDelete>
                 </MenuList>
               </Menu>
             </Flex>
@@ -173,21 +192,21 @@ export default function MeusPosts() {
             </Text>
           </CardBody>
 
-          <div className="flex justify-center m-0">
+          <Stack bg={""} w={""} align={"center"}>
             {post.urlMidia && (
               <Image
                 flexWrap={"wrap"}
                 objectFit="cover"
                 borderRadius={"10px"}
-                maxHeight={"350px"}
-                maxWidth={"350px"}
+                maxHeight={"500px"}
+                maxWidth={"500px"}
                 width={"100%"}
                 src={post.urlMidia}
                 onClick={() => handleImageClick(post.urlMidia || "")}
                 cursor="pointer"
               />
             )}
-          </div>
+          </Stack>
 
           <CardFooter
             justify="space-between"
@@ -206,15 +225,15 @@ export default function MeusPosts() {
               variant="ghost"
               colorScheme={post.postCurtido ? "blue" : "gray"}
             >
-              <ThumbsUp />
+              <ThumbsUp />{" "}
+              <Text fontSize={"20px"} ml={4}>
+                {post.qtdLike}
+              </Text>
             </Button>
 
             <Button flex="1" variant="ghost">
               <BoxComentario idPost={post.idPost} />
             </Button>
-            <Stack flex="1" justify={"center"} align={"center"}>
-              <Text fontWeight="bold">Curtidas: {post.qtdLike}</Text>
-            </Stack>
           </CardFooter>
         </Card>
       ))}

@@ -14,9 +14,10 @@ import React, { ReactNode, RefObject } from "react";
 
 interface IOwnProps {
   children: ReactNode;
+  title: string;
 }
 
-const AlertDialogExample: React.FC<IOwnProps> = ({ children }) => {
+const ConfirmDelete: React.FC<IOwnProps> = ({ children, title }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef: RefObject<HTMLButtonElement> =
     React.useRef<HTMLButtonElement>(null);
@@ -24,7 +25,7 @@ const AlertDialogExample: React.FC<IOwnProps> = ({ children }) => {
   return (
     <>
       <MenuItem onClick={onOpen} icon={<Trash2 />}>
-        Excluir Postagem
+        {title}
       </MenuItem>
 
       <AlertDialog
@@ -35,7 +36,7 @@ const AlertDialogExample: React.FC<IOwnProps> = ({ children }) => {
         <AlertDialogOverlay>
           <AlertDialogContent>
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Excluir postagem
+              {title}
             </AlertDialogHeader>
 
             <AlertDialogBody>
@@ -56,4 +57,4 @@ const AlertDialogExample: React.FC<IOwnProps> = ({ children }) => {
   );
 };
 
-export default AlertDialogExample;
+export default ConfirmDelete;

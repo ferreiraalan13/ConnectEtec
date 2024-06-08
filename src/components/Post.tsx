@@ -28,7 +28,7 @@ import { ThumbsUp, Ellipsis } from "lucide-react";
 import { useRequestPost } from "../services/hooks/useRequestPost";
 import { configApi } from "../services/configApi";
 import BoxComentario from "./BoxComentario";
-import AlertDialogExample from "./ConfirmacaoDelete";
+import ConfirmDelete from "./ConfirmacaoDelete";
 
 interface PostData {
   idPost: string;
@@ -170,7 +170,7 @@ export default function Post() {
                   variant="outline"
                 />
                 <MenuList>
-                  <AlertDialogExample>
+                  <ConfirmDelete title="Excluir Postagem">
                     <Button
                       colorScheme="red"
                       onClick={() => {
@@ -181,7 +181,7 @@ export default function Post() {
                     >
                       Deletar
                     </Button>
-                  </AlertDialogExample>
+                  </ConfirmDelete>
                 </MenuList>
               </Menu>
             </Flex>

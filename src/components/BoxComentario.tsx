@@ -2,6 +2,10 @@ import {
   Avatar,
   Box,
   Button,
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuList,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -13,11 +17,13 @@ import {
   Text,
   Textarea,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { configApi } from "../services/configApi";
 import { useRequestProfile } from "../services/hooks/useRequestProfile";
-import { MessageSquare } from "lucide-react";
+import { Ellipsis, MessageSquare } from "lucide-react";
+import ConfirmDelete from "./ConfirmacaoDelete";
 
 interface ComentarioData {
   idComentario: string;
@@ -34,6 +40,8 @@ export default function BoxComentario({ idPost }: { idPost: string }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [conteudo, setConteudo] = useState("");
   const [comentarios, setComentarios] = useState<ComentarioData[]>([]);
+  const toast = useToast();
+  const { data } = useRequestProfile();
 
   useEffect(() => {
     if (isOpen) {
@@ -70,7 +78,30 @@ export default function BoxComentario({ idPost }: { idPost: string }) {
       }
     }
   };
-  const { data } = useRequestProfile();
+
+  const handleDeleteComentario = async (idComentario: string) => {
+    try {
+      await configApi.delete(
+        `/comentario?idComentario=${idComentario}&idPost=${idPost}`
+      );
+      toast({
+        title: "Comentario excluido com sucesso",
+        description: "",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      });
+      fetchComentarios();
+    } catch (error) {
+      toast({
+        title: "Ops",
+        description: "Você não tem permissão para essa ação.",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+    }
+  };
 
   return (
     <>
@@ -103,15 +134,44 @@ export default function BoxComentario({ idPost }: { idPost: string }) {
                 borderRadius="4px"
                 boxShadow="2px 2px 2px 2px rgba(0,0,0,0.2)"
               >
-                <Stack flexDir="row" align="center">
-                  <Avatar
-                    src={comentario.urlFotoPerfilUsuario}
-                    name={comentario.nomeAutor}
-                  />
-                  <Box>
-                    <Text>{comentario.nomeAutor}</Text>
-                    <Text fontSize="14px">{comentario.momento}</Text>
-                  </Box>
+                <Stack
+                  flexDir="row"
+                  align="center"
+                  justifyContent="space-between"
+                >
+                  <Stack flexDir="row">
+                    <Avatar
+                      src={comentario.urlFotoPerfilUsuario}
+                      name={comentario.nomeAutor}
+                    />
+
+                    <Box>
+                      <Text>{comentario.nomeAutor}</Text>
+                      <Text fontSize="14px">{comentario.momento}</Text>
+                    </Box>
+                  </Stack>
+
+                  <Menu>
+                    <MenuButton
+                      as={IconButton}
+                      aria-label="Options"
+                      icon={<Ellipsis />}
+                      variant="outline"
+                    />
+                    <MenuList>
+                      <ConfirmDelete title="Excluir Comentario">
+                        <Button
+                          colorScheme="red"
+                          onClick={() => {
+                            handleDeleteComentario(comentario.idComentario);
+                          }}
+                          ml={3}
+                        >
+                          Deletar
+                        </Button>
+                      </ConfirmDelete>
+                    </MenuList>
+                  </Menu>
                 </Stack>
                 <Stack p={3}>
                   <Text>{comentario.conteudo}</Text>
