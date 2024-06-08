@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import Perfil from "../../components/Perfil";
+import Perfil from "../home/Perfil";
 import MenuFinal from "../../components/MenuFinal";
 
 export default function HomePerfil() {

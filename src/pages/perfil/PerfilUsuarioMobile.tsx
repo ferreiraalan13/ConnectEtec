@@ -1,6 +1,6 @@
 import { Box, Container } from "@chakra-ui/react";
 import DrawerExample from "../../components/DrawerExample";
-import PerfilUser from "../../components/PerfilUser";
+import PerfilUser from "../home/PerfilUser";
 
 const PerfilUsuarioMobile: React.FC = () => {
   return (

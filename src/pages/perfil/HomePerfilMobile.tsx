@@ -2,7 +2,7 @@ import { Box, Container } from "@chakra-ui/react";
 
 import DrawerExample from "../../components/DrawerExample";
 
-import Perfil from "../../components/Perfil";
+import Perfil from "../home/Perfil";
 
 export default function HomePerfilMobile() {
   return (
@@ -39,7 +39,7 @@ export default function HomePerfilMobile() {
             justifyContent={"space-between"}
             position={"sticky"}
             top={0}
-            zIndex={2} 
+            zIndex={2}
           >
             <div
               className={`text-black origin-left font-medium text-2xl duration-300 p-1`}
@@ -50,12 +50,8 @@ export default function HomePerfilMobile() {
             <DrawerExample />
           </Box>
 
-          <Container 
-            position={"relative"} 
-            top={0}
-            zIndex={1} 
-          >
-            <Box display={"flex"} flexDirection={"column"} gap={3} >
+          <Container position={"relative"} top={0} zIndex={1}>
+            <Box display={"flex"} flexDirection={"column"} gap={3}>
               <Perfil />
             </Box>
           </Container>

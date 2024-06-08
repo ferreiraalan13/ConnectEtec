@@ -8,12 +8,12 @@ import {
   Tabs,
   Text,
 } from "@chakra-ui/react";
-import Banner from "../assets/Background.svg";
+import Banner from "../../assets/Background.svg";
+import { useRequestProfile } from "../../services/hooks/useRequestProfile";
+import PostGeral from "../../components/PostGeral";
+import { useRequestMeusPosts } from "../../services/hooks/useRequestMeusPosts";
 
-import { useRequestProfile } from "../services/hooks/useRequestProfile";
-import MeusPosts from "./MeusPosts";
-
-export default function Perfil() {
+export default function PerfilUser() {
   const { data } = useRequestProfile();
 
   return (
@@ -41,7 +41,7 @@ export default function Perfil() {
       </div>
       <Tabs variant="enclosed">
         <TabList>
-          <Tab>Perfil</Tab>
+          <Tab>CACHORRO</Tab>
           <Tab>Postagens</Tab>
         </TabList>
         <TabPanels>
@@ -53,7 +53,7 @@ export default function Perfil() {
           </TabPanel>
           <TabPanel>
             <div className="flex flex-col gap-3">
-              <MeusPosts />
+              <PostGeral useRequestPosts={useRequestMeusPosts} />
             </div>
           </TabPanel>
         </TabPanels>

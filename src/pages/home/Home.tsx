@@ -1,9 +1,8 @@
-import Post from "../../components/Post";
-
 import { Box, Stack } from "@chakra-ui/react";
-
 import MenuFinal from "../../components/MenuFinal";
 import Eventos from "../../components/Evento";
+import { useRequestPost } from "../../services/hooks/useRequestPost";
+import PostGeral from "../../components/PostGeral";
 
 export default function App() {
   return (
@@ -37,7 +36,7 @@ export default function App() {
       >
         <Box display={"flex"} justifyContent={""} gap={3}>
           <Stack w={"60%"}>
-            <Post />
+            <PostGeral useRequestPosts={useRequestPost} />
           </Stack>
 
           <Box>

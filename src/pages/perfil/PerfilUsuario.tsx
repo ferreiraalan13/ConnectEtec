@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import MenuFinal from "../../components/MenuFinal";
-import PerfilUser from "../../components/PerfilUser";
+import PerfilUser from "../home/PerfilUser";
 
 const PerfilUsuario: React.FC = () => {
   return (
