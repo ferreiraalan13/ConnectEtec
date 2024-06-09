@@ -246,7 +246,7 @@ export default function Post() {
 
             <Button flex="1" variant="ghost">
               <BoxComentario idPost={post.idPost}>
-                <Text fontSize="20px">{post.qtdComentarios}</Text>
+                <span>{post.qtdComentarios}</span>
               </BoxComentario>
             </Button>
           </CardFooter>
