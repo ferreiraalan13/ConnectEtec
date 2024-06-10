@@ -1,6 +1,7 @@
 import {
   Avatar,
   Box,
+  Stack,
   Tab,
   TabList,
   TabPanel,
@@ -8,7 +9,7 @@ import {
   Tabs,
   Text,
 } from "@chakra-ui/react";
-import Banner from "../../assets/Background.svg";
+// import Banner from "../../assets/Background.svg";
 import { useRequestProfile } from "../../services/hooks/useRequestProfile";
 import { useRequestMeusPosts } from "../../services/hooks/useRequestMeusPosts";
 import PostGeral from "../../components/PostGeral";
@@ -26,7 +27,7 @@ export default function Perfil() {
       borderRadius={"16px"}
       marginLeft={""}
     >
-      <div className="w-[full] h-72 bg-gray-100 rounded-2xl">
+      {/* <div className="w-[full] h-72 bg-gray-100 rounded-2xl">
         <div className="w-full h-36">
           <img
             src={Banner}
@@ -38,7 +39,24 @@ export default function Perfil() {
             <Text fontSize="2xl">{data?.nomeCompleto}</Text>
           </div>
         </div>
-      </div>
+      </div> */}
+
+      <Stack w="full" h="288px" bg="" gap={0} position="relative">
+        <Avatar
+          src={data?.urlFotoPerfil}
+          w={150}
+          h={150}
+          position="absolute"
+          top="calc(50% - 75px)"
+          left="calc(10px)"
+        />
+        <Stack borderTopRadius={15} h="50%" bg="#ff7461"></Stack>
+        <Stack p={1} h="50%" bg="#f3f4f6">
+          <Text mt={5} fontWeight="semibold" ml={180} fontSize="2xl">
+            {data?.nomeCompleto}
+          </Text>
+        </Stack>
+      </Stack>
       <Tabs variant="enclosed">
         <TabList>
           <Tab>Perfil</Tab>
