@@ -1,52 +1,32 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 
-import Home from "./pages/home/Home";
-import SignUp from "./pages/sign-up/SignUp";
-import HomePerfil from "./pages/home/HomePerfil";
-import HomeCriarPublicacao from "./pages/home/HomeCriarPublicacao";
-import Login from "./pages/login/Login";
-
-import { RequireAuth } from "./Contexts/Auth/RequireAuth";
-import HomeMobile from "./pages/home/HomeMobile";
-import { useMediaQuery } from "@chakra-ui/react";
-import EditarPerfil from "./pages/edit-perfil/EditarPerfil";
+import { QueryClientProvider, QueryClient } from "react-query";
+import Router from "./services/Router";
+import AuthProvider from "./contexts/Authentication";
 
 function App() {
-  const [isMobile] = useMediaQuery("(max-width: 768px)");
+  const queryClient = new QueryClient();
+
+  const theme = extendTheme({
+    semanticTokens: {},
+    breakpoints: {
+      base: "340px",
+      sm: "410px",
+      md: "1024px",
+      lg: "1180",
+      xl: "1920px",
+    },
+  });
 
   return (
     <div className="App">
-      <Router>
-        <Routes>
-          <Route path="/" element={<Login />}></Route>
-
-          <Route
-            path="/home"
-            element={
-              <RequireAuth>{isMobile ? <HomeMobile /> : <Home />}</RequireAuth>
-            }
-          ></Route>
-
-          <Route
-            path="/criarPublicacao"
-            element={
-              <RequireAuth>
-                <HomeCriarPublicacao />
-              </RequireAuth>
-            }
-          ></Route>
-          <Route
-            path="/homePerfil"
-            element={
-              <RequireAuth>
-                <HomePerfil />
-              </RequireAuth>
-            }
-          ></Route>
-          <Route path="/editarPerfil" element={<EditarPerfil />}></Route>
-          <Route path="/signup" element={<SignUp />}></Route>
-        </Routes>
-      </Router>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <ChakraProvider theme={theme}>
+            <Router />
+          </ChakraProvider>
+        </AuthProvider>
+      </QueryClientProvider>
     </div>
   );
 }

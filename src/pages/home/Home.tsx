@@ -1,22 +1,19 @@
-import Post from "../../components/Post";
-
-import { Box } from "@chakra-ui/react";
-
+import { Box, Stack } from "@chakra-ui/react";
 import MenuFinal from "../../components/MenuFinal";
 import Eventos from "../../components/Evento";
+import { useRequestPost } from "../../services/hooks/useRequestPost";
+import PostGeral from "../../components/PostGeral";
 
 export default function App() {
   return (
-    <div className="flex justify-center bg-gray-300">
-    <Box
+    <Stack
       height={"100vh"}
       overflow={"hidden"}
       gap={0}
-      className="flex bg-gray-300"
-      display={'flex'}
+      className=" bg-gray-300"
+      flexDir={"row"}
     >
       <MenuFinal />
-      
 
       <Box
         padding={"20px"}
@@ -27,7 +24,7 @@ export default function App() {
             borderRadius: "20px",
             backgroundColor: "darkgray",
             marginRight: "4px",
-            background: "transparent"
+            background: "transparent",
           },
           "&::-webkit-scrollbar-thumb": {
             background: "grey",
@@ -38,15 +35,15 @@ export default function App() {
         width={"100%"}
       >
         <Box display={"flex"} justifyContent={""} gap={3}>
-          <Box display={"flex"} flexDirection={"column"} gap={3}>
-            <Post />
-          </Box>
+          <Stack w={"60%"}>
+            <PostGeral useRequestPosts={useRequestPost} />
+          </Stack>
+
           <Box>
             <Eventos />
           </Box>
         </Box>
       </Box>
-    </Box>
-    </div>
+    </Stack>
   );
 }

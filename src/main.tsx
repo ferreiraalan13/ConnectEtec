@@ -1,17 +1,18 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
-import { ChakraProvider } from '@chakra-ui/react'
-import { AuthProvider } from './Contexts/Auth/AuthProvider.tsx'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App.tsx";
+import { ChakraProvider } from "@chakra-ui/react";
+import { QueryClient, QueryClientProvider } from "react-query";
+//import { AuthProvider } from "./Contexts/Auth/AuthProvider.tsx";
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+const queryClient = new QueryClient();
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <AuthProvider>
+    <QueryClientProvider client={queryClient}>
       <ChakraProvider>
-        <App/>
+        <App />
       </ChakraProvider>
-    </AuthProvider>
-    
-  </React.StrictMode>,
-)
+    </QueryClientProvider>
+  </React.StrictMode>
+);

@@ -1,39 +1,21 @@
-import {
-  CirclePlus,
-  PartyPopper,
-  LogOut,
-  Settings,
-  Users,
-  Home,
-  PocketKnife,
-  Search,
-} from "lucide-react";
-import { useContext } from "react";
+import { CirclePlus, LogOut, Settings, Home } from "lucide-react";
+
 import { useNavigate } from "react-router-dom";
-
-import userImage from "../assets/img/1702865313114.jpeg";
-import { AuthContext } from "../Contexts/Auth/AuthContext";
-
+import { Avatar } from "@chakra-ui/react";
+import { useRequestProfile } from "../services/hooks/useRequestProfile";
+import { useContext } from "react";
+import { ContextAuth } from "../contexts/Authentication";
 export default function Menu() {
-  const auth = useContext(AuthContext);
-
-  const handleLogout = async () => {
-    await auth.signout();
-    navigate("/");
-  };
-
-  
   const navigate = useNavigate();
-
+  const { signOut } = useContext(ContextAuth);
+  const { data } = useRequestProfile();
   return (
     <div
       className={`bg-gray-100 h-screen p-5 pt-8
          "w-72"
        relative`}
     >
-
       <div className="inline-flex">
-        <PocketKnife className="text-4xl cursor-pointer block float-left" />
         <h1
           className={`text-black origin-left font-medium text-2xl duration-300 
           `}
@@ -41,22 +23,6 @@ export default function Menu() {
           ConnectEtec
         </h1>
       </div>
-
-      <div
-        className={`flex items-center rounded-md bg-gray-700 mt-6 py-2`}
-      >
-        <Search
-          className={`text-white text-lg float-left cursor-pointer `}
-        />
-        <input
-          type="search"
-          placeholder="Pesquisar"
-          className={`text-base text-white bg-transparent w-full focus:outline-none ${
-            !open && "hidden"
-          }`}
-        />
-      </div>
-
       <ul className="pt-2">
         <li
           className="text-Black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-2"
@@ -65,11 +31,8 @@ export default function Menu() {
           <span>
             <Home />
           </span>
-          <span className={`text-base font-medium flex-1 `}>
-            Inicio
-          </span>
+          <span className={`text-base font-medium flex-1 `}>Inicio</span>
         </li>
-
         <li
           className="text-Black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-2"
           onClick={() => navigate("/criarpublicacao")}
@@ -81,25 +44,19 @@ export default function Menu() {
             Criar Publicação
           </span>
         </li>
-
+        {/* 
         <li className="text-Black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-2">
           <span>
             <Users />
           </span>
-          <span className={`text-base font-medium flex-1 `}>
-            Amigos
-          </span>
-        </li>
-
-        <li className="text-Black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-2">
+          <span className={`text-base font-medium flex-1 `}>Amigos</span>
+        </li> */}
+        {/* <li className="text-Black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-2">
           <span>
             <PartyPopper />
           </span>
-          <span className={`text-base font-medium flex-1`}>
-            Eventos
-          </span>
-        </li>
-
+          <span className={`text-base font-medium flex-1`}>Eventos</span>
+        </li> */}
         <li className="text-Black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-2">
           <span>
             <Settings />
@@ -111,33 +68,29 @@ export default function Menu() {
             Configuração
           </span>
         </li>
-
         <li
           className="text-Black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-2"
           onClick={() => navigate("/homeperfil")}
         >
           <span>
-            <img
-              className="w-[26px] rounded-full bg-gray-300"
-              src={userImage}
-              alt=""
-            />
+            <Avatar
+              name={data?.nomeCompleto}
+              w={"30px"}
+              h={"30px"}
+              rounded={"100%"}
+              src={data?.urlFotoPerfil}
+            ></Avatar>
           </span>
-          <span className={`text-base font-medium flex-1 `}>
-            Perfil
-          </span>
+          <span className={`text-base font-medium flex-1 `}>Perfil</span>
         </li>
-
         <li
           className="text-Black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-2"
-          onClick={() => handleLogout()}
+          onClick={signOut}
         >
           <span>
             <LogOut />
           </span>
-          <span className={`text-base font-medium flex-1 `}>
-            Sair
-          </span>
+          <span className={`text-base font-medium flex-1 `}>Sair</span>
         </li>
       </ul>
     </div>

@@ -2,7 +2,7 @@ import image from "../../assets/signup-image.svg";
 import background from "../../assets/Background.svg";
 import line from "../../assets/Line.svg";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+
 import React, { useState } from "react";
 
 import {
@@ -19,14 +19,20 @@ import {
   useDisclosure,
   Button,
   Checkbox,
+  Spinner,
 } from "@chakra-ui/react";
+
+import Termos from "./TermosDeUso";
+import { configApi } from "../../services/configApi";
 
 interface FormData {
   nomeCompleto: string;
-  nomeSocial?: string;
+  nomeSocial?: string | null;
   login: string;
   senha: string;
   tipoUsuario?: string;
+  idRequest?: string;
+  codigoDeValidacao?: number;
 }
 
 export default function App() {
@@ -36,6 +42,7 @@ export default function App() {
   const navigate = useNavigate();
   const [confirmSenha, setConfirmSenha] = useState<string>("");
   const [confirmEmail, setConfirmEmail] = useState<string>("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [formData, setFormData] = useState<FormData>({
     login: "",
@@ -43,11 +50,15 @@ export default function App() {
     nomeCompleto: "",
     nomeSocial: "",
     tipoUsuario: "",
+    idRequest: "",
+    codigoDeValidacao: undefined,
   });
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     try {
+      setIsSubmitting(true);
       const formDataToSend = { ...formData };
 
       if (formData.senha !== confirmSenha) {
@@ -59,6 +70,7 @@ export default function App() {
           duration: 1000,
           isClosable: true,
         });
+        setIsSubmitting(false);
         return;
       }
 
@@ -71,11 +83,12 @@ export default function App() {
           duration: 1000,
           isClosable: true,
         });
+        setIsSubmitting(false);
         return;
       }
 
       if (formDataToSend.nomeSocial === "") {
-        formDataToSend.nomeSocial = null as unknown as string | undefined;
+        formDataToSend.nomeSocial = null;
       }
 
       if (formDataToSend.tipoUsuario === "") {
@@ -92,19 +105,25 @@ export default function App() {
         return;
       }
 
-      const response = await axios.post(
-        "http://localhost:8080/usuario/cadastrar",
-        formDataToSend
-      );
-      console.log("Cadastro realizado com sucesso!", response.data);
-      toast({
-        title: "Sucesso",
-        description: "Cadastro realizado com sucesso",
-        status: "success",
-        duration: 1000,
-        isClosable: true,
-      });
-      navigate("/");
+      await configApi
+        .post("usuario/emailValidacao", { login: formDataToSend.login })
+        .then((response) => {
+          toast({
+            title: "Sucesso",
+            description: "Siga o proximo passo",
+            status: "success",
+            duration: 1000,
+            isClosable: true,
+          });
+
+          formDataToSend.idRequest = response.data;
+
+          navigate("/cadastro-confirmacao", { state: formDataToSend });
+        })
+        .catch(() => {})
+        .finally(() => {
+          setIsSubmitting(false);
+        });
     } catch (error) {
       console.error("Erro ao cadastrar:", error);
     }
@@ -152,7 +171,7 @@ export default function App() {
                 type="text"
                 id="nomeSocial"
                 name="nomeSocial"
-                value={formData.nomeSocial}
+                value={formData.nomeSocial || ""}
                 onChange={(e) =>
                   setFormData({ ...formData, nomeSocial: e.target.value })
                 }
@@ -227,38 +246,7 @@ export default function App() {
                   <ModalHeader>Termos de Uso</ModalHeader>
                   <ModalCloseButton />
                   <ModalBody>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Maiores, quisquam saepe nobis deserunt hic molestias cum
-                    ipsam consequuntur voluptatibus expedita beatae quibusdam.
-                    Aliquam a harum iste doloremque nisi, consequatur mollitia?
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Maiores, quisquam saepe nobis deserunt hic molestias cum
-                    ipsam consequuntur voluptatibus expedita beatae quibusdam.
-                    Aliquam a harum iste doloremque nisi, consequatur mollitia?
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Maiores, quisquam saepe nobis deserunt hic molestias cum
-                    ipsam consequuntur voluptatibus expedita beatae quibusdam.
-                    Aliquam a harum iste doloremque nisi, consequatur mollitia?
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Maiores, quisquam saepe nobis deserunt hic molestias cum
-                    ipsam consequuntur voluptatibus expedita beatae quibusdam.
-                    Aliquam a harum iste doloremque nisi, consequatur mollitia?
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Maiores, quisquam saepe nobis deserunt hic molestias cum
-                    ipsam consequuntur voluptatibus expedita beatae quibusdam.
-                    Aliquam a harum iste doloremque nisi, consequatur mollitia?
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Maiores, quisquam saepe nobis deserunt hic molestias cum
-                    ipsam consequuntur voluptatibus expedita beatae quibusdam.
-                    Aliquam a harum iste doloremque nisi, consequatur mollitia?
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Maiores, quisquam saepe nobis deserunt hic molestias cum
-                    ipsam consequuntur voluptatibus expedita beatae quibusdam.
-                    Aliquam a harum iste doloremque nisi, consequatur mollitia?
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Maiores, quisquam saepe nobis deserunt hic molestias cum
-                    ipsam consequuntur voluptatibus expedita beatae quibusdam.
-                    Aliquam a harum iste doloremque nisi, consequatur mollitia?
+                    <Termos />
                   </ModalBody>
                   <ModalFooter>
                     <Button onClick={onClose}>Close</Button>
@@ -267,12 +255,18 @@ export default function App() {
               </Modal>
             </div>
 
-            <button
-              type="submit"
-              className="mt-4 transition bg-gray-300 hover:bg-gray-500 hover:text-gray-100 font-bold py-1 px-2 rounded-2xl drop-shadow-md"
-            >
-              Cadastre-se
-            </button>
+            {isSubmitting ? (
+              <Button className="mt-4 transition bg-gray-300 hover:bg-gray-500 hover:text-gray-100 font-bold py-1 px-2 rounded-2xl drop-shadow-md">
+                <Spinner />
+              </Button>
+            ) : (
+              <Button
+                type="submit"
+                className="mt-4 transition bg-gray-300 hover:bg-gray-500 hover:text-gray-100 font-bold py-1 px-2 rounded-2xl drop-shadow-md"
+              >
+                Cadastre-se
+              </Button>
+            )}
           </form>
         </div>
       </div>

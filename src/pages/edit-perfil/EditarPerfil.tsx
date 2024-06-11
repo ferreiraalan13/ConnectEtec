@@ -1,8 +1,10 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Stack } from "@chakra-ui/react";
 
 import MenuFinal from "../../components/MenuFinal";
 import Eventos from "../../components/Evento";
-import ConfigPerfil from "../../components/ConfigPerfil";
+import ConfigPerfil from "./AlterarFotoPerfil";
+import AlterarDados from "./AlterarDados";
+import AlterarSenha from "./AlterarSenha";
 
 export default function App() {
   return (
@@ -15,11 +17,11 @@ export default function App() {
       <MenuFinal />
 
       <Box
-        padding={"20px"}
+        padding={"0px"}
         css={{
           "&::-webkit-scrollbar": {
-            width: "13px",
-            height: "13px",
+            width: "0px",
+            height: "0px",
             borderRadius: "20px",
             backgroundColor: "darkgray",
             marginRight: "4px",
@@ -32,16 +34,12 @@ export default function App() {
         overflowX={"hidden"}
         width={"100%"}
       >
-        <Box display={"flex"} justifyContent={"space-around"}>
-          <Box
-            display={"flex"}
-            flexDirection={"column"}
-            gap={3}
-            rounded={"6px"}
-            bg={"white"}
-          >
+        <Box display={"flex"} ml={"10px"} mt={"10px"} gap={3}>
+          <Stack gap={3} rounded={"6px"} w={"1000px"}>
             <ConfigPerfil />
-          </Box>
+            <AlterarDados />
+            <AlterarSenha />
+          </Stack>
 
           <Box>
             <Eventos />

@@ -1,11 +1,11 @@
-import { Checkbox, Input, Link, Text } from "@chakra-ui/react";
-import { useState } from "react";
+import { Checkbox, Input, Link, Text, useToast } from "@chakra-ui/react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import background from "../../assets/Background.svg";
-//import { AuthContext } from "../../Contexts/Auth/AuthContext";
 import image from "./formando-a-ilustracao-do-conceito-de-lideranca-de-equipe_114360-10883 1 (1).svg";
-import axios from "axios";
+
+import { ContextAuth } from "../../contexts/Authentication";
 
 interface FormData {
   login: string;
@@ -13,43 +13,28 @@ interface FormData {
 }
 
 export default function Login() {
-  {
-    /*const auth = useContext(AuthContext);*/
-  }
+  const toast = useToast();
 
   const navigate = useNavigate();
+
+  const { signIn } = useContext(ContextAuth);
 
   const [formData, setFormData] = useState<FormData>({
     login: "",
     senha: "",
   });
 
-  /*const handleLogin = async () => {
-    
-    if (login && senha) {
-      const isLogged = await auth.signin(login, senha);
-      if (isLogged) {
-        navigate("/home");
-      } else {
-        alert("Não deu certo.");
-      }
-    }
-  };*/
-
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      const response = await axios.post(
-        "http://localhost:8080/usuario/login",
-        formData
-      );
-      localStorage.setItem("authToken", response.data);
-      navigate("/home");
-      window.location.href = window.location.href;
-    } catch (error) {
-      console.error("Erro ao cadastrar:", error);
-      alert("ERRO AO LOGAR");
-    }
+    signIn(formData.login, formData.senha).catch(() => {
+      toast({
+        title: "Erro ao logar",
+        description: "Verifique seu email e senha",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+    });
   };
 
   return (
@@ -99,7 +84,10 @@ export default function Login() {
 
             <div className="flex flex-col md:flex-row justify-between items-start gap-4">
               <Checkbox defaultChecked>Lembrar de mim</Checkbox>
-              <Link color="teal.500"> Esqueceu sua senha? </Link>
+              <Link onClick={() => navigate("/resetar-senha")} color="teal.500">
+                {" "}
+                Esqueceu sua senha?{" "}
+              </Link>
             </div>
             <div className="flex flex-col md:flex-row justify-between items-start gap-4">
               <Text>
