@@ -68,7 +68,7 @@ export default function BoxComentario({
       } else {
         setComentarios(response.data);
       }
-      onCommentsChange(idPost, response.data.length); // Atualiza a contagem de comentários
+      onCommentsChange(idPost, response.data.length);
     } catch (error) {
       console.error("Erro ao buscar comentários:", error);
     }

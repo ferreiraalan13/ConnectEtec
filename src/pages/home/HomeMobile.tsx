@@ -38,7 +38,7 @@ export default function HomeTeste() {
             justifyContent={"space-between"}
             position={"sticky"}
             top={0}
-            zIndex={2} // Ajuste o z-index para garantir que o DrawerExample fique sobreposto
+            zIndex={2}
           >
             <div
               className={`text-black origin-left font-medium text-2xl duration-300 p-1`}
@@ -49,11 +49,7 @@ export default function HomeTeste() {
             <DrawerExample />
           </Box>
 
-          <Container // Envolve o Post e DrawerExample em um contêiner
-            position={"relative"} // Posição relativa para garantir que o DrawerExample seja fixado corretamente
-            top={0}
-            zIndex={1} // Z-index menor para garantir que o conteúdo do Post fique abaixo do DrawerExample
-          >
+          <Container position={"relative"} top={0} zIndex={1}>
             <Box display={"flex"} flexDirection={"column"} gap={3}>
               <PostGeral useRequestPosts={useRequestPost} />
             </Box>
