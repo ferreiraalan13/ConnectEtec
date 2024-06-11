@@ -40,9 +40,11 @@ interface ComentarioData {
 export default function BoxComentario({
   idPost,
   children,
+  onCommentsChange,
 }: {
   idPost: string;
   children: ReactNode;
+  onCommentsChange: (idPost: string, newCount: number) => void;
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [conteudo, setConteudo] = useState("");
@@ -54,6 +56,7 @@ export default function BoxComentario({
     if (isOpen) {
       fetchComentarios();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
   const fetchComentarios = async () => {
@@ -65,6 +68,7 @@ export default function BoxComentario({
       } else {
         setComentarios(response.data);
       }
+      onCommentsChange(idPost, response.data.length); // Atualiza a contagem de comentários
     } catch (error) {
       console.error("Erro ao buscar comentários:", error);
     }

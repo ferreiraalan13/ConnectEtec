@@ -146,6 +146,14 @@ export default function Post() {
     }
   };
 
+  const handleCommentsChange = (idPost: string, newCount: number) => {
+    setPosts((prevPosts) =>
+      prevPosts.map((post) =>
+        post.idPost === idPost ? { ...post, qtdComentarios: newCount } : post
+      )
+    );
+  };
+
   return (
     <>
       {posts.map((post) => (
@@ -245,7 +253,10 @@ export default function Post() {
             </Button>
 
             <Button flex="1" variant="ghost">
-              <BoxComentario idPost={post.idPost}>
+              <BoxComentario
+                idPost={post.idPost}
+                onCommentsChange={handleCommentsChange}
+              >
                 <span>{post.qtdComentarios}</span>
               </BoxComentario>
             </Button>
