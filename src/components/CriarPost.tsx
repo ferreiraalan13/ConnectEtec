@@ -109,12 +109,12 @@ export default function CriarPost() {
                   );
                   switch (status.className) {
                     case "Porn":
-                      if (status.probability > 50) {
+                      if (status.probability > 1) {
                         isValid = false;
                       }
                       break;
                     case "Sexy":
-                      if (status.probability > 50) {
+                      if (status.probability > 99) {
                         isValid = false;
                       }
                       break;
@@ -134,10 +134,11 @@ export default function CriarPost() {
                   setFotoPublicacao(file);
                 } else {
                   toast({
-                    title: "FOTO IMPRORIA",
-                    description: "",
+                    title: "Erro",
+                    description:
+                      "Encontramos um problema com sua foto, por favor, tente outro arquivo",
                     status: "error",
-                    duration: 4000,
+                    duration: 6000,
                     isClosable: true,
                   });
                   setFotoPublicacao(null);
