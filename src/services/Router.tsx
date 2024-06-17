@@ -16,6 +16,7 @@ import EditarPerfilMobile from "../pages/edit-perfil/EditarPerfilMobile";
 import HomePerfilMobile from "../pages/perfil/HomePerfilMobile";
 import PerfilUsuario from "../pages/perfil/PerfilUsuario";
 import PerfilUsuarioMobile from "../pages/perfil/PerfilUsuarioMobile";
+import BuscarPerfil from "../pages/home/BuscarPerfil";
 
 function Router() {
   const [isMobile] = useMediaQuery("(max-width: 768px)");
@@ -58,6 +59,18 @@ function Router() {
             <ProtectedRoute
               authenticatedRoute={
                 isMobile ? <CriarPublicacaoMobile /> : <CriarPublicacao />
+              }
+              noAuthRoute={<Navigate to={"/login"} />}
+            />
+          }
+        />
+
+        <Route
+          path="/buscar-perfil"
+          element={
+            <ProtectedRoute
+              authenticatedRoute={
+                isMobile ? <BuscarPerfil /> : <BuscarPerfil />
               }
               noAuthRoute={<Navigate to={"/login"} />}
             />
