@@ -15,7 +15,7 @@ const RequestSearchUser = async (nome: string) => {
 
 export const useRequestSearchUser = (nome: string) => {
   return useQuery(['SearchByName', nome], () => RequestSearchUser(nome), {
-    enabled: !!nome, // Só habilita a consulta se 'nome' não for vazio
+    enabled: !!nome, 
     refetchOnWindowFocus: false,
     refetchOnMount: false,
   });

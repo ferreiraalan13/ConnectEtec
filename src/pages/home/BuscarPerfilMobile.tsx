@@ -1,19 +1,12 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  Flex,
-  Input,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
-import MenuFinal from "../../components/MenuFinal";
+import { Avatar, Box, Button, Container, Flex, Input, Stack, Text } from "@chakra-ui/react";
+import DrawerExample from "../../components/DrawerExample";
 import { Search } from "lucide-react";
-import { useRequestSearchUser } from "../../services/hooks/useRequestSearchUser";
 import { useState } from "react";
+import { useRequestSearchUser } from "../../services/hooks/useRequestSearchUser";
 import { useNavigate } from "react-router-dom";
 
-export default function App() {
+export default function BuscarPerfilMobile() {
+
   const [nome, setNome] = useState("");
   const { data, refetch } = useRequestSearchUser(nome);
   const navigate = useNavigate();
@@ -24,35 +17,54 @@ export default function App() {
   };
 
   return (
-    <Stack
-      height={"100vh"}
-      overflow={"hidden"}
-      gap={0}
-      className="bg-gray-300"
-      flexDir={"row"}
-    >
-      <MenuFinal />
-
+    <>
       <Box
-        padding={"20px"}
-        css={{
-          "&::-webkit-scrollbar": {
-            width: "0",
-            height: "0",
-            borderRadius: "20px",
-            backgroundColor: "darkgray",
-            marginRight: "4px",
-            background: "transparent",
-          },
-          "&::-webkit-scrollbar-thumb": {
-            background: "grey",
-            borderRadius: "20px",
-          },
-        }}
-        overflowX={"hidden"}
-        width={"100%"}
+        height={"100vh"}
+        overflow={"hidden"}
+        className={`min-lg:hidden flex bg-gray-300`}
       >
-        <Box display={"flex"} justifyContent={""} gap={1}>
+        <Box
+          padding={""}
+          css={{
+            "&::-webkit-scrollbar": {
+              width: "0",
+              height: "0",
+              borderRadius: "20px",
+              backgroundColor: "darkgray",
+              marginRight: "4px",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              background: "grey",
+              borderRadius: "20px",
+            },
+          }}
+          overflowX={"hidden"}
+          width={"100%"}
+        >
+          <Box
+            className="bg-gray-300"
+            p={1}
+            w={"full"}
+            bg={""}
+            display={"flex"}
+            justifyContent={"space-between"}
+            position={"sticky"}
+            top={0}
+            zIndex={2}
+          >
+            <div
+              className={`text-black origin-left font-medium text-2xl duration-300 p-1`}
+            >
+              {" "}
+              ConnectEtec
+            </div>
+            <DrawerExample />
+          </Box>
+
+          <Container position={"relative"} top={0} zIndex={1}>
+            <Box display={"flex"} flexDirection={"column"} gap={3}>
+              
+              <Box display={"flex"} justifyContent={""} gap={1}>
           <Stack w={"60%"}>
             <form onSubmit={handleSubmit}>
               <Stack flexDir={"row"}>
@@ -124,7 +136,11 @@ export default function App() {
             </form>
           </Stack>
         </Box>
+
+            </Box>
+          </Container>
+        </Box>
       </Box>
-    </Stack>
+    </>
   );
 }
