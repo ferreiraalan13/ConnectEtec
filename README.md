@@ -1,5 +1,14 @@
 # ConnectEtec
 
+Integrantes do Grupo:
+Alan Ferreira Moraes
+Ana Sofia Rodrigues Nogueira
+Carlos Daniel Martins Sanguino
+Eduardo Viana
+Marcus Vinicius da Silva
+Rodrigo Gusmão Silva
+Anderson Silva Souza
+
 ORIENTAÇÕES FRONT-END
 
 Instruções para rodar o projeto.
