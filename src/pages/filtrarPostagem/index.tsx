@@ -1,4 +1,4 @@
-import { Box, Button, Stack } from "@chakra-ui/react";
+import { Box, Button, Stack, Text } from "@chakra-ui/react";
 import MenuFinal from "../../components/MenuFinal";
 import Eventos from "../../components/Evento";
 import { useNavigate } from "react-router-dom";
@@ -35,14 +35,25 @@ const FiltrarPostagem: React.FC = () => {
         width={"100%"}
       >
         <Box display={"flex"} justifyContent={""} gap={3}>
-          <Stack p={50} rounded={4} h="95vh" minH="600px" bg="white" w={"60%"}>
+          <Stack
+            py={30}
+            align="center"
+            rounded={4}
+            h="95vh"
+            minH="600px"
+            bg="white"
+            w={"60%"}
+          >
+            <Text fontWeight="bold" fontSize="30px" mb={5}>
+              Filtrar postagens
+            </Text>
             <Button
               onClick={() => {
                 navigate("/postagens-filtradas", {
                   state: "DESENVOLVIMENTO_DE_SISTEMAS",
                 });
               }}
-              w="300px"
+              w="350px"
             >
               Desenvolvimento de Sitemas
             </Button>
@@ -52,7 +63,7 @@ const FiltrarPostagem: React.FC = () => {
                   state: "RECURSOS_HUMANOS",
                 });
               }}
-              w="300px"
+              w="350px"
             >
               Recursos Humanos
             </Button>
@@ -62,7 +73,7 @@ const FiltrarPostagem: React.FC = () => {
                   state: "CONTABILIDADE",
                 });
               }}
-              w="300px"
+              w="350px"
             >
               Contabilidade
             </Button>
@@ -72,7 +83,7 @@ const FiltrarPostagem: React.FC = () => {
                   state: "SEGURANCA_DO_TRABALHO",
                 });
               }}
-              w="300px"
+              w="350px"
             >
               Segurança do Trabalho
             </Button>
@@ -82,7 +93,7 @@ const FiltrarPostagem: React.FC = () => {
                   state: "NOTICIA",
                 });
               }}
-              w="300px"
+              w="350px"
             >
               Noticia
             </Button>
@@ -92,7 +103,7 @@ const FiltrarPostagem: React.FC = () => {
                   state: "OUTRO",
                 });
               }}
-              w="300px"
+              w="350px"
             >
               Outros
             </Button>
