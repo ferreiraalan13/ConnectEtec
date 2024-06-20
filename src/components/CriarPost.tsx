@@ -76,7 +76,13 @@ export default function CriarPost() {
         isClosable: true,
       });
     } catch (error) {
-      console.error("Erro ao atualizar cadastro:", error);
+      toast({
+        title: "Erro",
+        description: "Erro ao criar publicação",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
     } finally {
       setIsSubmitting(false);
     }

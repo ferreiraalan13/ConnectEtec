@@ -8,6 +8,8 @@ export interface PerfilData {
     nomeUsuario?: string;
     urlFotoPerfil?: string;
     sobre?: string;
+    qtdUsuariosSeguidos?: number;
+    qtdSeguidores?: number;
   }
 
 const RequestProfile = async() => {

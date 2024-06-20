@@ -8,6 +8,10 @@ export interface PerfilData {
     urlFotoPerfil?: string;
     sobre?: string;
     loginAutor?: string;
+    qtdUsuariosSeguidos?: number;
+    qtdSeguidores?: number;
+    estaSeguido?: boolean;
+
 }
 
 const RequestUserProfile = async (loginAutor: string): Promise<PerfilData> => {

@@ -18,6 +18,8 @@ import PerfilUsuario from "../pages/perfil/PerfilUsuario";
 import PerfilUsuarioMobile from "../pages/perfil/PerfilUsuarioMobile";
 import BuscarPerfil from "../pages/home/BuscarPerfil";
 import BuscarPerfilMobile from "../pages/home/BuscarPerfilMobile";
+import FiltrarPostagem from "../pages/filtrarPostagem";
+import PostagensFiltradas from "../pages/filtrarPostagem/PostagensFiltradas";
 
 function Router() {
   const [isMobile] = useMediaQuery("(max-width: 768px)");
@@ -52,6 +54,31 @@ function Router() {
             />
           }
         />
+
+        <Route
+          path="/filtrar-postagem"
+          element={
+            <ProtectedRoute
+              authenticatedRoute={
+                isMobile ? <FiltrarPostagem /> : <FiltrarPostagem />
+              }
+              noAuthRoute={<Navigate to={"/login"} />}
+            />
+          }
+        />
+
+        <Route
+          path="/postagens-filtradas"
+          element={
+            <ProtectedRoute
+              authenticatedRoute={
+                isMobile ? <PostagensFiltradas /> : <PostagensFiltradas />
+              }
+              noAuthRoute={<Navigate to={"/login"} />}
+            />
+          }
+        />
+
         <Route path="*" element={<Navigate to={"/"} />} />
 
         <Route
