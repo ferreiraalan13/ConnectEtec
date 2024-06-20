@@ -21,6 +21,7 @@ import { configApi } from "../services/configApi";
 
 import { useRequestProfile } from "../services/hooks/useRequestProfile";
 
+import * as nsfwjs from "nsfwjs";
 interface FormData {
   urlMidia?: string | null;
   conteudo?: string;
@@ -75,7 +76,13 @@ export default function CriarPost() {
         isClosable: true,
       });
     } catch (error) {
-      console.error("Erro ao atualizar cadastro:", error);
+      toast({
+        title: "Erro",
+        description: "Erro ao criar publicação",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -86,10 +93,80 @@ export default function CriarPost() {
     return acceptedTypes.includes(file.type);
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const validateNSFW = async (file: File) => {
+    const fr = new FileReader();
+    let imageB64;
+    fr.readAsDataURL(file);
+    fr.onloadend = () => {
+      imageB64 = fr.result;
+      const image = document.createElement("img");
+      if (imageB64) {
+        image.src = imageB64.toString();
+        nsfwjs
+          .load()
+          .then((param) => {
+            param
+              .classify(image)
+              .then((result) => {
+                let isValid = true;
+                result.forEach((status) => {
+                  status.probability = parseFloat(
+                    (status.probability * 100).toFixed(2)
+                  );
+                  switch (status.className) {
+                    case "Porn":
+                      if (status.probability > 1) {
+                        isValid = false;
+                      }
+                      break;
+                    case "Sexy":
+                      if (status.probability > 99) {
+                        isValid = false;
+                      }
+                      break;
+                    case "Hentai":
+                      if (status.probability > 50) {
+                        isValid = false;
+                      }
+                      break;
+
+                    default:
+                      break;
+                  }
+                });
+                console.log(isValid);
+                console.log(result);
+                if (isValid) {
+                  setFotoPublicacao(file);
+                } else {
+                  toast({
+                    title: "Erro",
+                    description:
+                      "Encontramos um problema com sua foto, por favor, tente outro arquivo",
+                    status: "error",
+                    duration: 6000,
+                    isClosable: true,
+                  });
+                  setFotoPublicacao(null);
+                }
+              })
+              .finally(() => {
+                setIsSubmitting(false);
+              });
+          })
+          .catch(() => {
+            setIsSubmitting(false);
+          });
+      }
+    };
+  };
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files ? e.target.files[0] : null;
+
     if (file && isValidImage(file)) {
-      setFotoPublicacao(file);
+      setIsSubmitting(true);
+      validateNSFW(file);
     } else {
       toast({
         title: "Erro, Tipo de arquivo não suportado.",
@@ -105,6 +182,7 @@ export default function CriarPost() {
   return (
     <form action="" onSubmit={handleFormSubmit}>
       <Stack
+        id="boxImage"
         flexDir={"column"}
         gap={10}
         bg="white"

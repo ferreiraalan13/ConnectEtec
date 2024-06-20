@@ -1,6 +1,8 @@
+import { useState } from "react";
 import {
   Avatar,
   Box,
+  Button,
   Stack,
   Tab,
   TabList,
@@ -9,16 +11,31 @@ import {
   Tabs,
   Text,
 } from "@chakra-ui/react";
-// import Banner from "../../assets/Background.svg";
-
 import { useLocation } from "react-router-dom";
-
 import Post from "../../components/Post";
 import { useRequestUserProfile } from "../../services/hooks/useRequestUserProfile";
+import { configApi } from "../../services/configApi";
 
 export default function PerfilUser() {
   const loginAutor = useLocation().state as string;
-  const { data } = useRequestUserProfile(loginAutor);
+  const { data, refetch } = useRequestUserProfile(loginAutor);
+
+  const [estaSeguido, setEstaSeguido] = useState(data?.estaSeguido);
+
+  const handleFollowClick = async () => {
+    const newFollowStatus = !estaSeguido;
+    try {
+      await configApi.patch("perfilUsuario/seguir", {
+        estaSeguido: data?.estaSeguido,
+        loginUsuarioSeguido: loginAutor,
+      });
+      setEstaSeguido(newFollowStatus);
+
+      refetch();
+    } catch (error) {
+      alert("Failed to follow/unfollow user:");
+    }
+  };
 
   return (
     <Box
@@ -30,49 +47,40 @@ export default function PerfilUser() {
       borderRadius={"16px"}
       marginLeft={""}
     >
-      {/* <div className="w-[full] h-72 bg-gray-100 rounded-2xl">
-        <div className="w-full h-36">
-          <img
-            src={Banner}
-            alt=""
-            className="w-full h-full object-cover rounded-t-2xl"
-          />
-          <div className="px-5 -translate-y-16 flex items-end">
-            <Avatar src={data?.urlFotoPerfil} w={150} h={150} />
-            <Text fontSize="2xl">{data?.nomeCompleto}</Text>
-          </div>
-        </div>
-      </div> */}
-
       <Stack w="full" h="288px" bg="" gap={0} position="relative">
         <Avatar
           src={data?.urlFotoPerfil}
-          w={150}
-          h={150}
+          w={130}
+          h={130}
           position="absolute"
           top="calc(50% - 75px)"
           left="calc(10px)"
         />
         <Stack borderTopRadius={15} h="50%" bg="#ff7461"></Stack>
-        <Stack p={1} h="50%" bg="#f3f4f6">
-          <Text mt={5} fontWeight="semibold" ml={180} fontSize="2xl">
-            {data?.nomeCompleto}
-          </Text>
+        <Stack p={1} h="fit-content" bg="#f3f4f6">
+          <Stack ml={160}>
+            <Text fontWeight="semibold" fontSize="2xl">
+              {data?.nomeCompleto}
+            </Text>
+
+            {data?.estaSeguido !== null && (
+              <Button
+                px={0}
+                bg={"transparent"}
+                w="fit-content"
+                onClick={handleFollowClick}
+              >
+                {estaSeguido ? "Parar de Seguir" : "Seguir Usuario"}
+              </Button>
+            )}
+
+            <Stack>
+              <Text fontSize="18px">Seguidores: {data?.qtdSeguidores}</Text>{" "}
+              <Text fontSize="18px">Seguindo: {data?.qtdUsuariosSeguidos}</Text>
+            </Stack>
+          </Stack>
         </Stack>
       </Stack>
-      {/* <div className="w-[full] h-72 bg-gray-100 rounded-2xl">
-        <div className="w-full h-36">
-          <img
-            src={Banner}
-            alt=""
-            className="w-full h-full object-cover rounded-t-2xl"
-          />
-          <div className="px-5 -translate-y-16 flex items-end">
-            <Avatar src={data?.urlFotoPerfil} w={150} h={150} />
-            <Text fontSize="2xl">{data?.nomeCompleto}</Text>
-          </div>
-        </div>
-      </div> */}
 
       <Tabs variant="enclosed">
         <TabList>

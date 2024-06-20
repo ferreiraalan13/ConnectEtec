@@ -1,4 +1,11 @@
-import { CirclePlus, LogOut, Settings, Home } from "lucide-react";
+import {
+  CirclePlus,
+  LogOut,
+  Settings,
+  Home,
+  UsersRound,
+  Search,
+} from "lucide-react";
 
 import { useNavigate } from "react-router-dom";
 import { Avatar } from "@chakra-ui/react";
@@ -43,6 +50,25 @@ export default function Menu() {
           <span className={`text-base font-medium flex-1 `}>
             Criar Publicação
           </span>
+        </li>
+        <li
+          className="text-Black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-2"
+          onClick={() => navigate("/buscar-perfil")}
+        >
+          <span>
+            <UsersRound />
+          </span>
+          <span className={`text-base font-medium flex-1 `}>Buscar Perfil</span>
+        </li>
+
+        <li
+          className="text-Black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-2"
+          onClick={() => navigate("/filtrar-postagem")}
+        >
+          <span>
+            <Search />
+          </span>
+          <span className={`text-base font-medium flex-1 `}>Filtrar Posts</span>
         </li>
         {/* 
         <li className="text-Black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-2">

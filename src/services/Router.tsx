@@ -16,6 +16,12 @@ import EditarPerfilMobile from "../pages/edit-perfil/EditarPerfilMobile";
 import HomePerfilMobile from "../pages/perfil/HomePerfilMobile";
 import PerfilUsuario from "../pages/perfil/PerfilUsuario";
 import PerfilUsuarioMobile from "../pages/perfil/PerfilUsuarioMobile";
+import BuscarPerfil from "../pages/home/BuscarPerfil";
+import BuscarPerfilMobile from "../pages/home/BuscarPerfilMobile";
+import FiltrarPostagem from "../pages/filtrarPostagem";
+import PostagensFiltradas from "../pages/filtrarPostagem/PostagensFiltradas";
+import PostagensFiltradasMobile from "../pages/filtrarPostagem/PostagensFiltradasMobile";
+import FiltrarPostagemMobile from "../pages/filtrarPostagem/indexMobile";
 
 function Router() {
   const [isMobile] = useMediaQuery("(max-width: 768px)");
@@ -50,6 +56,31 @@ function Router() {
             />
           }
         />
+
+        <Route
+          path="/filtrar-postagem"
+          element={
+            <ProtectedRoute
+              authenticatedRoute={
+                isMobile ? <FiltrarPostagemMobile /> : <FiltrarPostagem />
+              }
+              noAuthRoute={<Navigate to={"/login"} />}
+            />
+          }
+        />
+
+        <Route
+          path="/postagens-filtradas"
+          element={
+            <ProtectedRoute
+              authenticatedRoute={
+                isMobile ? <PostagensFiltradasMobile /> : <PostagensFiltradas />
+              }
+              noAuthRoute={<Navigate to={"/login"} />}
+            />
+          }
+        />
+
         <Route path="*" element={<Navigate to={"/"} />} />
 
         <Route
@@ -58,6 +89,18 @@ function Router() {
             <ProtectedRoute
               authenticatedRoute={
                 isMobile ? <CriarPublicacaoMobile /> : <CriarPublicacao />
+              }
+              noAuthRoute={<Navigate to={"/login"} />}
+            />
+          }
+        />
+
+        <Route
+          path="/buscar-perfil"
+          element={
+            <ProtectedRoute
+              authenticatedRoute={
+                isMobile ? <BuscarPerfilMobile /> : <BuscarPerfil />
               }
               noAuthRoute={<Navigate to={"/login"} />}
             />
