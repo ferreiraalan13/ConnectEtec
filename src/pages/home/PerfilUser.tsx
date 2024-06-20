@@ -56,25 +56,29 @@ export default function PerfilUser() {
           top="calc(50% - 75px)"
           left="calc(10px)"
         />
-        <Stack borderTopRadius={15} h="50%" bg="#ff7461">
-          <Stack h="100%" align="flex-end" p={15} justify="center">
-            <Text color="white" fontWeight="bold" fontSize="18px">
-              Seguidores: {data?.qtdSeguidores}
-            </Text>{" "}
-            <Text fontWeight="bold" color="white" fontSize="18px">
-              Seguindo: {data?.qtdUsuariosSeguidos}
+        <Stack borderTopRadius={15} h="50%" bg="#ff7461"></Stack>
+        <Stack p={1} h="fit-content" bg="#f3f4f6">
+          <Stack ml={160}>
+            <Text fontWeight="semibold" fontSize="2xl">
+              {data?.nomeCompleto}
             </Text>
+
             {data?.estaSeguido !== null && (
-              <Button w="fit-content" onClick={handleFollowClick}>
+              <Button
+                px={0}
+                bg={"transparent"}
+                w="fit-content"
+                onClick={handleFollowClick}
+              >
                 {estaSeguido ? "Parar de Seguir" : "Seguir Usuario"}
               </Button>
             )}
+
+            <Stack>
+              <Text fontSize="18px">Seguidores: {data?.qtdSeguidores}</Text>{" "}
+              <Text fontSize="18px">Seguindo: {data?.qtdUsuariosSeguidos}</Text>
+            </Stack>
           </Stack>
-        </Stack>
-        <Stack p={1} h="50%" bg="#f3f4f6">
-          <Text mt={5} fontWeight="semibold" ml={180} fontSize="2xl">
-            {data?.nomeCompleto}
-          </Text>
         </Stack>
       </Stack>
 

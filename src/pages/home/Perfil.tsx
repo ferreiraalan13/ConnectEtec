@@ -38,11 +38,13 @@ export default function Perfil() {
         />
         <Stack borderTopRadius={15} h="50%" bg="#ff7461"></Stack>
         <Stack p={1} h="fit-content" bg="#f3f4f6">
-          <Text mt={5} fontWeight="semibold" ml={180} fontSize="30px">
+          <Text fontWeight="semibold" ml={160} fontSize="30px">
             {data?.nomeCompleto}{" "}
+          </Text>
+          <Stack ml={160}>
             <Text fontSize="18px">Seguidores: {data?.qtdSeguidores}</Text>{" "}
             <Text fontSize="18px">Seguindo: {data?.qtdUsuariosSeguidos}</Text>
-          </Text>
+          </Stack>
         </Stack>
       </Stack>
       <Tabs variant="enclosed">
