@@ -1,13 +1,22 @@
 # ConnectEtec
 
 Integrantes do Grupo:
-Alan Ferreira Moraes
-Ana Sofia Rodrigues Nogueira
-Carlos Daniel Martins Sanguino
-Eduardo Viana
-Marcus Vinicius da Silva
+Alan Ferreira Moraes,
+
+Anderson Silva Souza,
+
+Ana Sofia Rodrigues Nogueira,
+
+Carlos Daniel Martins Sanguino,
+
+Eduardo Viana,
+
+Marcus Vinicius da Silva,
+
 Rodrigo Gusmão Silva
-Anderson Silva Souza
+
+
+
 
 ORIENTAÇÕES FRONT-END
 
