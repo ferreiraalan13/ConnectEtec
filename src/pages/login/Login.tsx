@@ -1,4 +1,13 @@
-import { Checkbox, Input, Link, Text, useToast } from "@chakra-ui/react";
+import {
+  Button,
+  Checkbox,
+  FormControl,
+  FormLabel,
+  Input,
+  Link,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -60,41 +69,54 @@ export default function Login() {
           >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* <InputTemplate labelTitle="Email" type="email" /> */}
-              <Input
-                type="text"
-                value={formData.login}
-                onChange={(e) =>
-                  setFormData({ ...formData, login: e.target.value })
-                }
-                placeholder="Digite seu email"
-              />
+              <FormControl>
+                <FormLabel>Email</FormLabel>
+                <Input
+                  type="text"
+                  value={formData.login}
+                  onChange={(e) =>
+                    setFormData({ ...formData, login: e.target.value })
+                  }
+                  placeholder="Digite seu email"
+                />
+              </FormControl>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* <InputTemplate labelTitle="Senha" type="password" /> */}
-              <Input
-                type="password"
-                value={formData.senha}
-                onChange={(e) =>
-                  setFormData({ ...formData, senha: e.target.value })
-                }
-                placeholder="Digite sua senha"
-              />
+              <FormControl>
+                <FormLabel>Senha</FormLabel>
+                <Input
+                  type="password"
+                  value={formData.senha}
+                  onChange={(e) =>
+                    setFormData({ ...formData, senha: e.target.value })
+                  }
+                  placeholder="Digite sua senha"
+                />
+              </FormControl>
             </div>
 
             <div className="flex flex-col md:flex-row justify-between items-start gap-4">
-              <Checkbox defaultChecked>Lembrar de mim</Checkbox>
-              <Link onClick={() => navigate("/resetar-senha")} color="teal.500">
+              <Button
+                onClick={() => navigate("/resetar-senha")}
+                color="teal.500"
+                bg="transparent"
+              >
                 {" "}
                 Esqueceu sua senha?{" "}
-              </Link>
+              </Button>
             </div>
             <div className="flex flex-col md:flex-row justify-between items-start gap-4">
               <Text>
                 Não tem uma conta?{" "}
-                <Link color="teal.500" onClick={() => navigate("/signup")}>
+                <Button
+                  color="teal.500"
+                  bg={"transparent"}
+                  onClick={() => navigate("/signup")}
+                >
                   Cadastre-se
-                </Link>
+                </Button>
               </Text>
             </div>
 
