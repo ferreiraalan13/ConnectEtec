@@ -1,10 +1,8 @@
 import {
   Button,
-  Checkbox,
   FormControl,
   FormLabel,
   Input,
-  Link,
   Text,
   useToast,
 } from "@chakra-ui/react";
