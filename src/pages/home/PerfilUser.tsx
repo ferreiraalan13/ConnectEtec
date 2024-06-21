@@ -3,6 +3,7 @@ import {
   Avatar,
   Box,
   Button,
+  Flex,
   Stack,
   Tab,
   TabList,
@@ -59,20 +60,26 @@ export default function PerfilUser() {
         <Stack borderTopRadius={15} h="50%" bg="#ff7461"></Stack>
         <Stack p={1} h="fit-content" bg="#f3f4f6">
           <Stack ml={160}>
-            <Text fontWeight="semibold" fontSize="2xl">
-              {data?.nomeCompleto}
-            </Text>
-
-            {data?.estaSeguido !== null && (
-              <Button
-                px={0}
-                bg={"transparent"}
-                w="fit-content"
-                onClick={handleFollowClick}
-              >
-                {estaSeguido ? "Parar de Seguir" : "Seguir Usuario"}
-              </Button>
-            )}
+            <Flex
+              gap={2}
+              flexDir={["column", "column", "column", "row", "row"]}
+            >
+              <Text fontWeight="semibold" fontSize="2xl">
+                {data?.nomeCompleto}
+              </Text>
+              {data?.estaSeguido !== null && (
+                <Button
+                  px={0}
+                  p={2}
+                  bg={"#fd4e37"}
+                  color="white"
+                  w="fit-content"
+                  onClick={handleFollowClick}
+                >
+                  {estaSeguido ? "Parar de Seguir" : "Seguir Usuario"}
+                </Button>
+              )}
+            </Flex>
 
             <Stack>
               <Text fontSize="18px">Seguidores: {data?.qtdSeguidores}</Text>{" "}
