@@ -64,7 +64,7 @@ export default function CriarPost() {
 
       const formDataWithUrl = { ...formData, urlMidia: url };
 
-      await configApi.post("http://localhost:8080/post", formDataWithUrl);
+      await configApi.post("post", formDataWithUrl);
 
       setFormData(formDataWithUrl);
 
