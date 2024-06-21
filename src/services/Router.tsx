@@ -23,6 +23,7 @@ import PostagensFiltradas from "../pages/filtrarPostagem/PostagensFiltradas";
 import PostagensFiltradasMobile from "../pages/filtrarPostagem/PostagensFiltradasMobile";
 import FiltrarPostagemMobile from "../pages/filtrarPostagem/indexMobile";
 import PageEventoCriar from "../pages/eventos/PageEventoCriar";
+import PageCriarEventoMobile from "../pages/eventos/PageEventoCriarMobile";
 
 function Router() {
   const [isMobile] = useMediaQuery("(max-width: 768px)");
@@ -75,7 +76,7 @@ function Router() {
           element={
             <ProtectedRoute
               authenticatedRoute={
-                isMobile ? <PageEventoCriar /> : <PageEventoCriar />
+                isMobile ? <PageCriarEventoMobile /> : <PageEventoCriar />
               }
               noAuthRoute={<Navigate to={"/login"} />}
             />

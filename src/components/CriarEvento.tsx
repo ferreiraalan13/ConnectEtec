@@ -120,7 +120,7 @@ export default function CriarEvento() {
 
         <InputGroup>
           <InputLeftAddon>{<Image />}</InputLeftAddon>
-          <Input type="file" p={1} onChange={handleFileChange} />
+          <Input required type="file" p={1} onChange={handleFileChange} />
         </InputGroup>
         <Button
           colorScheme="teal"
