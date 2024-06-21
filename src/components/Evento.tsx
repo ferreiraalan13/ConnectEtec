@@ -5,7 +5,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const Eventos: React.FC = () => {
   return (
-    <Box padding="10px" bg="white" rounded="6px" w="450px">
+    <Box mt={5} padding="10px" bg="white" rounded="6px" w="400px">
       <Carousel
         showThumbs={false}
         showStatus={false}

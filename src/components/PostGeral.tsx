@@ -160,115 +160,121 @@ const PostGeral = ({ useRequestPosts }: PostProps) => {
 
   return (
     <>
-      {posts.map((post) => (
-        <Card
-          key={post.idPost}
-          marginLeft={""}
-          w={"full"}
-          alignItems={"left"}
-          padding={"0"}
-        >
-          <CardHeader w={"full"} fontSize={"sm"}>
-            <Flex>
-              <Flex flex="1" gap="5px" alignItems="center">
-                <Avatar
-                  src={post.urlFotoPerfilUsuario}
-                  w={"80px"}
-                  h={"80px"}
-                  onClick={() => {
-                    navigate("/perfil-usuario", { state: post.loginAutor });
-                  }}
+      <Stack w="100%">
+        {posts.map((post) => (
+          <Card
+            key={post.idPost}
+            marginLeft={""}
+            w={"full"}
+            alignItems={"left"}
+            padding={"0"}
+          >
+            <CardHeader w={"full"} fontSize={"sm"}>
+              <Flex>
+                <Flex flex="1" gap="5px" alignItems="center">
+                  <Avatar
+                    src={post.urlFotoPerfilUsuario}
+                    w={"80px"}
+                    h={"80px"}
+                    onClick={() => {
+                      navigate("/perfil-usuario", { state: post.loginAutor });
+                    }}
+                    cursor="pointer"
+                  />
+                  <Box>
+                    <Heading size="sm">{post.nomeAutor}</Heading>
+                    <Text>{post.tag}</Text>
+                    <Text>{post.momento}</Text>
+                  </Box>
+                </Flex>
+
+                <Menu>
+                  <MenuButton
+                    as={IconButton}
+                    aria-label="Options"
+                    icon={<Ellipsis />}
+                    variant="outline"
+                  />
+                  <MenuList>
+                    <ConfirmDelete title="Excluir Postagem">
+                      <Button
+                        colorScheme="red"
+                        onClick={() => {
+                          handleDeletePost(post.idPost);
+                          onClose();
+                        }}
+                        ml={3}
+                      >
+                        Deletar
+                      </Button>
+                    </ConfirmDelete>
+                  </MenuList>
+                </Menu>
+              </Flex>
+            </CardHeader>
+            <CardBody maxW={"1000px"} fontSize={"small"} pt={0}>
+              <Text whiteSpace="pre-wrap" fontSize={"18px"}>
+                {post.conteudo}
+              </Text>
+            </CardBody>
+
+            <Stack bg={""} w={""} align={"center"}>
+              {post.urlMidia && (
+                <Image
+                  flexWrap={"wrap"}
+                  objectFit="cover"
+                  borderRadius={"10px"}
+                  maxHeight={"500px"}
+                  maxWidth={"500px"}
+                  width={"100%"}
+                  src={post.urlMidia}
+                  onClick={() => handleImageClick(post.urlMidia || "")}
                   cursor="pointer"
                 />
-                <Box>
-                  <Heading size="sm">{post.nomeAutor}</Heading>
-                  <Text>{post.tag}</Text>
-                  <Text>{post.momento}</Text>
-                </Box>
-              </Flex>
+              )}
+            </Stack>
 
-              <Menu>
-                <MenuButton
-                  as={IconButton}
-                  aria-label="Options"
-                  icon={<Ellipsis />}
-                  variant="outline"
-                />
-                <MenuList>
-                  <ConfirmDelete title="Excluir Postagem">
-                    <Button
-                      colorScheme="red"
-                      onClick={() => {
-                        handleDeletePost(post.idPost);
-                        onClose();
-                      }}
-                      ml={3}
-                    >
-                      Deletar
-                    </Button>
-                  </ConfirmDelete>
-                </MenuList>
-              </Menu>
-            </Flex>
-          </CardHeader>
-          <CardBody maxW={"1000px"} fontSize={"small"} pt={0}>
-            <Text whiteSpace="pre-wrap" fontSize={"18px"}>
-              {post.conteudo}
-            </Text>
-          </CardBody>
-
-          <Stack bg={""} w={""} align={"center"}>
-            {post.urlMidia && (
-              <Image
-                flexWrap={"wrap"}
-                objectFit="cover"
-                borderRadius={"10px"}
-                maxHeight={"500px"}
-                maxWidth={"500px"}
-                width={"100%"}
-                src={post.urlMidia}
-                onClick={() => handleImageClick(post.urlMidia || "")}
-                cursor="pointer"
-              />
-            )}
-          </Stack>
-
-          <CardFooter
-            justify="space-between"
-            flexWrap="wrap"
-            sx={{
-              "& > button": {
-                minW: "",
-              },
-            }}
-          >
-            <Button
-              onClick={() => {
-                handleLike(post.postCurtido, post.idPost);
+            <CardFooter
+              justify="space-between"
+              flexWrap="wrap"
+              sx={{
+                "& > button": {
+                  minW: "",
+                },
               }}
-              flex="1"
-              variant="ghost"
-              colorScheme={post.postCurtido ? "blue" : "gray"}
             >
-              <ThumbsUp />{" "}
-              <Text fontSize={"20px"} ml={4}>
-                {post.qtdLike}
-              </Text>
-            </Button>
-
-            <Button flex="1" variant="ghost">
-              <BoxComentario
-                idPost={post.idPost}
-                onCommentsChange={handleCommentsChange}
+              <Button
+                onClick={() => {
+                  handleLike(post.postCurtido, post.idPost);
+                }}
+                flex="1"
+                variant="ghost"
+                colorScheme={post.postCurtido ? "blue" : "gray"}
               >
-                <span>{post.qtdComentarios}</span>
-              </BoxComentario>
-            </Button>
-          </CardFooter>
-        </Card>
-      ))}
+                <ThumbsUp />{" "}
+                <Text fontSize={"20px"} ml={4}>
+                  {post.qtdLike}
+                </Text>
+              </Button>
 
-      <ImageModal isOpen={isOpen} onClose={onClose} imageUrl={selectedImage} />
+              <Button flex="1" variant="ghost">
+                <BoxComentario
+                  idPost={post.idPost}
+                  onCommentsChange={handleCommentsChange}
+                >
+                  <span>{post.qtdComentarios}</span>
+                </BoxComentario>
+              </Button>
+            </CardFooter>
+          </Card>
+        ))}
+
+        <ImageModal
+          isOpen={isOpen}
+          onClose={onClose}
+          imageUrl={selectedImage}
+        />
+      </Stack>
     </>
   );
 };

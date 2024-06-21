@@ -3,6 +3,7 @@ import MenuFinal from "../../components/MenuFinal";
 import Eventos from "../../components/Evento";
 import { useRequestPost } from "../../services/hooks/useRequestPost";
 import PostGeral from "../../components/PostGeral";
+import ModelFiltrar from "../filtrarPostagem/ModelFiltrar";
 
 export default function App() {
   return (
@@ -34,16 +35,17 @@ export default function App() {
         overflowX={"hidden"}
         width={"100%"}
       >
-        <Box display={"flex"} justifyContent={""} gap={3}>
-          <Stack w={"60%"}>
+        <Box display={"flex"} gap={3}>
+          <Stack align="center" w={"100%"}>
             <PostGeral useRequestPosts={useRequestPost} />
           </Stack>
-
-          <Box>
-            <Eventos />
-          </Box>
         </Box>
       </Box>
+
+      <Stack mr={100} w={"20%"}>
+        <Eventos />
+        <ModelFiltrar />
+      </Stack>
     </Stack>
   );
 }
