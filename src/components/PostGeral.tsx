@@ -46,6 +46,7 @@ interface PostData {
   tag?: string;
   loginAutor?: string;
   qtdComentarios?: number;
+  usuarioADM?: boolean;
 }
 
 interface PostProps {
@@ -181,8 +182,14 @@ const PostGeral = ({ useRequestPosts }: PostProps) => {
                     }}
                     cursor="pointer"
                   />
-                  <Box>
-                    <Heading size="sm">{post.nomeAutor}</Heading>
+                  <Box ml={4}>
+                    <Heading size="sm">
+                      <Flex gap={2}>{post.nomeAutor} </Flex>
+                    </Heading>
+                    <Text fontWeight={"bold"} color="#ff7461">
+                      {post.usuarioADM ? "(Administrador)" : ""}
+                    </Text>
+
                     <Text>{post.tag}</Text>
                     <Text>{post.momento}</Text>
                   </Box>

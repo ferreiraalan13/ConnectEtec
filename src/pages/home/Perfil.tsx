@@ -56,7 +56,11 @@ export default function Perfil() {
           <TabPanel>
             <div>
               <h1 className="">Biografia</h1>
-              <Text mt="20px" whiteSpace="pre-wrap">{`${data?.sobre}`}</Text>
+              {data?.sobre === null ? (
+                ""
+              ) : (
+                <Text mt="20px" whiteSpace="pre-wrap">{`${data?.sobre}`}</Text>
+              )}
             </div>
           </TabPanel>
           <TabPanel>
