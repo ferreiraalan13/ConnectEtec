@@ -16,7 +16,7 @@ import { Image } from "lucide-react";
 import { useState } from "react";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage as firebaseStorage } from "../firebase/firebase";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { configApi } from "../services/configApi";
 
 import { useRequestProfile } from "../services/hooks/useRequestProfile";
@@ -32,7 +32,7 @@ interface FormData {
 export default function CriarPost() {
   const { data } = useRequestProfile();
   const toast = useToast();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [fotoPublicacao, setFotoPublicacao] = useState<File | null>(null);
   const [formData, setFormData] = useState<FormData>({
     urlMidia: null,
@@ -75,6 +75,7 @@ export default function CriarPost() {
         duration: 2000,
         isClosable: true,
       });
+      navigate("/home");
     } catch (error) {
       toast({
         title: "Erro",
@@ -134,10 +135,16 @@ export default function CriarPost() {
                       break;
                   }
                 });
-                console.log(isValid);
-                console.log(result);
+
                 if (isValid) {
                   setFotoPublicacao(file);
+                  toast({
+                    title: "Imagem processada",
+                    description: "Clique em publicar para finalizar a postagem",
+                    status: "success",
+                    duration: 6000,
+                    isClosable: true,
+                  });
                 } else {
                   toast({
                     title: "Erro",
@@ -224,7 +231,6 @@ export default function CriarPost() {
           <option value="CONTABILIDADE">Contabilidade</option>
           <option value="SEGURANCA_DO_TRABALHO">Segurança do trabalho</option>
           <option value="NOTICIA">Notícia</option>
-          <option value="EVENTO">Evento</option>
           <option value="OUTRO">Outro</option>
         </Select>
 

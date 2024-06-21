@@ -1,6 +1,5 @@
 import { Box, Button, Stack, Text } from "@chakra-ui/react";
 import MenuFinal from "../../components/MenuFinal";
-import Eventos from "../../components/Evento";
 import { useNavigate } from "react-router-dom";
 
 const FiltrarPostagem: React.FC = () => {
@@ -108,10 +107,6 @@ const FiltrarPostagem: React.FC = () => {
               Outros
             </Button>
           </Stack>
-
-          <Box>
-            <Eventos />
-          </Box>
         </Box>
       </Box>
     </Stack>

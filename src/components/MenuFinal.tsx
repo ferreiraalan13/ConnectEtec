@@ -5,6 +5,7 @@ import {
   Home,
   UsersRound,
   Search,
+  PartyPopper,
 } from "lucide-react";
 
 import { useNavigate } from "react-router-dom";
@@ -69,6 +70,16 @@ export default function Menu() {
             <Search />
           </span>
           <span className={`text-base font-medium flex-1 `}>Filtrar Posts</span>
+        </li>
+
+        <li
+          className="text-Black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-2"
+          onClick={() => navigate("/eventos")}
+        >
+          <span>
+            <PartyPopper />
+          </span>
+          <span className={`text-base font-medium flex-1 `}>Eventos</span>
         </li>
         {/* 
         <li className="text-Black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-2">
