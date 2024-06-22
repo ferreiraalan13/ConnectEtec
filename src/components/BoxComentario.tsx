@@ -13,6 +13,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Spinner,
   Stack,
   Text,
   Textarea,
@@ -24,10 +25,12 @@ import { configApi } from "../services/configApi";
 import { useRequestProfile } from "../services/hooks/useRequestProfile";
 import { Ellipsis, MessageSquare } from "lucide-react";
 import ConfirmDelete from "./ConfirmacaoDelete";
+import { useNavigate } from "react-router-dom";
 
 interface ComentarioData {
   idComentario: string;
   nomeAutor: string;
+  loginAutor: string;
   urlFotoPerfilUsuario: string;
   urlMidia: string;
   conteudo: string;
@@ -51,6 +54,8 @@ export default function BoxComentario({
   const [comentarios, setComentarios] = useState<ComentarioData[]>([]);
   const toast = useToast();
   const { data } = useRequestProfile();
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isOpen) {
@@ -61,6 +66,7 @@ export default function BoxComentario({
 
   const fetchComentarios = async () => {
     try {
+      setIsLoading(true);
       const response = await configApi.get(`/comentario?idPost=${idPost}`);
 
       if (response.status === 204) {
@@ -71,6 +77,8 @@ export default function BoxComentario({
       onCommentsChange(idPost, response.data.length);
     } catch (error) {
       console.error("Erro ao buscar comentários:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -138,11 +146,16 @@ export default function BoxComentario({
             gap={3}
             overflow={"auto"}
           >
-            {!comentarios.length && (
+            {(isLoading && (
               <Stack justify="center" align="center" height="100%">
-                <Text fontSize="23px">Sem comentarios no momento</Text>
+                <Spinner />
               </Stack>
-            )}
+            )) ||
+              (!comentarios.length && (
+                <Stack justify="center" align="center" height="100%">
+                  <Text fontSize="23px">Sem comentarios no momento</Text>
+                </Stack>
+              ))}
 
             {comentarios.map((comentario) => (
               <Stack
@@ -160,6 +173,12 @@ export default function BoxComentario({
                     <Avatar
                       src={comentario.urlFotoPerfilUsuario}
                       name={comentario.nomeAutor}
+                      onClick={() => {
+                        navigate("/perfil-usuario", {
+                          state: comentario.loginAutor,
+                        });
+                      }}
+                      cursor="pointer"
                     />
 
                     <Box>

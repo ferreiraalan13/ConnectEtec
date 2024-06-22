@@ -15,7 +15,7 @@ export default function DrawerExample() {
 
   return (
     <>
-      <Button ref={btnRef} colorScheme="teal" onClick={onOpen}>
+      <Button ref={btnRef} bg="transparent" onClick={onOpen}>
         <MenuLogo />
       </Button>
       <Drawer

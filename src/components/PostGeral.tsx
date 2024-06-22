@@ -305,8 +305,23 @@ function ImageModal({
             X
           </Button>
         </Stack>
-        <ModalBody display="flex" justifyContent="center" alignItems="center">
-          {imageUrl && <Image src={imageUrl} maxH="90vh" maxW="90vw" />}
+        <ModalBody
+          h="100%"
+          w="100%"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+        >
+          {imageUrl && (
+            <Image
+              src={imageUrl}
+              maxH="90vdh"
+              maxW="90vdw"
+              w="100%"
+              h="100%"
+              objectFit="cover"
+            />
+          )}
         </ModalBody>
       </ModalContent>
     </Modal>

@@ -4,7 +4,14 @@ import { useNavigate } from "react-router-dom";
 const ModelFiltrar: React.FC = () => {
   const navigate = useNavigate();
   return (
-    <Stack h="350px" align="center" rounded={4} bg="white" w={"350px"}>
+    <Stack
+      h="fit-content"
+      align="center"
+      rounded={4}
+      bg="white"
+      w={"100%"}
+      overflowY={"auto"}
+    >
       <Text fontWeight="bold" fontSize="30px" mb={5}>
         Filtrar postagens
       </Text>
@@ -15,7 +22,7 @@ const ModelFiltrar: React.FC = () => {
               state: "DESENVOLVIMENTO_DE_SISTEMAS",
             });
           }}
-          w="350px"
+          w="100%"
         >
           Desenvolvimento de Sitemas
         </Button>
