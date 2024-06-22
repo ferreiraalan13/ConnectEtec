@@ -123,6 +123,14 @@ const FiltrarPostagemMobile: React.FC = () => {
                 >
                   Outros
                 </Button>
+                <Button
+                  onClick={() => {
+                    navigate("/postagens-seguindo");
+                  }}
+                  w="250px"
+                >
+                  Seguindo
+                </Button>
               </Stack>
             </Box>
           </Container>

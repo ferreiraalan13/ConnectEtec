@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 
 import { useNavigate } from "react-router-dom";
-import { Avatar } from "@chakra-ui/react";
+import { Avatar, useMediaQuery } from "@chakra-ui/react";
 import { useRequestProfile } from "../services/hooks/useRequestProfile";
 import { useContext } from "react";
 import { ContextAuth } from "../contexts/Authentication";
@@ -17,6 +17,7 @@ export default function Menu() {
   const navigate = useNavigate();
   const { signOut } = useContext(ContextAuth);
   const { data } = useRequestProfile();
+  const [isMobile] = useMediaQuery("(max-width: 768px)");
   return (
     <div
       className={`bg-gray-100 h-screen p-5 pt-8
@@ -72,15 +73,34 @@ export default function Menu() {
           <span className={`text-base font-medium flex-1 `}>Filtrar Posts</span>
         </li>
 
-        <li
-          className="text-Black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-2"
-          onClick={() => navigate("/eventos")}
-        >
-          <span>
-            <PartyPopper />
-          </span>
-          <span className={`text-base font-medium flex-1 `}>Eventos</span>
-        </li>
+        {data?.usuarioADM === true && (
+          <li
+            className="text-Black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-2"
+            onClick={() => navigate("/eventos")}
+          >
+            <span>
+              <PartyPopper />
+            </span>
+            <span className={`text-base font-medium flex-1 `}>
+              Criar Eventos
+            </span>
+          </li>
+        )}
+
+        {isMobile && (
+          <li
+            className="text-Black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-2"
+            onClick={() => navigate("/eventos-proximos")}
+          >
+            <span>
+              <PartyPopper />
+            </span>
+            <span className={`text-base font-medium flex-1 `}>
+              Eventos Próximos
+            </span>
+          </li>
+        )}
+
         {/* 
         <li className="text-Black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-2">
           <span>

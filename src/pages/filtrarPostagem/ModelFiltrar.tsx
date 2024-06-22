@@ -69,6 +69,14 @@ const ModelFiltrar: React.FC = () => {
         >
           Outros
         </Button>
+        <Button
+          onClick={() => {
+            navigate("/postagens-seguindo");
+          }}
+          w="350px"
+        >
+          Seguindo
+        </Button>
       </Stack>
     </Stack>
   );

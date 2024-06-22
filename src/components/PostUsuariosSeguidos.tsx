@@ -28,8 +28,9 @@ import { ThumbsUp, Ellipsis } from "lucide-react";
 import { configApi } from "../services/configApi";
 import BoxComentario from "./BoxComentario";
 import ConfirmDelete from "./ConfirmacaoDelete";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useRequestTagPost } from "../services/hooks/useRequestTagPost";
+import { useNavigate } from "react-router-dom";
+
+import { useRequestSeguidosPost } from "../services/hooks/useRequestSeguidosPost";
 
 interface PostData {
   idPost: string;
@@ -48,10 +49,9 @@ interface PostData {
   usuarioADM?: boolean;
 }
 
-export default function PostTag() {
+export default function PostUsuariosSeguidos() {
   const toast = useToast();
-  const tag = useLocation().state as string;
-  const { data, isLoading } = useRequestTagPost(tag);
+  const { data, isLoading } = useRequestSeguidosPost();
   const [posts, setPosts] = useState<PostData[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();

@@ -10,6 +10,7 @@ export interface PerfilData {
     sobre?: string;
     qtdUsuariosSeguidos?: number;
     qtdSeguidores?: number;
+    usuarioADM?: boolean;
   }
 
 const RequestProfile = async() => {

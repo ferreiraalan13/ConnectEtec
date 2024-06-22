@@ -1,6 +1,7 @@
 import {
   Avatar,
   Box,
+  Flex,
   Stack,
   Tab,
   TabList,
@@ -13,9 +14,13 @@ import {
 import { useRequestProfile } from "../../services/hooks/useRequestProfile";
 import { useRequestMeusPosts } from "../../services/hooks/useRequestMeusPosts";
 import PostGeral from "../../components/PostGeral";
+import { useRequestMeusSeguidores } from "../../services/hooks/useRequestMeusSeguidores";
+import { useNavigate } from "react-router-dom";
 
 export default function Perfil() {
   const { data } = useRequestProfile();
+  const meusSeguidores = useRequestMeusSeguidores();
+  const navigate = useNavigate();
 
   return (
     <Box
@@ -51,6 +56,7 @@ export default function Perfil() {
         <TabList>
           <Tab>Perfil</Tab>
           <Tab>Postagens</Tab>
+          <Tab>Seguidores</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
@@ -67,6 +73,32 @@ export default function Perfil() {
             <div className="flex flex-col gap-3">
               <PostGeral useRequestPosts={useRequestMeusPosts} />
             </div>
+          </TabPanel>
+          <TabPanel>
+            {meusSeguidores?.data ? (
+              <div className="flex flex-col gap-3">
+                {meusSeguidores?.data?.map((seguidor, index) => (
+                  <Flex
+                    key={index}
+                    h="fit-content"
+                    align="center"
+                    gap={6}
+                    p={2}
+                  >
+                    <Avatar
+                      onClick={() => {
+                        navigate("/perfil-usuario", { state: seguidor.login });
+                      }}
+                      src={seguidor?.urlFotoPerfil || ""}
+                      name={seguidor?.nomePerfilUsuario}
+                    />
+                    <Text>{seguidor?.nomePerfilUsuario}</Text>
+                  </Flex>
+                ))}
+              </div>
+            ) : (
+              <Text>Sem Seguidores</Text>
+            )}
           </TabPanel>
         </TabPanels>
       </Tabs>
