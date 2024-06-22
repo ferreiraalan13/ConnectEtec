@@ -6,7 +6,7 @@ import { useRequestGetEventos } from "../services/hooks/useRequestGetEventos";
 
 const Eventos: React.FC = () => {
   const { data } = useRequestGetEventos();
-  console.log(data);
+
   return (
     <Box
       mt={5}

@@ -24,6 +24,7 @@ import PostagensFiltradasMobile from "../pages/filtrarPostagem/PostagensFiltrada
 import FiltrarPostagemMobile from "../pages/filtrarPostagem/indexMobile";
 import PageEventoCriar from "../pages/eventos/PageEventoCriar";
 import PageCriarEventoMobile from "../pages/eventos/PageEventoCriarMobile";
+import EventosProximos from "../pages/eventos/EventosProximos";
 
 function Router() {
   const [isMobile] = useMediaQuery("(max-width: 768px)");
@@ -77,6 +78,18 @@ function Router() {
             <ProtectedRoute
               authenticatedRoute={
                 isMobile ? <PageCriarEventoMobile /> : <PageEventoCriar />
+              }
+              noAuthRoute={<Navigate to={"/login"} />}
+            />
+          }
+        />
+
+        <Route
+          path="/eventos-proximos"
+          element={
+            <ProtectedRoute
+              authenticatedRoute={
+                isMobile ? <EventosProximos /> : <PageEventoCriar />
               }
               noAuthRoute={<Navigate to={"/login"} />}
             />

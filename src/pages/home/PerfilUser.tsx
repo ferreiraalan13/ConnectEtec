@@ -65,7 +65,7 @@ export default function PerfilUser() {
               flexDir={["column", "column", "column", "row", "row"]}
             >
               <Text fontWeight="semibold" fontSize="2xl">
-                {data?.nomeCompleto}
+                {data?.nomeUsuario || ""}
               </Text>
               {data?.estaSeguido !== null && (
                 <Button
