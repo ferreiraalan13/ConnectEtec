@@ -23,8 +23,6 @@ import {
   ModalContent,
   ModalBody,
   useToast,
-  ModalCloseButton,
-  ModalHeader,
 } from "@chakra-ui/react";
 import { ThumbsUp, Ellipsis } from "lucide-react";
 import { configApi } from "../services/configApi";
