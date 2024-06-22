@@ -51,7 +51,7 @@ export default function CriarEvento() {
 
       toast({
         title: "Sucesso",
-        description: "Post criado com sucesso!",
+        description: "Evento criado com sucesso!",
         status: "success",
         duration: 2000,
         isClosable: true,
