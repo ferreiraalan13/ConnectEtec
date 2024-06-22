@@ -11,6 +11,7 @@ export interface PerfilData {
     qtdUsuariosSeguidos?: number;
     qtdSeguidores?: number;
     estaSeguido?: boolean;
+    usuarioADM?: boolean;
 
 }
 

@@ -1,4 +1,4 @@
-import { Box, Stack } from "@chakra-ui/react";
+import { Flex, Stack } from "@chakra-ui/react";
 import MenuFinal from "../../components/MenuFinal";
 import Eventos from "../../components/Evento";
 import { useRequestPost } from "../../services/hooks/useRequestPost";
@@ -16,36 +16,33 @@ export default function App() {
     >
       <MenuFinal />
 
-      <Box
-        padding={"20px"}
-        css={{
-          "&::-webkit-scrollbar": {
-            width: "0",
-            height: "0",
-            borderRadius: "20px",
-            backgroundColor: "darkgray",
-            marginRight: "4px",
-            background: "transparent",
-          },
-          "&::-webkit-scrollbar-thumb": {
-            background: "grey",
-            borderRadius: "20px",
-          },
-        }}
-        overflowX={"hidden"}
-        width={"100%"}
-      >
-        <Box display={"flex"} gap={3}>
-          <Stack align="center" w={"100%"}>
-            <PostGeral useRequestPosts={useRequestPost} />
-          </Stack>
-        </Box>
-      </Box>
+      <Flex overflow="auto" w="100%" py="20px" pr="20px">
+        <Stack
+          px={"20px"}
+          css={{
+            "&::-webkit-scrollbar": {
+              width: "0",
+              height: "0",
+              borderRadius: "20px",
+              backgroundColor: "darkgray",
+              marginRight: "4px",
+              background: "transparent",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              background: "grey",
+              borderRadius: "20px",
+            },
+          }}
+          width={"75%"}
+        >
+          <PostGeral useRequestPosts={useRequestPost} />
+        </Stack>
 
-      <Stack mr={100} w={"20%"}>
-        <Eventos />
-        <ModelFiltrar />
-      </Stack>
+        <Stack w={"25%"}>
+          <Eventos />
+          <ModelFiltrar />
+        </Stack>
+      </Flex>
     </Stack>
   );
 }

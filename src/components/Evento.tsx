@@ -7,15 +7,9 @@ import { useRequestGetEventos } from "../services/hooks/useRequestGetEventos";
 const Eventos: React.FC = () => {
   const { data } = useRequestGetEventos();
 
+  if (!data) return;
   return (
-    <Box
-      mt={5}
-      padding="10px"
-      bg="white"
-      rounded="6px"
-      w="350px"
-      h="fit-content"
-    >
+    <Box padding="10px" bg="white" rounded="6px" w="100%" h="fit-content">
       {data && (
         <Carousel
           showThumbs={false}
@@ -26,8 +20,13 @@ const Eventos: React.FC = () => {
           interval={5000}
         >
           {data?.map((evento) => (
-            <Stack>
-              <Image src={evento.urlMidia} alt="Evento 1" />
+            <Stack h="100%">
+              <Image
+                objectFit="cover"
+                h="100%"
+                src={evento.urlMidia}
+                alt="Evento 1"
+              />
             </Stack>
           ))}
         </Carousel>

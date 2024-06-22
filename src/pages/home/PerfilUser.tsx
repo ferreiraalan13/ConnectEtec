@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Avatar,
   Box,
@@ -11,34 +10,62 @@ import {
   TabPanels,
   Tabs,
   Text,
+  useMediaQuery,
+  useToast,
 } from "@chakra-ui/react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Post from "../../components/Post";
 import { useRequestUserProfile } from "../../services/hooks/useRequestUserProfile";
 import { configApi } from "../../services/configApi";
 import { useRequestSeguidores } from "../../services/hooks/useRequestSeguidores";
+import { useTornarAdmin } from "../../services/hooks/useTornarAdmin";
+import { useRequestProfile } from "../../services/hooks/useRequestProfile";
 
 export default function PerfilUser() {
   const loginAutor = useLocation().state as string;
   const { data, refetch } = useRequestUserProfile(loginAutor);
   const getSeguidores = useRequestSeguidores(loginAutor);
   const navigate = useNavigate();
-
-  const [estaSeguido, setEstaSeguido] = useState(data?.estaSeguido);
+  const admFunction = useTornarAdmin();
+  const myUser = useRequestProfile();
+  const toast = useToast();
+  const [isMobile] = useMediaQuery("(max-width: 768px)");
 
   const handleFollowClick = async () => {
-    const newFollowStatus = !estaSeguido;
     try {
       await configApi.patch("perfilUsuario/seguir", {
         estaSeguido: data?.estaSeguido,
         loginUsuarioSeguido: loginAutor,
       });
-      setEstaSeguido(newFollowStatus);
 
       refetch();
     } catch (error) {
       alert("Failed to follow/unfollow user:");
     }
+  };
+
+  const handleAdm = () => {
+    admFunction
+      .mutateAsync(loginAutor)
+      .then(() => {
+        toast({
+          title: "Sucesso",
+          description: "Usuario alterado com sucesso",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+        });
+        refetch();
+      })
+      .catch(() => {
+        toast({
+          title: "Erro",
+          description: "Erro na solicitação",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+      });
   };
 
   return (
@@ -79,7 +106,23 @@ export default function PerfilUser() {
                   w="fit-content"
                   onClick={handleFollowClick}
                 >
-                  {estaSeguido ? "Parar de Seguir" : "Seguir Usuario"}
+                  {data?.estaSeguido ? "Parar de Seguir" : "Seguir Usuario"}
+                </Button>
+              )}
+              {myUser?.data?.usuarioADM && (
+                <Button
+                  onClick={handleAdm}
+                  px={0}
+                  p={2}
+                  bg={"#fd4e37"}
+                  color="white"
+                  w="fit-content"
+                  fontSize={isMobile ? "10px" : "16px"}
+                  whiteSpace="break-spaces"
+                >
+                  {!data?.usuarioADM
+                    ? "Tornar Administrador"
+                    : "Remover Administrador"}
                 </Button>
               )}
             </Flex>

@@ -82,11 +82,12 @@ const PasswordReset: React.FC = () => {
       display={"flex"}
       justifyContent={"center"}
       alignItems={"center"}
+      p={2}
     >
       <Stack
         as="form"
         onSubmit={resetPassword}
-        w={"50%"}
+        w={["100%", "100%", "100%", "50%", "50%"]}
         bg={"white"}
         p={10}
         borderRadius={4}

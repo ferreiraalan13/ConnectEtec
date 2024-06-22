@@ -32,5 +32,6 @@ export const useRequestPost = (): UseQueryResult<PostData[], AxiosError> => {
   return useQuery("post", RequestPost, {
     refetchOnWindowFocus: true,
     refetchOnMount: true,
+    refetchInterval: 20000
   });
 };

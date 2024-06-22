@@ -26,12 +26,12 @@ export default function HomeTeste() {
               borderRadius: "20px",
             },
           }}
-          overflowX={"hidden"}
           width={"100%"}
         >
           <Box
-            className="bg-gray-300"
-            p={1}
+            className="bg-white"
+            px={1}
+            h="70px"
             w={"full"}
             bg={""}
             display={"flex"}
@@ -39,9 +39,11 @@ export default function HomeTeste() {
             position={"sticky"}
             top={0}
             zIndex={2}
+            mb="10px"
+            alignItems={"center"}
           >
             <div
-              className={`text-black origin-left font-medium text-2xl duration-300 p-1`}
+              className={`text-black origin-left font-medium  text-2xl duration-300 p-3`}
             >
               {" "}
               ConnectEtec
@@ -49,7 +51,14 @@ export default function HomeTeste() {
             <DrawerExample />
           </Box>
 
-          <Container position={"relative"} top={0} zIndex={1}>
+          <Container
+            h="calc(100% - 70px ) "
+            overflowX={"hidden"}
+            position={"relative"}
+            top={0}
+            zIndex={1}
+            pb={5}
+          >
             <Box display={"flex"} flexDirection={"column"} gap={3}>
               <PostGeral useRequestPosts={useRequestPost} />
             </Box>
