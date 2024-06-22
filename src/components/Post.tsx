@@ -45,6 +45,7 @@ interface PostData {
   tag?: string;
   loginAutor?: string;
   qtdComentarios?: number;
+  usuarioADM?: boolean;
 }
 
 export default function Post() {

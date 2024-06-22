@@ -106,6 +106,14 @@ const FiltrarPostagem: React.FC = () => {
             >
               Outros
             </Button>
+            <Button
+              onClick={() => {
+                navigate("/postagens-seguindo");
+              }}
+              w="350px"
+            >
+              Seguindo
+            </Button>
           </Stack>
         </Box>
       </Box>
