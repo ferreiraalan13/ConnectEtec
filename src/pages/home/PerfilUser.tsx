@@ -12,14 +12,17 @@ import {
   Tabs,
   Text,
 } from "@chakra-ui/react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Post from "../../components/Post";
 import { useRequestUserProfile } from "../../services/hooks/useRequestUserProfile";
 import { configApi } from "../../services/configApi";
+import { useRequestSeguidores } from "../../services/hooks/useRequestSeguidores";
 
 export default function PerfilUser() {
   const loginAutor = useLocation().state as string;
   const { data, refetch } = useRequestUserProfile(loginAutor);
+  const getSeguidores = useRequestSeguidores(loginAutor);
+  const navigate = useNavigate();
 
   const [estaSeguido, setEstaSeguido] = useState(data?.estaSeguido);
 
@@ -93,18 +96,49 @@ export default function PerfilUser() {
         <TabList>
           <Tab>Perfil</Tab>
           <Tab>Postagens</Tab>
+          <Tab>Seguidores</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
             <div>
               <h1 className="">Biografia</h1>
-              <Text mt="20px" whiteSpace="pre-wrap">{`${data?.sobre}`}</Text>
+              {data?.sobre === null ? (
+                ""
+              ) : (
+                <Text mt="20px" whiteSpace="pre-wrap">{`${data?.sobre}`}</Text>
+              )}
             </div>
           </TabPanel>
           <TabPanel>
             <div className="flex flex-col gap-3">
               <Post />
             </div>
+          </TabPanel>
+          <TabPanel>
+            {getSeguidores?.data ? (
+              <div className="flex flex-col gap-3">
+                {getSeguidores?.data?.map((seguidor, index) => (
+                  <Flex
+                    key={index}
+                    h="fit-content"
+                    align="center"
+                    gap={6}
+                    p={2}
+                  >
+                    <Avatar
+                      onClick={() => {
+                        navigate("/perfil-usuario", { state: seguidor.login });
+                      }}
+                      src={seguidor?.urlFotoPerfil || ""}
+                      name={seguidor?.nomePerfilUsuario}
+                    />
+                    <Text>{seguidor?.nomePerfilUsuario}</Text>
+                  </Flex>
+                ))}
+              </div>
+            ) : (
+              <Text>Sem Seguidores</Text>
+            )}
           </TabPanel>
         </TabPanels>
       </Tabs>
