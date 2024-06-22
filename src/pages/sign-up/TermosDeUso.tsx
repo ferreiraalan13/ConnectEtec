@@ -36,7 +36,7 @@ const Termos: React.FC = () => {
       titulo: "2. Conteúdo do Usuário",
       texto: [
         "2.1. Você é o único responsável por todo o conteúdo que publicar ou transmitir através da Plataforma.",
-        "2.2. Você concorda em não publicar, transmitir ou de outra forma disponibilizar através da Plataforma qualquer conteúdo que seja ilegal, prejudicial, ameaçador, abusivo, difamatório, vulgar, obsceno, difamatório, ou que viole direitos de terceiros.",
+        "2.2. Você concorda em não publicar, transmitir ou de outra forma disponibilizar através da Plataforma qualquer conteúdo que seja ilegal, prejudicial, ameaçador, abusivo, difamatório, vulgar, obsceno, ou que viole direitos de terceiros.",
       ],
     },
     {

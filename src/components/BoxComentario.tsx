@@ -129,7 +129,7 @@ export default function BoxComentario({
 
       <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent h="800px" maxW="1000px" overflow={"auto"}>
+        <ModalContent h="600px" maxW="1000px" overflow={"auto"}>
           <ModalHeader>Comentarios</ModalHeader>
           <ModalCloseButton />
           <ModalBody
@@ -138,6 +138,12 @@ export default function BoxComentario({
             gap={3}
             overflow={"auto"}
           >
+            {!comentarios.length && (
+              <Stack justify="center" align="center" height="100%">
+                <Text fontSize="23px">Sem comentarios no momento</Text>
+              </Stack>
+            )}
+
             {comentarios.map((comentario) => (
               <Stack
                 key={comentario.idComentario}

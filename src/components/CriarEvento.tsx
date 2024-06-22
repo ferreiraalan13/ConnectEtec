@@ -45,7 +45,7 @@ export default function CriarEvento() {
 
       const formDataWithUrl = { ...formData, urlMidia: url };
 
-      await configApi.post("http://localhost:8080/evento", formDataWithUrl);
+      await configApi.post("evento", formDataWithUrl);
 
       setFormData(formDataWithUrl);
 

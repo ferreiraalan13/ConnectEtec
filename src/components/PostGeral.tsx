@@ -23,6 +23,8 @@ import {
   ModalContent,
   ModalBody,
   useToast,
+  ModalCloseButton,
+  ModalHeader,
 } from "@chakra-ui/react";
 import { ThumbsUp, Ellipsis } from "lucide-react";
 import { configApi } from "../services/configApi";
@@ -225,7 +227,7 @@ const PostGeral = ({ useRequestPosts }: PostProps) => {
               </Text>
             </CardBody>
 
-            <Stack bg={""} w={""} align={"center"}>
+            <Stack bg={""} w={""} align={"center"} px={4}>
               {post.urlMidia && (
                 <Image
                   flexWrap={"wrap"}
@@ -298,7 +300,13 @@ function ImageModal({
   return (
     <Modal isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay />
+
       <ModalContent maxW={"fit-content"} bg="transparent">
+        <Stack align="flex-end">
+          <Button mr={4} w="fit-content" onClick={onClose}>
+            X
+          </Button>
+        </Stack>
         <ModalBody display="flex" justifyContent="center" alignItems="center">
           {imageUrl && <Image src={imageUrl} maxH="90vh" maxW="90vw" />}
         </ModalBody>

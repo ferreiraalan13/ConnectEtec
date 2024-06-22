@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   FormControl,
   FormLabel,
@@ -8,8 +9,6 @@ import {
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-import background from "../../assets/Background.svg";
 import image from "./formando-a-ilustracao-do-conceito-de-lideranca-de-equipe_114360-10883 1 (1).svg";
 
 import { ContextAuth } from "../../contexts/Authentication";
@@ -45,12 +44,15 @@ export default function Login() {
   };
 
   return (
-    <div className="w-screen h-screen flex items-center justify-center overflow-hidden">
-      <img
+    <Box
+      bg="#ff7461"
+      className="w-screen h-screen flex items-center justify-center overflow-hidden "
+    >
+      {/* <img
         src={background}
         alt=""
         className="absolute w-full h-full object-cover"
-      />
+      /> */}
       <div className="w-4/5 h-4/5 flex bg-gray-100 rounded-md shadow-lg z-10 overflow-auto md:max-w-4xl md:h-auto">
         <div className="w-full md:w-3/5 lg:w-2/3 p-8 md:p-16 flex flex-col gap-8">
           <div>
@@ -134,6 +136,6 @@ export default function Login() {
           />
         </div>
       </div>
-    </div>
+    </Box>
   );
 }
