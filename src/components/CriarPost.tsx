@@ -116,7 +116,7 @@ export default function CriarPost() {
                   );
                   switch (status.className) {
                     case "Porn":
-                      if (status.probability > 1) {
+                      if (status.probability > 25) {
                         isValid = false;
                       }
                       break;
@@ -134,6 +134,7 @@ export default function CriarPost() {
                     default:
                       break;
                   }
+                  console.log(status);
                 });
 
                 if (isValid) {
