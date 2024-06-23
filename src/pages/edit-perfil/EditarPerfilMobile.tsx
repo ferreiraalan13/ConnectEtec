@@ -10,7 +10,7 @@ export default function EditarPerfilMobile() {
     <>
       <Box
         height={"100vh"}
-        overflow={"hidden"}
+        overflow={"auto"}
         className={`min-lg:hidden flex bg-gray-300`}
       >
         <Box

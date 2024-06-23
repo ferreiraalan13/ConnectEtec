@@ -10,12 +10,12 @@ const ModelFiltrar: React.FC = () => {
       rounded={4}
       bg="white"
       w={"100%"}
-      overflowY={"auto"}
+      overflow="hidden"
     >
-      <Text fontWeight="bold" fontSize="30px" mb={5}>
+      <Text fontWeight="bold" fontSize="30px">
         Filtrar postagens
       </Text>
-      <Stack p={10} overflow="auto">
+      <Stack p={10}>
         <Button
           onClick={() => {
             navigate("/postagens-filtradas", {
@@ -23,6 +23,7 @@ const ModelFiltrar: React.FC = () => {
             });
           }}
           w="100%"
+          h="fit-content"
         >
           Desenvolvimento de Sitemas
         </Button>
@@ -33,6 +34,7 @@ const ModelFiltrar: React.FC = () => {
             });
           }}
           w="350px"
+          h="fit-content"
         >
           Recursos Humanos
         </Button>
@@ -43,6 +45,7 @@ const ModelFiltrar: React.FC = () => {
             });
           }}
           w="350px"
+          h="fit-content"
         >
           Contabilidade
         </Button>
@@ -53,6 +56,7 @@ const ModelFiltrar: React.FC = () => {
             });
           }}
           w="350px"
+          h="fit-content"
         >
           Segurança do Trabalho
         </Button>
@@ -63,6 +67,7 @@ const ModelFiltrar: React.FC = () => {
             });
           }}
           w="350px"
+          h="fit-content"
         >
           Noticia
         </Button>
@@ -73,6 +78,7 @@ const ModelFiltrar: React.FC = () => {
             });
           }}
           w="350px"
+          h="fit-content"
         >
           Outros
         </Button>
@@ -81,6 +87,7 @@ const ModelFiltrar: React.FC = () => {
             navigate("/postagens-seguindo");
           }}
           w="350px"
+          h="fit-content"
         >
           Seguindo
         </Button>

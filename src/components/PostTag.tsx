@@ -214,7 +214,7 @@ export default function PostTag() {
             </Text>
           </CardBody>
 
-          <Stack bg={""} w={""} align={"center"}>
+          <Stack bg={""} w={""} align={"center"} px={4}>
             {post.urlMidia && (
               <Image
                 flexWrap={"wrap"}

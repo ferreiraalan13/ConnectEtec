@@ -218,6 +218,7 @@ export default function App() {
               />
 
               <Select
+                display="none"
                 placeholder="Tipo de usuario"
                 disabled
                 onChange={(e) =>

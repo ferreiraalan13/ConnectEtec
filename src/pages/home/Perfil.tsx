@@ -16,10 +16,12 @@ import { useRequestMeusPosts } from "../../services/hooks/useRequestMeusPosts";
 import PostGeral from "../../components/PostGeral";
 import { useRequestMeusSeguidores } from "../../services/hooks/useRequestMeusSeguidores";
 import { useNavigate } from "react-router-dom";
+import { useRequestMeusSeguindo } from "../../services/hooks/useRequestMeusSeguindo";
 
 export default function Perfil() {
   const { data } = useRequestProfile();
   const meusSeguidores = useRequestMeusSeguidores();
+  const getSeguindo = useRequestMeusSeguindo();
   const navigate = useNavigate();
 
   return (
@@ -56,7 +58,7 @@ export default function Perfil() {
         <TabList>
           <Tab>Perfil</Tab>
           <Tab>Postagens</Tab>
-          <Tab>Seguidores</Tab>
+          <Tab>Conexões</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
@@ -75,30 +77,70 @@ export default function Perfil() {
             </div>
           </TabPanel>
           <TabPanel>
-            {meusSeguidores?.data ? (
-              <div className="flex flex-col gap-3">
-                {meusSeguidores?.data?.map((seguidor, index) => (
-                  <Flex
-                    key={index}
-                    h="fit-content"
-                    align="center"
-                    gap={6}
-                    p={2}
-                  >
-                    <Avatar
-                      onClick={() => {
-                        navigate("/perfil-usuario", { state: seguidor.login });
-                      }}
-                      src={seguidor?.urlFotoPerfil || ""}
-                      name={seguidor?.nomePerfilUsuario}
-                    />
-                    <Text>{seguidor?.nomePerfilUsuario}</Text>
-                  </Flex>
-                ))}
-              </div>
-            ) : (
-              <Text>Sem Seguidores</Text>
-            )}
+            <Tabs variant="enclosed">
+              <TabList>
+                <Tab>Seguidores</Tab>
+                <Tab>Seguindo</Tab>
+              </TabList>
+              <TabPanels>
+                <TabPanel>
+                  {meusSeguidores?.data ? (
+                    <div className="flex flex-col gap-3">
+                      {meusSeguidores?.data?.map((seguidor, index) => (
+                        <Flex
+                          key={index}
+                          h="fit-content"
+                          align="center"
+                          gap={6}
+                          p={2}
+                        >
+                          <Avatar
+                            onClick={() => {
+                              navigate("/perfil-usuario", {
+                                state: seguidor.login,
+                              });
+                            }}
+                            src={seguidor?.urlFotoPerfil || ""}
+                            name={seguidor?.nomePerfilUsuario}
+                          />
+                          <Text>{seguidor?.nomePerfilUsuario}</Text>
+                        </Flex>
+                      ))}
+                    </div>
+                  ) : (
+                    <Text>Sem Seguidores</Text>
+                  )}
+                </TabPanel>
+                <TabPanel>
+                  {getSeguindo?.data ? (
+                    <div className="flex flex-col gap-3">
+                      {getSeguindo?.data?.map((seguindo, index) => (
+                        <Flex
+                          key={index}
+                          h="fit-content"
+                          align="center"
+                          gap={6}
+                          p={2}
+                        >
+                          <Avatar
+                            onClick={() => {
+                              navigate("/perfil-usuario", {
+                                state: seguindo.login,
+                              });
+                            }}
+                            src={seguindo?.urlFotoPerfil || ""}
+                            name={seguindo?.nomePerfilUsuario}
+                          />
+                          <Text>{seguindo?.nomePerfilUsuario}</Text>
+                        </Flex>
+                      ))}
+                    </div>
+                  ) : (
+                    <Text>Sem Seguidores</Text>
+                  )}
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
           </TabPanel>
         </TabPanels>
       </Tabs>

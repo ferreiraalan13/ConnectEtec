@@ -1,7 +1,5 @@
 import { Box, Stack } from "@chakra-ui/react";
-
 import MenuFinal from "../../components/MenuFinal";
-import Eventos from "../../components/Evento";
 import ConfigPerfil from "./AlterarFotoPerfil";
 import AlterarDados from "./AlterarDados";
 import AlterarSenha from "./AlterarSenha";
@@ -40,10 +38,6 @@ export default function App() {
             <AlterarDados />
             <AlterarSenha />
           </Stack>
-
-          <Box>
-            <Eventos />
-          </Box>
         </Box>
       </Box>
     </Box>

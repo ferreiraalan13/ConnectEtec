@@ -20,6 +20,7 @@ import { configApi } from "../../services/configApi";
 import { useRequestSeguidores } from "../../services/hooks/useRequestSeguidores";
 import { useTornarAdmin } from "../../services/hooks/useTornarAdmin";
 import { useRequestProfile } from "../../services/hooks/useRequestProfile";
+import { useRequestUserSeguindo } from "../../services/hooks/useRequestUserSeguindo";
 
 export default function PerfilUser() {
   const loginAutor = useLocation().state as string;
@@ -30,7 +31,7 @@ export default function PerfilUser() {
   const myUser = useRequestProfile();
   const toast = useToast();
   const [isMobile] = useMediaQuery("(max-width: 768px)");
-
+  const getSeguindo = useRequestUserSeguindo(loginAutor);
   const handleFollowClick = async () => {
     try {
       await configApi.patch("perfilUsuario/seguir", {
@@ -139,7 +140,7 @@ export default function PerfilUser() {
         <TabList>
           <Tab>Perfil</Tab>
           <Tab>Postagens</Tab>
-          <Tab>Seguidores</Tab>
+          <Tab>Conexões</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
@@ -158,30 +159,70 @@ export default function PerfilUser() {
             </div>
           </TabPanel>
           <TabPanel>
-            {getSeguidores?.data ? (
-              <div className="flex flex-col gap-3">
-                {getSeguidores?.data?.map((seguidor, index) => (
-                  <Flex
-                    key={index}
-                    h="fit-content"
-                    align="center"
-                    gap={6}
-                    p={2}
-                  >
-                    <Avatar
-                      onClick={() => {
-                        navigate("/perfil-usuario", { state: seguidor.login });
-                      }}
-                      src={seguidor?.urlFotoPerfil || ""}
-                      name={seguidor?.nomePerfilUsuario}
-                    />
-                    <Text>{seguidor?.nomePerfilUsuario}</Text>
-                  </Flex>
-                ))}
-              </div>
-            ) : (
-              <Text>Sem Seguidores</Text>
-            )}
+            <Tabs variant="enclosed">
+              <TabList>
+                <Tab>Seguidores</Tab>
+                <Tab>Seguindo</Tab>
+              </TabList>
+              <TabPanels>
+                <TabPanel>
+                  {getSeguidores?.data ? (
+                    <div className="flex flex-col gap-3">
+                      {getSeguidores?.data?.map((seguidor, index) => (
+                        <Flex
+                          key={index}
+                          h="fit-content"
+                          align="center"
+                          gap={6}
+                          p={2}
+                        >
+                          <Avatar
+                            onClick={() => {
+                              navigate("/perfil-usuario", {
+                                state: seguidor.login,
+                              });
+                            }}
+                            src={seguidor?.urlFotoPerfil || ""}
+                            name={seguidor?.nomePerfilUsuario}
+                          />
+                          <Text>{seguidor?.nomePerfilUsuario}</Text>
+                        </Flex>
+                      ))}
+                    </div>
+                  ) : (
+                    <Text>Sem Seguidores</Text>
+                  )}
+                </TabPanel>
+                <TabPanel>
+                  {getSeguindo?.data ? (
+                    <div className="flex flex-col gap-3">
+                      {getSeguindo?.data?.map((seguindo, index) => (
+                        <Flex
+                          key={index}
+                          h="fit-content"
+                          align="center"
+                          gap={6}
+                          p={2}
+                        >
+                          <Avatar
+                            onClick={() => {
+                              navigate("/perfil-usuario", {
+                                state: seguindo.login,
+                              });
+                            }}
+                            src={seguindo?.urlFotoPerfil || ""}
+                            name={seguindo?.nomePerfilUsuario}
+                          />
+                          <Text>{seguindo?.nomePerfilUsuario}</Text>
+                        </Flex>
+                      ))}
+                    </div>
+                  ) : (
+                    <Text>Sem Seguidores</Text>
+                  )}
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
           </TabPanel>
         </TabPanels>
       </Tabs>
