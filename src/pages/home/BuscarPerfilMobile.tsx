@@ -3,6 +3,7 @@ import {
   Box,
   Button,
   Container,
+  Divider,
   Flex,
   Input,
   Stack,
@@ -107,41 +108,40 @@ export default function BuscarPerfilMobile() {
                       </Text>
                       {data &&
                         data.length > 0 &&
-                        data.map((result) => (
-                          <Stack
-                            key={result.login}
-                            w={"100%"}
-                            h="fit-content"
-                            className="bg-gray-300"
-                            borderRadius={"20px"}
-                            align={"center"}
-                            flexDir="row"
-                            justifyContent={"space-between"}
-                            p={3}
-                          >
-                            <Flex align="center">
-                              <Avatar
-                                w="60px"
-                                h="60px"
-                                cursor="pointer"
-                                onClick={() => {
-                                  navigate("/perfil-usuario", {
-                                    state: result.login,
-                                  });
-                                }}
-                                src={result.urlFotoPerfil}
-                              />
-                              <Text
-                                fontSize="16px"
-                                ml={5}
-                                fontWeight="semi-bold"
-                              >
-                                {result.nomePerfilUsuario}
+                        data.map((result, index) => (
+                          <Stack w="100%" key={index}>
+                            <Stack
+                              py={1}
+                              w={"100%"}
+                              h="fit-content"
+                              align={"center"}
+                              flexDir="row"
+                              justifyContent={"space-between"}
+                              px={3}
+                            >
+                              <Flex align="center">
+                                <Avatar
+                                  w="60px"
+                                  h="60px"
+                                  cursor="pointer"
+                                  onClick={() => {
+                                    navigate("/perfil-usuario", {
+                                      state: result.login,
+                                    });
+                                  }}
+                                  src={result.urlFotoPerfil}
+                                />
+                                <Text ml={5} fontWeight="semi-bold">
+                                  {result.nomePerfilUsuario}
+                                </Text>
+                              </Flex>
+                              <Text>
+                                {result.estaSeguido
+                                  ? "Seguindo"
+                                  : "Não seguido"}
                               </Text>
-                            </Flex>
-                            <Text>
-                              {result.estaSeguido ? "Seguindo" : "Não seguido"}
-                            </Text>
+                            </Stack>
+                            {index !== data.length - 1 && <Divider />}
                           </Stack>
                         ))}
                     </Stack>

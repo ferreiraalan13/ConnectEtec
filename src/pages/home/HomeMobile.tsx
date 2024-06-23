@@ -1,16 +1,43 @@
-import { Box, Container } from "@chakra-ui/react";
+import { Box, Button, Container } from "@chakra-ui/react";
 import DrawerExample from "../../components/DrawerExample";
 import PostGeral from "../../components/PostGeral";
 import { useRequestPost } from "../../services/hooks/useRequestPost";
+import { CircleArrowUp } from "lucide-react";
+import { useRef, useState } from "react";
 
 export default function HomeTeste() {
+  const refScroll = useRef<HTMLDivElement>(null);
+  const [goInital, setGoInital] = useState<boolean>(false);
+
   return (
     <>
       <Box
-        height={"100vh"}
+        height={"100dvh"}
         overflow={"hidden"}
         className={`min-lg:hidden flex bg-gray-300`}
+        position="relative"
       >
+        <Button
+          bg="#ff7461"
+          w="50px"
+          h="50px"
+          position="absolute"
+          zIndex={999}
+          rounded="50%"
+          p={0}
+          right={4}
+          bottom={goInital ? 4 : -14}
+          transition={"0.4s"}
+          onClick={() => {
+            if (refScroll.current) {
+              refScroll.current.scrollTo({ top: 0, behavior: "smooth" });
+            }
+          }}
+        >
+          {" "}
+          <CircleArrowUp color="white" size={40} />
+        </Button>
+
         <Box
           padding={""}
           css={{
@@ -58,6 +85,18 @@ export default function HomeTeste() {
             top={0}
             zIndex={1}
             pb={5}
+            ref={refScroll}
+            onScroll={(scroll) => {
+              if (scroll.currentTarget.scrollTop >= 600) {
+                if (!goInital) {
+                  setGoInital(true);
+                }
+              } else {
+                if (goInital) {
+                  setGoInital(false);
+                }
+              }
+            }}
           >
             <Box display={"flex"} flexDirection={"column"} gap={3}>
               <PostGeral useRequestPosts={useRequestPost} />

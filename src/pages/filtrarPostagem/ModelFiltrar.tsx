@@ -4,18 +4,11 @@ import { useNavigate } from "react-router-dom";
 const ModelFiltrar: React.FC = () => {
   const navigate = useNavigate();
   return (
-    <Stack
-      h="fit-content"
-      align="center"
-      rounded={4}
-      bg="white"
-      w={"100%"}
-      overflow="hidden"
-    >
-      <Text fontWeight="bold" fontSize="30px">
+    <Stack h="fit-content" align="center" rounded={4} bg="white" w={"100%"}>
+      <Text px={5} fontWeight="bold" fontSize="26px" textAlign="center">
         Filtrar postagens
       </Text>
-      <Stack p={10}>
+      <Stack w="100%" px={2} py={2}>
         <Button
           onClick={() => {
             navigate("/postagens-filtradas", {
@@ -24,6 +17,7 @@ const ModelFiltrar: React.FC = () => {
           }}
           w="100%"
           h="fit-content"
+          whiteSpace="break-spaces"
         >
           Desenvolvimento de Sitemas
         </Button>
@@ -33,7 +27,7 @@ const ModelFiltrar: React.FC = () => {
               state: "RECURSOS_HUMANOS",
             });
           }}
-          w="350px"
+          w="100%"
           h="fit-content"
         >
           Recursos Humanos
@@ -44,7 +38,7 @@ const ModelFiltrar: React.FC = () => {
               state: "CONTABILIDADE",
             });
           }}
-          w="350px"
+          w="100%"
           h="fit-content"
         >
           Contabilidade
@@ -55,7 +49,7 @@ const ModelFiltrar: React.FC = () => {
               state: "SEGURANCA_DO_TRABALHO",
             });
           }}
-          w="350px"
+          w="100%"
           h="fit-content"
         >
           Segurança do Trabalho
@@ -66,7 +60,7 @@ const ModelFiltrar: React.FC = () => {
               state: "NOTICIA",
             });
           }}
-          w="350px"
+          w="100%"
           h="fit-content"
         >
           Noticia
@@ -77,7 +71,7 @@ const ModelFiltrar: React.FC = () => {
               state: "OUTRO",
             });
           }}
-          w="350px"
+          w="100%"
           h="fit-content"
         >
           Outros
@@ -86,7 +80,7 @@ const ModelFiltrar: React.FC = () => {
           onClick={() => {
             navigate("/postagens-seguindo");
           }}
-          w="350px"
+          w="100%"
           h="fit-content"
         >
           Seguindo

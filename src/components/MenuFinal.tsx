@@ -20,7 +20,7 @@ export default function Menu() {
   const [isMobile] = useMediaQuery("(max-width: 768px)");
   return (
     <div
-      style={{ minWidth: "300px" }}
+      style={{ minWidth: "220px" }}
       className={`bg-gray-100 h-screen p-5 pt-8
          "w-72"
        relative`}

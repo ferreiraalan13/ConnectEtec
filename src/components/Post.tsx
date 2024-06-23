@@ -30,6 +30,7 @@ import BoxComentario from "./BoxComentario";
 import ConfirmDelete from "./ConfirmacaoDelete";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useRequestUserPosts } from "../services/hooks/useRequestUserPost";
+import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 
 interface PostData {
   idPost: string;
@@ -284,7 +285,13 @@ function ImageModal({
       <ModalOverlay />
       <ModalContent maxW={"fit-content"} bg="transparent">
         <ModalBody display="flex" justifyContent="center" alignItems="center">
-          {imageUrl && <Image src={imageUrl} maxH="90vh" maxW="90vw" />}
+          {imageUrl && (
+            <TransformWrapper>
+              <TransformComponent>
+                <Image src={imageUrl} maxH="90vh" maxW="90vw" />
+              </TransformComponent>
+            </TransformWrapper>
+          )}
         </ModalBody>
       </ModalContent>
     </Modal>
