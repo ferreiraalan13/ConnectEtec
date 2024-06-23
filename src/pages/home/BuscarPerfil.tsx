@@ -2,6 +2,7 @@ import {
   Avatar,
   Box,
   Button,
+  Divider,
   Flex,
   Input,
   Stack,
@@ -52,30 +53,16 @@ export default function App() {
         overflowX={"hidden"}
         width={"100%"}
       >
-        <Box display={"flex"} justifyContent={""} gap={1}>
+        <Box display={"flex"} gap={1}>
           <Stack w={"60%"}>
             <form onSubmit={handleSubmit}>
-              <Stack flexDir={"row"}>
-                <Input
-                  borderRadius={10}
-                  bg="white"
-                  placeholder="Buscar Usuario"
-                  mb={5}
-                  value={nome}
-                  onChange={(e) => setNome(e.target.value)}
-                />
-                <Button type="submit">
-                  <Search />
-                </Button>
-              </Stack>
-
               <Stack
                 id="boxImage"
                 flexDir={"column"}
-                gap={10}
                 bg="white"
+                gap={4}
+                w="80%"
                 maxW="1000px"
-                minH="700px"
                 padding="10px"
                 borderRadius={"20px"}
                 marginLeft={""}
@@ -84,40 +71,62 @@ export default function App() {
                 <Text fontWeight={"bold"} fontSize="30px">
                   BUSCAR PERFIL
                 </Text>
+                <Stack
+                  w="100%"
+                  flexDir={"row"}
+                  justify="center"
+                  borderRadius={4}
+                  boxShadow={"rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;"}
+                >
+                  <Input
+                    _focus={{
+                      boxShadow: "none",
+                    }}
+                    border="none"
+                    borderRadius={10}
+                    bg="white"
+                    placeholder="Buscar Usuario"
+                    value={nome}
+                    onChange={(e) => setNome(e.target.value)}
+                  />
+                  <Button type="submit">
+                    <Search />
+                  </Button>
+                </Stack>
                 {data &&
                   data.length > 0 &&
-                  data.map((result) => (
-                    <Stack
-                      key={result.login}
-                      w={"100%"}
-                      h="fit-content"
-                      className="bg-gray-300"
-                      
-                      borderRadius={"20px"}
-                      align={"center"}
-                      flexDir="row"
-                      justifyContent={"space-between"}
-                      p={3}
-                    >
-                      <Flex align="center">
-                        <Avatar
-                          w='60px'
-                          h='60px'
-                          cursor="pointer"
-                          onClick={() => {
-                            navigate("/perfil-usuario", {
-                              state: result.login,
-                            });
-                          }}
-                          src={result.urlFotoPerfil}
-                        />
-                        <Text fontSize="22px" ml={5} fontWeight='semi-bold'>
-                          {result.nomePerfilUsuario}
+                  data.map((result, index) => (
+                    <Stack w="100%" key={index}>
+                      <Stack
+                        py={1}
+                        w={"100%"}
+                        h="fit-content"
+                        align={"center"}
+                        flexDir="row"
+                        justifyContent={"space-between"}
+                        px={3}
+                      >
+                        <Flex align="center">
+                          <Avatar
+                            w="60px"
+                            h="60px"
+                            cursor="pointer"
+                            onClick={() => {
+                              navigate("/perfil-usuario", {
+                                state: result.login,
+                              });
+                            }}
+                            src={result.urlFotoPerfil}
+                          />
+                          <Text ml={5} fontWeight="semi-bold">
+                            {result.nomePerfilUsuario}
+                          </Text>
+                        </Flex>
+                        <Text>
+                          {result.estaSeguido ? "Seguindo" : "Não seguido"}
                         </Text>
-                      </Flex>
-                      <Text>
-                        {result.estaSeguido ? "Seguindo" : "Não seguido"}
-                      </Text>
+                      </Stack>
+                      {index !== data.length - 1 && <Divider />}
                     </Stack>
                   ))}
               </Stack>

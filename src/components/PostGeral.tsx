@@ -31,6 +31,7 @@ import ConfirmDelete from "./ConfirmacaoDelete";
 import { useNavigate } from "react-router-dom";
 import { UseQueryResult } from "react-query";
 import { AxiosError } from "axios";
+import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 
 interface PostData {
   idPost: string;
@@ -313,14 +314,18 @@ function ImageModal({
           alignItems="center"
         >
           {imageUrl && (
-            <Image
-              src={imageUrl}
-              maxH="90vdh"
-              maxW="90vdw"
-              w="100%"
-              h="100%"
-              objectFit="cover"
-            />
+            <TransformWrapper>
+              <TransformComponent>
+                <Image
+                  src={imageUrl}
+                  maxH="90vdh"
+                  maxW="90vdw"
+                  w="100%"
+                  h="100%"
+                  objectFit="cover"
+                />
+              </TransformComponent>
+            </TransformWrapper>
           )}
         </ModalBody>
       </ModalContent>

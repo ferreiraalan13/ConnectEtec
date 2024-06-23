@@ -137,7 +137,7 @@ export default function BoxComentario({
 
       <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent h="600px" maxW="1000px" overflow={"auto"}>
+        <ModalContent h="600px" maxW="1000px" overflow={"auto"} mx={2}>
           <ModalHeader>Comentarios</ModalHeader>
           <ModalCloseButton />
           <ModalBody

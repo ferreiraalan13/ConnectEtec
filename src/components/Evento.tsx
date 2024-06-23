@@ -19,8 +19,8 @@ const Eventos: React.FC = () => {
           autoPlay
           interval={5000}
         >
-          {data?.map((evento) => (
-            <Stack h="100%">
+          {data?.map((evento, index) => (
+            <Stack key={index} h="100%">
               <Image
                 objectFit="cover"
                 h="100%"
