@@ -24,7 +24,7 @@ import {
   ModalBody,
   useToast,
 } from "@chakra-ui/react";
-import { ThumbsUp, Ellipsis } from "lucide-react";
+import { ThumbsUp, Ellipsis, Megaphone } from "lucide-react";
 import { configApi } from "../services/configApi";
 import BoxComentario from "./BoxComentario";
 import ConfirmDelete from "./ConfirmacaoDelete";
@@ -48,6 +48,8 @@ interface PostData {
   loginAutor?: string;
   qtdComentarios?: number;
   usuarioADM?: boolean;
+  postDenunciado: boolean;
+  blockDenuncia: number;
 }
 
 interface PostProps {
@@ -96,7 +98,7 @@ const PostGeral = ({ useRequestPosts }: PostProps) => {
         align={"center"}
         justifyContent={"center"}
       >
-        <Text fontWeight={"bold"} fontSize={"30px"}>
+        <Text fontWeight={"bold"} fontSize={"26px"}>
           Sem Posts no momento
         </Text>
       </Stack>
@@ -123,6 +125,25 @@ const PostGeral = ({ useRequestPosts }: PostProps) => {
           : post
       )
     );
+  };
+
+  const handleDenunciar = async (idPost: string) => {
+    configApi
+      .patch("post/denunciar", {
+        idPost: idPost,
+      })
+      .then(() => {
+        setPosts((prevPosts) =>
+          prevPosts.map((post) =>
+            post.idPost === idPost
+              ? {
+                  ...post,
+                  postDenunciado: !post.postDenunciado,
+                }
+              : post
+          )
+        );
+      });
   };
 
   const handleImageClick = (imageUrl: string) => {
@@ -273,6 +294,18 @@ const PostGeral = ({ useRequestPosts }: PostProps) => {
                   <span>{post.qtdComentarios}</span>
                 </BoxComentario>
               </Button>
+              {post.blockDenuncia !== 2 && (
+                <Button
+                  onClick={() => {
+                    handleDenunciar(post.idPost);
+                  }}
+                  flex="1"
+                  variant="ghost"
+                  colorScheme={post.postDenunciado ? "red" : "gray"}
+                >
+                  <Megaphone />
+                </Button>
+              )}
             </CardFooter>
           </Card>
         ))}
