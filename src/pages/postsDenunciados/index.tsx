@@ -42,7 +42,7 @@ const PostsDenunciados: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const navigate = useNavigate();
   const { isOpen, onClose, onOpen } = useDisclosure();
-  const { data } = useRequestPostDenunciado();
+  const { data, refetch } = useRequestPostDenunciado();
 
   useEffect(() => {
     if (data) {
@@ -119,6 +119,7 @@ const PostsDenunciados: React.FC = () => {
           duration: 2000,
           isClosable: true,
         });
+        refetch();
       })
       .catch(() => {
         toast({
