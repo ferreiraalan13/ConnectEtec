@@ -6,6 +6,7 @@ import {
   UsersRound,
   Search,
   PartyPopper,
+  Megaphone,
 } from "lucide-react";
 
 import { useNavigate } from "react-router-dom";
@@ -73,7 +74,19 @@ export default function Menu() {
           </span>
           <span className={`text-base font-medium flex-1 `}>Filtrar Posts</span>
         </li>
-
+        {data?.usuarioADM && (
+          <li
+            className="text-Black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-2"
+            onClick={() => navigate("/post-denunciados")}
+          >
+            <span>
+              <Megaphone />
+            </span>
+            <span className={`text-base font-medium flex-1 `}>
+              Posts denunciados
+            </span>
+          </li>
+        )}
         {data?.usuarioADM === true && (
           <li
             className="text-Black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-2"

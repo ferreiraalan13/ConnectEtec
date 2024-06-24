@@ -27,6 +27,7 @@ import PageCriarEventoMobile from "../pages/eventos/PageEventoCriarMobile";
 import EventosProximos from "../pages/eventos/EventosProximos";
 import PostagensUsuariosSeguidosWeb from "../pages/filtrarPostagem/PostagensUsuariosSeguidosWeb";
 import PostagensUsuariosSeguidosMobile from "../pages/filtrarPostagem/PostagensUsuariosSeguidosMobile";
+import PostsDenunciados from "../pages/postsDenunciados";
 
 function Router() {
   const [isMobile] = useMediaQuery("(max-width: 768px)");
@@ -73,7 +74,15 @@ function Router() {
             />
           }
         />
-
+        <Route
+          path="/post-denunciados"
+          element={
+            <ProtectedRoute
+              authenticatedRoute={<PostsDenunciados />}
+              noAuthRoute={<Navigate to={"/login"} />}
+            />
+          }
+        />
         <Route
           path="/eventos"
           element={
