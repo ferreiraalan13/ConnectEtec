@@ -72,6 +72,7 @@ export default function Login() {
               <FormControl>
                 <FormLabel>Email</FormLabel>
                 <Input
+                  maxLength={230}
                   type="text"
                   value={formData.login}
                   onChange={(e) =>
@@ -87,6 +88,7 @@ export default function Login() {
               <FormControl>
                 <FormLabel>Senha</FormLabel>
                 <Input
+                  maxLength={230}
                   type="password"
                   value={formData.senha}
                   onChange={(e) =>

@@ -73,6 +73,7 @@ const AlterarSenha: React.FC = () => {
         <FormControl>
           <FormLabel>Senha Antiga</FormLabel>
           <Input
+            maxLength={230}
             required
             type="password"
             value={formData.senhaAntiga}
@@ -84,6 +85,7 @@ const AlterarSenha: React.FC = () => {
         <FormControl>
           <FormLabel>Nova Senha</FormLabel>
           <Input
+            maxLength={230}
             type="password"
             value={formData.novaSenha || ""}
             onChange={(e) =>
@@ -94,6 +96,7 @@ const AlterarSenha: React.FC = () => {
         <FormControl>
           <FormLabel>Confirmar Senha</FormLabel>
           <Input
+            maxLength={230}
             type="password"
             value={confirmSenha.confirmSenha || ""}
             onChange={(e) =>

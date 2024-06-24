@@ -47,6 +47,7 @@ export default function ResetPassword() {
           <form onSubmit={handleResetPassword} className="flex flex-col gap-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Input
+                maxLength={230}
                 type="email"
                 placeholder="Digite seu email"
                 onChange={(e) =>

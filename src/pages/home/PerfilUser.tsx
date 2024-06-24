@@ -41,7 +41,13 @@ export default function PerfilUser() {
 
       refetch();
     } catch (error) {
-      alert("Failed to follow/unfollow user:");
+      toast({
+        title: "Erro",
+        description: "Erro ao seguir usuario, tente novamente",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
     }
   };
 

@@ -237,6 +237,7 @@ export default function BoxComentario({
               >
                 <Avatar src={data?.urlFotoPerfil} />
                 <Textarea
+                  maxLength={230}
                   placeholder="Digite aqui seu comentario"
                   resize="none"
                   minH="0px"

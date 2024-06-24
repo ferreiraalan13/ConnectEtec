@@ -157,6 +157,7 @@ export default function App() {
           >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Input
+                maxLength={230}
                 placeholder="Nome Completo"
                 type="text"
                 name="nomeCompleto"
@@ -167,6 +168,7 @@ export default function App() {
                 }
               />
               <Input
+                maxLength={230}
                 placeholder="Nome Social (Opcional)"
                 type="text"
                 id="nomeSocial"
@@ -180,6 +182,7 @@ export default function App() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Input
+                maxLength={230}
                 placeholder="Email"
                 type="email"
                 name="login"
@@ -190,6 +193,7 @@ export default function App() {
                 }
               />
               <Input
+                maxLength={230}
                 placeholder="Confirme o Email"
                 type="email"
                 name="login"
@@ -201,6 +205,7 @@ export default function App() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Input
+                maxLength={230}
                 placeholder="Senha"
                 type="password"
                 name="senha"
@@ -210,6 +215,7 @@ export default function App() {
                 }
               />
               <Input
+                maxLength={230}
                 placeholder="Confirme a senha"
                 type="password"
                 value={confirmSenha}

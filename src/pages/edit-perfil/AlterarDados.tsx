@@ -79,6 +79,7 @@ const AlterarDados: React.FC = () => {
         <FormControl>
           <FormLabel>Nome Completo</FormLabel>
           <Input
+            maxLength={230}
             required
             type="text"
             value={formData.nomeCompleto}
@@ -90,6 +91,7 @@ const AlterarDados: React.FC = () => {
         <FormControl>
           <FormLabel>Nome Social</FormLabel>
           <Input
+            maxLength={230}
             type="text"
             value={formData.nomeSocial || ""}
             onChange={(e) =>
@@ -100,6 +102,7 @@ const AlterarDados: React.FC = () => {
         <FormControl>
           <FormLabel>Sobre você</FormLabel>
           <Textarea
+            maxLength={230}
             placeholder="Utilize esse campo para escrever um pouco sobre você, o que gosta de fazer, etc."
             value={formData.sobre || ""}
             onChange={(e) =>

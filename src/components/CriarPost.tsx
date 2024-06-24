@@ -236,6 +236,7 @@ export default function CriarPost() {
         </Select>
 
         <Textarea
+          maxLength={250}
           onChange={(e) =>
             setFormData({ ...formData, conteudo: e.target.value })
           }
