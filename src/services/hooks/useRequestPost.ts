@@ -17,6 +17,8 @@ export interface PostData {
   loginAutor?: string;
   qtdComentarios?: number;
   usuarioADM?: boolean;
+  postDenunciado: boolean;
+  blockDenuncia: number;
 }
 
 const RequestPost = async (): Promise<PostData[]> => {
